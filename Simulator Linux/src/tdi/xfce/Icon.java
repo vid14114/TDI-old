@@ -10,6 +10,14 @@ public class Icon {
 	{
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		Icon i=(Icon)obj;
+		if(i.getName().equals(name))
+			return true;
+		return false;
+	}
+
 	public Icon(String name, int row, int col)
 	{
 		setName(name);
