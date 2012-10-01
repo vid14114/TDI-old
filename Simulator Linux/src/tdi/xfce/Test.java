@@ -1,30 +1,23 @@
 package tdi.xfce;
 
 import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.dnd.DragGestureRecognizer;
-import java.awt.dnd.DragSource;
-import java.awt.dnd.DropTarget;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.*;
 import java.util.*;
 
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SpringLayout;
 import javax.swing.TransferHandler;
-import javax.swing.TransferHandler.TransferSupport;
 import javax.swing.border.LineBorder;
 
 public class Test extends JFrame implements MouseListener {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static File iconsFile=new File("/home/viktor/.config/xfce4/desktop/icons.screen0-1584x853.rc");
 	private Vector<Icon> vs=new Vector<Icon>();
 	int cols=5;
@@ -84,6 +77,7 @@ public class Test extends JFrame implements MouseListener {
 			}
 			lineNum++;		
 		}
+		br.close();
 		initDesk();
 	}
 	

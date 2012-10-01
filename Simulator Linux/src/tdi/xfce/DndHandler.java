@@ -9,6 +9,10 @@ import javax.swing.TransferHandler;
 
 public class DndHandler extends TransferHandler{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Test t;
 	
 	public DndHandler(String comp, Test t)
