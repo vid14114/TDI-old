@@ -18,7 +18,7 @@ public class Test extends JFrame implements MouseListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static File iconsFile=new File(System.getProperty("user.home")+"/.config/xfce4/desktop/icons.screen0-1584x853.rc");
+	private static File iconsFile;
 	private Vector<Icon> vs=new Vector<Icon>();
 	int cols=5;
 	int rows=10;
@@ -52,6 +52,7 @@ public class Test extends JFrame implements MouseListener {
 	
 	public Test() throws NumberFormatException, IOException
 	{
+		iconsFile=lastFileModified(System.getProperty("user.home")+"/.config/xfce4/desktop");
 		BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(iconsFile)));
 		String line;
 		int lineNum=1;
@@ -148,4 +149,21 @@ public class Test extends JFrame implements MouseListener {
 		
 	}
 
+	public static File lastFileModified(String dir) {
+        File fl = new File(dir);
+        File[] files = fl.listFiles(new FileFilter() {                  
+                public boolean accept(File file) {
+                        return file.isFile();
+                }
+        });
+        long lastMod = Long.MIN_VALUE;
+        File choise = null;
+        for (File file : files) {
+                if (file.lastModified() > lastMod) {
+                        choise = file;
+                        lastMod = file.lastModified();
+                }
+        }
+        return choise;
+}
 }
