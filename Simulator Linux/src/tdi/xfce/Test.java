@@ -18,7 +18,7 @@ public class Test extends JFrame implements MouseListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static File iconsFile=new File("/home/viktor/.config/xfce4/desktop/icons.screen0-1584x853.rc");
+	private static File iconsFile=new File(System.getProperty("user.home")+"/.config/xfce4/desktop/icons.screen0-1584x853.rc");
 	private Vector<Icon> vs=new Vector<Icon>();
 	int cols=5;
 	int rows=10;
