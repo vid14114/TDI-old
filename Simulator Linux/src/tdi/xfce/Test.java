@@ -15,19 +15,25 @@ import javax.swing.border.LineBorder;
 public class Test extends JFrame implements MouseListener {
 	
 	/**
-	 * 
+	 * @author Viktor Vidovic
 	 */
+	//auto-generated
 	private static final long serialVersionUID = 1L;
+	//File where the icon-configuration is stored on the hard disk
 	private static File iconsFile;
+	//Vector contains all icons
 	private Vector<Icon> vs=new Vector<Icon>();
+	//maximum number of columns and rows
 	int cols=5;
 	int rows=10;
+	//grid where the icons are placed
 	JLabel[][] grid=new JLabel[rows][cols];
 
 	public void initDesk()
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(800, 600);
+		//set the Grid Layout
 		GridLayout gl=new GridLayout(rows, cols);
 		
 		this.setLayout(gl);
@@ -37,6 +43,7 @@ public class Test extends JFrame implements MouseListener {
 			{
 				grid[i][j]=new JLabel();
 				grid[i][j].setBorder(new LineBorder(Color.BLACK));
+				//set the Drag&Drop handler
 				grid[i][j].setTransferHandler(new DndHandler("text", this));
 				grid[i][j].addMouseListener(this);
 				add(grid[i][j]);
@@ -44,14 +51,16 @@ public class Test extends JFrame implements MouseListener {
 		}
 		for(int i=0; i<vs.size(); i++)
 		{
+			//populate the grid with icons
 			grid[vs.get(i).getRow()][vs.get(i).getCol()].setText(vs.get(i).getName());
 		}
-		
+		//make everything visible
 		this.setVisible(true);
 	}
 	
 	public Test() throws NumberFormatException, IOException
 	{
+		//get the actual IconConfiguration and generate Icon instances
 		iconsFile=lastFileModified(System.getProperty("user.home")+"/.config/xfce4/desktop");
 		BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(iconsFile)));
 		String line;
@@ -72,6 +81,7 @@ public class Test extends JFrame implements MouseListener {
 				i.setCol(Integer.parseInt(line.split("=")[1]));
 				vs.add(i);
 				break;
+				//after every Icon there's a blank row
 			case 4:
 				lineNum=0;
 				break;
@@ -82,6 +92,7 @@ public class Test extends JFrame implements MouseListener {
 		initDesk();
 	}
 	
+	//update the icons file and reload the desktop manager
 	public void updateDesktop() throws IOException, InterruptedException
 	{
 		Vector<Icon> exists=new Vector<Icon>();
@@ -89,6 +100,7 @@ public class Test extends JFrame implements MouseListener {
 		{
 			for(int j=0; j<grid[i].length; j++)
 			{
+				//get the new position of the icons
 				Icon icon=new Icon(grid[i][j].getText(),i,j);
 				if(icon.getName().length()>1)
 				{
@@ -96,7 +108,7 @@ public class Test extends JFrame implements MouseListener {
 				}
 			}
 		}
-		
+		//overwrite the old configuration
 		vs=exists;
 		BufferedWriter bw=new BufferedWriter(new FileWriter(iconsFile));
 		for(int i=0; i<vs.size(); i++)
@@ -110,6 +122,7 @@ public class Test extends JFrame implements MouseListener {
 			bw.newLine();
 		}
 		bw.close();
+		//refresh the desktop manager
 		Runtime.getRuntime().exec("xfdesktop --reload").waitFor();
 	}
 	
@@ -138,18 +151,19 @@ public class Test extends JFrame implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
+		//initiate the Drag&Drop handler when an Icon is oressed on
 		JLabel comp=(JLabel)arg0.getSource();
 		TransferHandler th=comp.getTransferHandler();
 		th.exportAsDrag(comp, arg0, TransferHandler.COPY);	
 
 	}
 
-	//U are beautiful 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		
 	}
 
+	//look for the newest file in the icons configuration folder because that will be the one for the actual desktop resolution
 	public static File lastFileModified(String dir) {
         File fl = new File(dir);
         File[] files = fl.listFiles(new FileFilter() {                  

@@ -1,5 +1,11 @@
 package tdi.xfce;
 
+/**
+ *
+ * @author Viktor Vidovic
+ * Every instance of the class save one icon with its name and position on the grid
+ *
+ */
 public class Icon {
 	
 	private String name;
@@ -11,6 +17,9 @@ public class Icon {
 	}
 	
 	@Override
+	/**
+	 * custom equals for the contains-method of the vector
+	 */
 	public boolean equals(Object obj) {
 		Icon i=(Icon)obj;
 		if(i.getName().equals(name))
