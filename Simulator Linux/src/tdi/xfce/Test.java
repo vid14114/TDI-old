@@ -79,9 +79,8 @@ public class Test extends JFrame implements MouseListener {
 				break;
 			case 3:
 				i.setCol(Integer.parseInt(line.split("=")[1]));
-				ArrayList<File> arf=i.findIcon(new File("/usr/share/icons"));
-				if(arf.size()>0)
-					i.setIcon(new ImageIcon(arf.get(0).getAbsolutePath()));
+				i.getIconVar(new File(System.getProperty("user.home")+"/Desktop"), "Icon");
+				i.findIcon(new File("/usr/share/icons"));
 				vs.add(i);
 				break;
 				//after every Icon there's a blank row
