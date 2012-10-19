@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.io.*;
 import java.util.*;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.TransferHandler;
@@ -34,8 +35,7 @@ public class Test extends JFrame implements MouseListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(800, 600);
 		//set the Grid Layout
-		GridLayout gl=new GridLayout(rows, cols);
-		
+		GridLayout gl=new GridLayout(rows, cols);	
 		this.setLayout(gl);
 		for(int i=0; i<rows; i++)
 		{
@@ -79,6 +79,9 @@ public class Test extends JFrame implements MouseListener {
 				break;
 			case 3:
 				i.setCol(Integer.parseInt(line.split("=")[1]));
+				ArrayList<File> arf=i.findIcon(new File("/usr/share/icons"));
+				if(arf.size()>0)
+					i.setIcon(new ImageIcon(arf.get(0).getAbsolutePath()));
 				vs.add(i);
 				break;
 				//after every Icon there's a blank row
@@ -151,7 +154,7 @@ public class Test extends JFrame implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		//initiate the Drag&Drop handler when an Icon is oressed on
+		//initiate the Drag&Drop handler when an Icon is pressed on
 		JLabel comp=(JLabel)arg0.getSource();
 		TransferHandler th=comp.getTransferHandler();
 		th.exportAsDrag(comp, arg0, TransferHandler.COPY);	
