@@ -10,6 +10,7 @@ import java.util.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.TransferHandler;
 import javax.swing.border.LineBorder;
 
@@ -44,7 +45,7 @@ public class Test extends JFrame implements MouseListener {
 				grid[i][j]=new JLabel();
 				grid[i][j].setBorder(new LineBorder(Color.BLACK));
 				//set the Drag&Drop handler
-				grid[i][j].setTransferHandler(new DndHandler("text", this));
+				grid[i][j].setTransferHandler(new DndHandler("text", this));				
 				grid[i][j].addMouseListener(this);
 				add(grid[i][j]);
 			}
@@ -52,7 +53,15 @@ public class Test extends JFrame implements MouseListener {
 		for(int i=0; i<vs.size(); i++)
 		{
 			//populate the grid with icons
-			grid[vs.get(i).getRow()][vs.get(i).getCol()].setText(vs.get(i).getName());
+			if(vs.get(i).getIcon() != null)
+			{
+				grid[vs.get(i).getRow()][vs.get(i).getCol()].setTransferHandler(new DndHandler("icon", this));
+				grid[vs.get(i).getRow()][vs.get(i).getCol()].setIcon(vs.get(i).getIcon());			
+			}
+			else
+				grid[vs.get(i).getRow()][vs.get(i).getCol()].setText((vs.get(i).getName()));			
+			grid[vs.get(i).getRow()][vs.get(i).getCol()].setName(vs.get(i).getName());
+			
 		}
 		//make everything visible
 		this.setVisible(true);
@@ -103,7 +112,7 @@ public class Test extends JFrame implements MouseListener {
 			for(int j=0; j<grid[i].length; j++)
 			{
 				//get the new position of the icons
-				Icon icon=new Icon(grid[i][j].getText(),i,j);
+				Icon icon=new Icon(grid[i][j].getName(),i,j);
 				if(icon.getName().length()>1)
 				{
 					exists.add(icon);
