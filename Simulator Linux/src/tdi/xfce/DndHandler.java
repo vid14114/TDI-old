@@ -26,6 +26,7 @@ public class DndHandler extends TransferHandler{
 	{
 		JLabel source=(JLabel)c;
 			source.setText("");
+			source.setName("");
 			try {
 				t.updateDesktop();
 			} catch (IOException e) {

@@ -47,6 +47,7 @@ public class Test extends JFrame implements MouseListener {
 				//set the Drag&Drop handler
 				grid[i][j].setTransferHandler(new DndHandler("text", this));				
 				grid[i][j].addMouseListener(this);
+				grid[i][j].setName("");
 				add(grid[i][j]);
 			}
 		}
@@ -112,7 +113,7 @@ public class Test extends JFrame implements MouseListener {
 			for(int j=0; j<grid[i].length; j++)
 			{
 				//get the new position of the icons
-				Icon icon=new Icon(grid[i][j].getName(),i,j);
+				Icon icon=new Icon(grid[i][j].getText(),i,j);
 				if(icon.getName().length()>1)
 				{
 					exists.add(icon);
