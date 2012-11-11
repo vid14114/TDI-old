@@ -21,7 +21,7 @@ public class Test extends JFrame implements MouseListener {
 	 */
 	//auto-generated
 	private static final long serialVersionUID = 1L;
-	//File where the icon-configuration is stored on the hard disk
+	//File where the icon-position is stored on the hard disk
 	private static File iconsFile;
 	//Vector contains all icons
 	private Vector<Icon> vs=new Vector<Icon>();
@@ -30,6 +30,51 @@ public class Test extends JFrame implements MouseListener {
 	int rows=10;
 	//grid where the icons are placed
 	JLabel[][] grid=new JLabel[rows][cols];
+	
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		new Test();
+
+	}
+	
+	public Test() throws NumberFormatException, IOException
+	{
+		//get the actual IconConfiguration and generate Icon instances
+		iconsFile=lastFileModified(System.getProperty("user.home")+"/.config/xfce4/desktop");
+		BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(iconsFile)));
+		String line;
+		int lineNum=1;
+		Icon i=new Icon();
+		for(line=br.readLine(); line!=null; line=br.readLine())
+		{
+			switch(lineNum)
+			{
+			case 1:
+				i=new Icon();
+				i.setName(line);
+				break;
+			case 2:
+				i.setRow(Integer.parseInt(line.split("=")[1]));
+				break;
+			case 3:
+				i.setCol(Integer.parseInt(line.split("=")[1]));
+				//check if folder-language is English; if not then use German
+				if(new File(System.getProperty("user.home")+"/Desktop").exists())
+					i.getIconVar(new File(System.getProperty("user.home")+"/Desktop"), "Icon");
+				else
+					i.getIconVar(new File(System.getProperty("user.home")+"/Arbeitsfläche"), "Icon");
+				i.findIcon(new File("/usr/share/icons"));
+				vs.add(i);
+				break;
+				//after every Icon there's a blank row
+			case 4:
+				lineNum=0;
+				break;
+			}
+			lineNum++;		
+		}
+		br.close();
+		initDesk();
+	}
 
 	public void initDesk()
 	{
@@ -68,41 +113,7 @@ public class Test extends JFrame implements MouseListener {
 		this.setVisible(true);
 	}
 	
-	public Test() throws NumberFormatException, IOException
-	{
-		//get the actual IconConfiguration and generate Icon instances
-		iconsFile=lastFileModified(System.getProperty("user.home")+"/.config/xfce4/desktop");
-		BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(iconsFile)));
-		String line;
-		int lineNum=1;
-		Icon i=new Icon();
-		for(line=br.readLine(); line!=null; line=br.readLine())
-		{
-			switch(lineNum)
-			{
-			case 1:
-				i=new Icon();
-				i.setName(line);
-				break;
-			case 2:
-				i.setRow(Integer.parseInt(line.split("=")[1]));
-				break;
-			case 3:
-				i.setCol(Integer.parseInt(line.split("=")[1]));
-				i.getIconVar(new File(System.getProperty("user.home")+"/Desktop"), "Icon");
-				i.findIcon(new File("/usr/share/icons"));
-				vs.add(i);
-				break;
-				//after every Icon there's a blank row
-			case 4:
-				lineNum=0;
-				break;
-			}
-			lineNum++;		
-		}
-		br.close();
-		initDesk();
-	}
+	
 	
 	//update the icons file and reload the desktop manager
 	public void updateDesktop() throws IOException, InterruptedException
@@ -138,10 +149,7 @@ public class Test extends JFrame implements MouseListener {
 		Runtime.getRuntime().exec("xfdesktop --reload").waitFor();
 	}
 	
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		new Test();
-
-	}
+	
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {

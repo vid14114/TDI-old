@@ -12,13 +12,14 @@ import javax.swing.ImageIcon;
 /**
  *
  * @author Viktor Vidovic
- * Every instance of the class save one icon with its name and position on the grid
+ * Every instance of the class saves one icon with its name and position on the grid
  *
  */
 public class Icon {
 	
+	//Name as-seen on the desktop
 	private String name;
-	private String iconName;
+	private String confName;
 	private int row;
 	private int col;
 	private ImageIcon icon;
@@ -46,8 +47,8 @@ public class Icon {
 		setCol(col);
 	}
 	
-	public void setIconName(String iconName) {
-		this.iconName=iconName;
+	public void setConfName(String confName) {
+		this.confName=confName;
 	}
 	
 	public void setIcon(ImageIcon icon) {
@@ -82,13 +83,14 @@ public class Icon {
 		return icon;
 	}
 	
+	//returns a specific variable out of a .desktop file
 	public String getIconVar(File usrDsk, String what) throws IOException
 	{
 		String result=" ";
 		File[] files=usrDsk.listFiles();
 		for(File file : files)
 		{
-			if(file.getName().contains(name.substring(1, name.length()-1)))
+			if(file.getName().contains(name.substring(1, name.length()-1))) //this has to be changed --> .desktop doesn't have to be named exactly as the Icon
 			{
 				BufferedReader br;
 				try {
@@ -106,11 +108,12 @@ public class Icon {
 					e1.printStackTrace();
 				}
 			}
-		}	
-		iconName=result;
+		}
+		confName=result; //just for testing --> will be replaced by a method to find the right .desktop file based on the 'Name' variable
 		return result;
 	}
 	
+	//goes through all subdirectories of a given folder to find a graphic that matches the icon
 	public ArrayList<File> findIcon(File dir)
 	{	
 		File[] files=dir.listFiles();
@@ -119,7 +122,7 @@ public class Icon {
 		{
 			for(File file : files)
 			{
-				if(file.isFile() && file.getName().contains(iconName))
+				if(file.isFile() && file.getName().contains(confName))
 				{
 					icon=new ImageIcon(file.getAbsolutePath());
 					result.add(file);
@@ -129,7 +132,7 @@ public class Icon {
 					{
 						ArrayList<File> tmp = findIcon(file);
 						for(File thisFile : tmp)
-							if(thisFile.getName().contains(iconName))
+							if(thisFile.getName().contains(confName))
 							{
 								icon=new ImageIcon(file.getAbsolutePath());
 								result.add(thisFile);
