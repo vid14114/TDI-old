@@ -3,6 +3,7 @@ package tdi.xfce;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -19,7 +20,8 @@ public class Icon {
 	
 	//Name as-seen on the desktop
 	private String name;
-	private String confName;
+	private File config;
+	private String iconName;
 	private int row;
 	private int col;
 	private ImageIcon icon;
@@ -45,10 +47,21 @@ public class Icon {
 		setName(name);
 		setRow(row);
 		setCol(col);
+		
 	}
 	
-	public void setConfName(String confName) {
-		this.confName=confName;
+	public void getConfig() throws IOException
+	{
+		findConfig();
+		if(config!=null)
+		{
+			iconName=getIconVar("Icon");
+			findIcon(dir);
+		}
+	}
+	
+	public void setConfName(File confName) {
+		this.config=confName;
 	}
 	
 	public void setIcon(ImageIcon icon) {
@@ -83,34 +96,40 @@ public class Icon {
 		return icon;
 	}
 	
-	//returns a specific variable out of a .desktop file
-	public String getIconVar(File usrDsk, String what) throws IOException
+	public void findConfig() throws IOException
 	{
-		String result=" ";
-		File[] files=usrDsk.listFiles();
+		File[] files;
+		if(new File(System.getProperty("user.home")+"/Arbeitsfäche").exists())
+			files=new File(System.getProperty("user.home")+"/Arbeitsfläche").listFiles();
+		else
+			files=new File(System.getProperty("user.home")+"/Desktop").listFiles();
 		for(File file : files)
 		{
-			if(file.getName().contains(name.substring(1, name.length()-1))) //this has to be changed --> .desktop doesn't have to be named exactly as the Icon
+			BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			for(String line=br.readLine(); line!=null; line=br.readLine())
 			{
-				BufferedReader br;
-				try {
-					br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-					String line;
-					for(line=br.readLine(); line!=null; line=br.readLine())
-					{
-						if(line.contains(what))
-						{
-							result=line.split("=")[1];
-						}
-					}
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				String[] splitLine=line.split("=");
+				if(splitLine[0].equals("Name"))
+				{
+					if(splitLine[1].equals(name.substring(1, name.length()-1)))
+						config=file;
+					break;
 				}
 			}
+			br.close();
 		}
-		confName=result; //just for testing --> will be replaced by a method to find the right .desktop file based on the 'Name' variable
-		return result;
+	}
+	//returns a specific variable out the confName
+	public String getIconVar(String what) throws IOException
+	{
+		BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(config)));
+		for(String line=br.readLine(); line!=null; line=br.readLine())
+		{
+			String[] splitLine=line.split("=");
+			if(splitLine[0].equals(what))
+				return splitLine[1];
+		}
+		return null;
 	}
 	
 	//goes through all subdirectories of a given folder to find a graphic that matches the icon
@@ -122,22 +141,24 @@ public class Icon {
 		{
 			for(File file : files)
 			{
-				if(file.isFile() && file.getName().contains(confName))
+				if(file.isFile() && file.getName().contains(iconName))
 				{
 					icon=new ImageIcon(file.getAbsolutePath());
 					result.add(file);
 				}
 				else
+				{
 					if(file.isDirectory())
 					{
 						ArrayList<File> tmp = findIcon(file);
 						for(File thisFile : tmp)
-							if(thisFile.getName().contains(confName))
+							if(thisFile.getName().contains(iconName))
 							{
 								icon=new ImageIcon(file.getAbsolutePath());
 								result.add(thisFile);
 							}
 					}
+				}
 			}
 		}
 		if(result.size()>0)

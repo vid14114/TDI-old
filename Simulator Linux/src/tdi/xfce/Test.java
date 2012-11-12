@@ -27,7 +27,7 @@ public class Test extends JFrame implements MouseListener {
 	private Vector<Icon> vs=new Vector<Icon>();
 	//maximum number of columns and rows
 	int cols=5;
-	int rows=10;
+	int rows=8;
 	//grid where the icons are placed
 	JLabel[][] grid=new JLabel[rows][cols];
 	
@@ -57,12 +57,7 @@ public class Test extends JFrame implements MouseListener {
 				break;
 			case 3:
 				i.setCol(Integer.parseInt(line.split("=")[1]));
-				//check if folder-language is English; if not then use German
-				if(new File(System.getProperty("user.home")+"/Desktop").exists())
-					i.getIconVar(new File(System.getProperty("user.home")+"/Desktop"), "Icon");
-				else
-					i.getIconVar(new File(System.getProperty("user.home")+"/Arbeitsfläche"), "Icon");
-				i.findIcon(new File("/usr/share/icons"));
+				i.getConfig();
 				vs.add(i);
 				break;
 				//after every Icon there's a blank row
