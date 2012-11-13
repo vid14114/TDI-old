@@ -1,5 +1,6 @@
 package tdi.xfce;
 
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -133,8 +134,17 @@ public class Icon {
 	}
 	
 	//goes through all subdirectories of a given folder to find a graphic that matches the icon
-	public ArrayList<File> findIcon(File dir)
+	public ArrayList<File> findIcon(File dir) throws IOException
 	{	
+		if(new File(iconName).exists())
+		{
+			BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(iconName)));
+			String s="";
+			for(String line=br.readLine(); line!=null; line=br.readLine())
+				s+=line+"\n";
+			Image i=Xpm.XpmToImage(s);
+			icon=new ImageIcon(i);
+		}
 		File[] files=dir.listFiles();
 		ArrayList<File> result=new ArrayList<File>();
 		if(files!=null)		
