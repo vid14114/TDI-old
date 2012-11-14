@@ -26,6 +26,7 @@ public class Icon {
 	private int row;
 	private int col;
 	private ImageIcon icon;
+	private int searchDepth=0;
 	File dir=new File("/usr/share/icons");
 	
 	public Icon()
@@ -171,8 +172,16 @@ public class Icon {
 				}
 			}
 		}
+		if(searchDepth<1)
+		{
+			searchDepth++;
+			result.addAll(findIcon(new File("/usr/share/pixmaps")));
+		}
 		if(result.size()>0)
+		{
 			icon=new ImageIcon(result.get(0).getAbsolutePath());
+			icon.setImage(icon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+		}
 		return result;	
 	}
 }
