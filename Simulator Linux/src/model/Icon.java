@@ -30,10 +30,6 @@ public class Icon {
 	private int searchDepth=0;
 	File dir=new File("/usr/share/icons");
 	
-	public Icon()
-	{
-	}
-	
 	@Override
 	/**
 	 * custom equals for the contains-method of the vector
@@ -53,6 +49,10 @@ public class Icon {
 		
 	}
 	
+	public Icon() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void getConfig() throws IOException
 	{
 		findConfig();
@@ -102,12 +102,16 @@ public class Icon {
 	public void findConfig() throws IOException
 	{
 		File[] files;
-		if(new File(System.getProperty("user.home")+"/Arbeitsfäche").exists())
+		if(new File(System.getProperty("user.home")+"/Arbeitsfläche").exists())
 			files=new File(System.getProperty("user.home")+"/Arbeitsfläche").listFiles();
 		else
 			files=new File(System.getProperty("user.home")+"/Desktop").listFiles();
 		for(File file : files)
 		{
+			if(file.isDirectory()){
+				icon = new ImageIcon("/usr/share/icons/hicolor/scalable/apps/Thunar.svg");
+				return;
+			}
 			BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			for(String line=br.readLine(); line!=null; line=br.readLine())
 			{
