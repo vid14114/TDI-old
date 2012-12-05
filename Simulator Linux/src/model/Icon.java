@@ -108,9 +108,14 @@ public class Icon {
 			files=new File(System.getProperty("user.home")+"/Desktop").listFiles();
 		for(File file : files)
 		{
-			if(file.isDirectory()){
-				icon = new ImageIcon("/usr/share/icons/hicolor/scalable/apps/Thunar.svg");
-				return;
+			if(file.isDirectory()) 
+			{
+				if(file.getName().equals(name.substring(1, name.length()-1)))
+				{
+					icon = new ImageIcon("/usr/share/icons/gnome/48x48/places/folder.png");
+					break;
+				}
+				continue; //directly jump to the next element of the for loop
 			}
 			BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			for(String line=br.readLine(); line!=null; line=br.readLine())
