@@ -141,7 +141,9 @@ public class Test extends JFrame implements MouseListener {
 			bw.newLine();
 			bw.newLine();
 		}
+		bw.flush();
 		bw.close();
+		Thread.sleep(100);
 		//refresh the desktop manager
 		Runtime.getRuntime().exec("xfdesktop --reload").waitFor();
 	}
