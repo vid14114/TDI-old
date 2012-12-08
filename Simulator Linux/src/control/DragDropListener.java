@@ -35,6 +35,9 @@ public class DragDropListener extends TransferHandler implements MouseListener {
 		this.config = config;
 	}
 
+	/**
+	 * When the user has finished dragging the label, this method is used
+	 */
 	public void exportDone(JComponent c, Transferable data, int action) {
 		JLabel source = (JLabel) c;
 		source.setText("");

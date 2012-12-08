@@ -98,6 +98,10 @@ public class Icon {
 		return exec;
 	}
 	
+	/**
+	 * Find the config file of the icons
+	 * @throws IOException
+	 */
 	public void findConfig() throws IOException
 	{
 		File[] files;
@@ -147,7 +151,12 @@ public class Icon {
 		return null;
 	}
 	
-	//goes through all subdirectories of a given folder to find a graphic that matches the icon
+	/** @Vidovic--> more info please
+	 * Goes through all subdirectories of a given folder to find a graphic that matches the icon
+	 * @param dir From here the program searches an Icon to display
+	 * @return An arraylist of the files it needs
+	 * @throws IOException
+	 */
 	public ArrayList<File> findIcon(File dir) throws IOException
 	{	
 		if(new File(iconName).exists())
