@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.TransferHandler;
 import javax.swing.border.LineBorder;
 import control.Configuration;
-import control.DndHandler;
 import control.DragDropListener;
 import model.Icon;
 
@@ -33,8 +32,8 @@ public class SimView extends JFrame{
 	 * A randomly generated serialVersion
 	 */
 	private static final long serialVersionUID = 639166567792984188L;
-	int cols=5; //maximum cols, this values should be found out with a formular which is going to be added later on
-	int rows=8; //maximum rows this values should be found out with a formular which is going to be added later on
+	int cols=5; //maximum cols, this values should be found out with a formula which is going to be added later on
+	int rows=8; //maximum rows this values should be found out with a formula which is going to be added later on
 	JLabel[][] labels = new JLabel[rows][cols];
 	
 	public SimView()
@@ -78,43 +77,6 @@ public class SimView extends JFrame{
 		//make everything visible
 		this.setVisible(true);
 	}
-	
-	
-	
-	//update the icons file and reload the desktop manager
-	public void updateDesktop() throws IOException, InterruptedException
-	{
-		Vector<Icon> exists=new Vector<Icon>();
-		for(int i=0; i<grid.length; i++)
-		{
-			for(int j=0; j<grid[i].length; j++)
-			{
-				//get the new position of the icons
-				Icon icon=new Icon(grid[i][j].getText(),i,j);
-				if(icon.getName().length()>1)
-				{
-					exists.add(icon);
-				}
-			}
-		}
-		//overwrite the old configuration
-		vs=exists;
-		BufferedWriter bw=new BufferedWriter(new FileWriter(iconsFile));
-		for(int i=0; i<vs.size(); i++)
-		{
-			bw.write(vs.get(i).getName());
-			bw.newLine();
-			bw.write("row="+vs.get(i).getRow());
-			bw.newLine();
-			bw.write("col="+vs.get(i).getCol());	
-			bw.newLine();
-			bw.newLine();
-		}
-		bw.close();
-		//refresh the desktop manager
-		Runtime.getRuntime().exec("xfdesktop --reload").waitFor();
-	}
-}
 
 /**
  * Had to create a custom JPanel class which extends JPanel to be able to override the paintComponent

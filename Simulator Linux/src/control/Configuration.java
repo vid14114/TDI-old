@@ -1,16 +1,22 @@
 package control;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+import java.util.Vector;
 import model.Icon;
 
 public class Configuration {
 	private File iconsFile;
+	private Image background;
 	
 	/**
 	 * The default constructor for the Configuration class
@@ -33,6 +39,17 @@ public class Configuration {
 			}
 		}
 		br.close();
+		br = new BufferedReader(new FileReader(System.getProperty("user.home")+"/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"));
+		while(br.ready()){
+			String line = br.readLine();
+			if(line.contains("image-path")){
+				String a = line.substring(line.indexOf("value="),line.length()).split("=")[1];
+				a = a.split("\"")[1];
+				background = Toolkit.getDefaultToolkit().getImage(a);
+				br.close();
+				return;
+			}
+		}
 		//Old way of getting the icons
 //		for(line=br.readLine(); line!=null; line=br.readLine())
 //		{
@@ -89,6 +106,34 @@ public class Configuration {
 	}
 	
 	public void updateConfig(Icon icon){
-		
+		Vector<Icon> exists=new Vector<Icon>();
+		for(int i=0; i<grid.length; i++)
+		{
+			for(int j=0; j<grid[i].length; j++)
+			{
+				//get the new position of the icons
+				Icon icon=new Icon(grid[i][j].getText(),i,j);
+				if(icon.getName().length()>1)
+				{
+					exists.add(icon);
+				}
+			}
+		}
+		//overwrite the old configuration
+		vs=exists;
+		BufferedWriter bw=new BufferedWriter(new FileWriter(iconsFile));
+		for(int i=0; i<vs.size(); i++)
+		{
+			bw.write(vs.get(i).getName());
+			bw.newLine();
+			bw.write("row="+vs.get(i).getRow());
+			bw.newLine();
+			bw.write("col="+vs.get(i).getCol());	
+			bw.newLine();
+			bw.newLine();
+		}
+		bw.close();
+		//refresh the desktop manager
+		Runtime.getRuntime().exec("xfdesktop --reload").waitFor();
 	}
 }

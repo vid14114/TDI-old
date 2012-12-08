@@ -32,7 +32,11 @@ import java.awt.image.*;
 // While that is kinda annoying, it shouldn't be TOO bad.
 // And it should greatly improve STARTUP time, which I consider
 // at this point to be more important
-
+/**
+ * This class was written by Phil Brown, we imported it for our project. It helps us turn XPM Values to icons
+ * @author Phil Brown
+ *
+ */
 public class Xpm
 {
 	static String VersionString="Phil@bolthole.com Xpm v1.1";
