@@ -4,59 +4,71 @@
  */
 package control;
 
+import java.awt.datatransfer.Transferable;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.TransferHandler;
+import view.SimView;
 
 /**
  * @author TDI Team
- *
+ * 
  */
-public class DragDropListener implements MouseListener, MouseMotionListener{
+public class DragDropListener extends TransferHandler implements MouseListener {
+	/**
+	 * The generated serial version number
+	 */
+	private static final long serialVersionUID = 7619130164209787294L;
+	private SimView view;
+	private Configuration config;
+	/**
+	 * A boolean set to true when the user has begun to drag the icons
+	 */
+	boolean dragBegun;
+
+	public DragDropListener(String comp, SimView view, Configuration config) {
+		super(comp);
+		this.view = view;
+		this.config = config;
+	}
+
+	public void exportDone(JComponent c, Transferable data, int action) {
+		JLabel source = (JLabel) c;
+		source.setText("");
+		source.setName("");
+		config.updateConfig(view.updateDesktop());
+	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
+	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
+	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		//initiate the Drag&Drop handler when an Icon is pressed on
-		JLabel comp=(JLabel)arg0.getSource();
+	public void mousePressed(MouseEvent e) {
+		JLabel comp=(JLabel)e.getSource();
 		TransferHandler th=comp.getTransferHandler();
-		th.exportAsDrag(comp, arg0, TransferHandler.COPY);	
-
+		th.exportAsDrag(comp, e, TransferHandler.COPY);	
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
+	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

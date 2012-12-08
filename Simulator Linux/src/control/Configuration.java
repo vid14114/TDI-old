@@ -1,5 +1,4 @@
 package control;
-
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
@@ -11,12 +10,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Vector;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 import model.Icon;
 
 public class Configuration {
 	private File iconsFile;
 	private Image background;
+	private ArrayList<Icon> icons = new ArrayList<>();
 	
 	/**
 	 * The default constructor for the Configuration class
@@ -36,6 +38,7 @@ public class Configuration {
 					line.replace("~", ""); //Unix adds the ~ symbol when a file has been currently changed, i remove this symbol
 				i = new Icon(line, Integer.parseInt(br.readLine().split("=")[1]), Integer.parseInt(br.readLine().split("=")[1]));
 				i.getConfig();
+				icons.add(i);
 			}
 		}
 		br.close();
@@ -45,7 +48,7 @@ public class Configuration {
 			if(line.contains("image-path")){
 				String a = line.substring(line.indexOf("value="),line.length()).split("=")[1];
 				a = a.split("\"")[1];
-				background = Toolkit.getDefaultToolkit().getImage(a);
+				setBackground(Toolkit.getDefaultToolkit().getImage(a));
 				br.close();
 				return;
 			}
@@ -86,7 +89,8 @@ public class Configuration {
 	 */
 	public File lastFileModified(String dir) {		
         File[] files = new File(dir).listFiles(new FileFilter() {                  
-                public boolean accept(File file) {
+                @Override
+				public boolean accept(File file) {
                         return file.isFile();
                 }
         }); //Lists all the files in the given directory
@@ -105,35 +109,50 @@ public class Configuration {
         return choice;
 	}
 	
-	public void updateConfig(Icon icon){
-		Vector<Icon> exists=new Vector<Icon>();
-		for(int i=0; i<grid.length; i++)
-		{
-			for(int j=0; j<grid[i].length; j++)
+	/**
+	 * The method is used to overwrite the configuration files
+	 * @param icons The arraylist which contains the updated version of the icons
+	 */
+	public void updateConfig(ArrayList<Icon> icons){
+		try{
+			BufferedWriter bw=new BufferedWriter(new FileWriter(iconsFile));
+			for(int i=0; i<icons.size(); i++)
 			{
-				//get the new position of the icons
-				Icon icon=new Icon(grid[i][j].getText(),i,j);
-				if(icon.getName().length()>1)
-				{
-					exists.add(icon);
-				}
+				bw.write(icons.get(i).getName());
+				bw.newLine();
+				bw.write("row="+icons.get(i).getRow());
+				bw.newLine();
+				bw.write("col="+icons.get(i).getCol());	
+				bw.newLine();
+				bw.newLine();
 			}
+			bw.close();
+			//refresh the desktop manager
+			Runtime.getRuntime().exec("xfdesktop --reload").waitFor();
+		}catch(IOException e){
+			JOptionPane.showMessageDialog(null, "Couldn't save the configuration file");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-		//overwrite the old configuration
-		vs=exists;
-		BufferedWriter bw=new BufferedWriter(new FileWriter(iconsFile));
-		for(int i=0; i<vs.size(); i++)
-		{
-			bw.write(vs.get(i).getName());
-			bw.newLine();
-			bw.write("row="+vs.get(i).getRow());
-			bw.newLine();
-			bw.write("col="+vs.get(i).getCol());	
-			bw.newLine();
-			bw.newLine();
-		}
-		bw.close();
-		//refresh the desktop manager
-		Runtime.getRuntime().exec("xfdesktop --reload").waitFor();
+	}
+
+	/**
+	 * @return the background
+	 */
+	public Image getBackground() {
+		return background;
+	}
+
+	/**
+	 * @param background the background to set
+	 */
+	public void setBackground(Image background) {
+		this.background = background;
+	}
+	/**
+	 * @return An Array list of the icons found
+	 */
+	public ArrayList<Icon> getIcons(){
+		return icons;
 	}
 }

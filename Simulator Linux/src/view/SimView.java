@@ -1,24 +1,14 @@
 package view;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.ImageObserver;
-import java.io.*;
-import java.text.AttributedCharacterIterator;
 import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.TransferHandler;
 import javax.swing.border.LineBorder;
+
 import control.Configuration;
 import control.DragDropListener;
 import model.Icon;
@@ -32,8 +22,8 @@ public class SimView extends JFrame{
 	 * A randomly generated serialVersion
 	 */
 	private static final long serialVersionUID = 639166567792984188L;
-	int cols=5; //maximum cols, this values should be found out with a formula which is going to be added later on
-	int rows=8; //maximum rows this values should be found out with a formula which is going to be added later on
+	int cols=15; //maximum cols, this values should be found out with a formula which is going to be added later on
+	int rows=7; //maximum rows this values should be found out with a formula which is going to be added later on
 	JLabel[][] labels = new JLabel[rows][cols];
 	
 	public SimView()
@@ -46,7 +36,7 @@ public class SimView extends JFrame{
 		setVisible(true);			
 	}
 
-	public void initDesk()
+	public void initDesk(ArrayList<Icon> icons, Image img, Configuration config)
 	{
 		CustomPanel jpanel = new CustomPanel(img, rows, cols);
 		for(int i = 0; i < rows; i++)
@@ -55,28 +45,48 @@ public class SimView extends JFrame{
 			{
 				labels[i][j] = new JLabel();
 				labels[i][j].setBorder(new LineBorder(Color.BLACK));
-				//set the Drag&Drop handler				
-				labels[i][j].addMouseListener(new DragDropListener());
+				//set the Drag&Drop handler		
+				DragDropListener ls = new DragDropListener("text", this, config);
+				labels[i][j].setTransferHandler(ls);
+				labels[i][j].addMouseListener(ls);
 				labels[i][j].setName("");
-				add(labels[i][j]);
+				jpanel.add(labels[i][j]);
 			}
 		}
-		for(int i=0; i<vs.size(); i++)
+		for(int i=0; i<icons.size(); i++)
 		{
 			//populate the grid with icons
-			if(vs.get(i).getIcon() != null)
+			if(icons.get(i).getIcon() != null)
 			{
-				grid[vs.get(i).getRow()][vs.get(i).getCol()].setTransferHandler(new DndHandler("icon", this));
-				grid[vs.get(i).getRow()][vs.get(i).getCol()].setIcon(vs.get(i).getIcon());			
+				labels[icons.get(i).getRow()][icons.get(i).getCol()].setIcon(icons.get(i).getIcon());			
 			}
 			else
-				grid[vs.get(i).getRow()][vs.get(i).getCol()].setText((vs.get(i).getName()));			
-			grid[vs.get(i).getRow()][vs.get(i).getCol()].setName(vs.get(i).getName());
+				labels[icons.get(i).getRow()][icons.get(i).getCol()].setText((icons.get(i).getName()));			
+			labels[icons.get(i).getRow()][icons.get(i).getCol()].setName(icons.get(i).getName());
 			
 		}
-		//make everything visible
-		this.setVisible(true);
+		//add the JPanel to the frame and make everything visible
+		add(jpanel);
+		setVisible(true);
 	}
+	
+	public ArrayList<Icon> updateDesktop(){
+		ArrayList<Icon> icons=new ArrayList<Icon>();
+		for(int i=0; i<labels.length; i++)
+		{
+			for(int j=0; j<labels[i].length; j++)
+			{
+				//get the new position of the icons
+				Icon icon=new Icon(labels[i][j].getText(),i,j);
+				if(icon.getName().length()>1)
+				{
+					icons.add(icon);
+				}
+			}
+		}
+		return icons;
+	}
+}
 
 /**
  * Had to create a custom JPanel class which extends JPanel to be able to override the paintComponent
@@ -96,6 +106,7 @@ class CustomPanel extends JPanel{
 		this.img = img;
 	}
 	
+	@Override
 	public void paintComponent(Graphics g){
 		g.drawImage(img,0,0,null);
 	}
