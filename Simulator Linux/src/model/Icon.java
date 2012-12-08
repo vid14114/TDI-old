@@ -28,6 +28,7 @@ public class Icon {
 	private int col;
 	private ImageIcon icon;
 	private int searchDepth=0;
+	private String exec;
 	File dir=new File("/usr/share/icons");
 	
 	@Override
@@ -95,6 +96,11 @@ public class Icon {
 		return icon;
 	}
 	
+	public String getExec()
+	{
+		return exec;
+	}
+	
 	public void findConfig() throws IOException
 	{
 		File[] files;
@@ -109,6 +115,7 @@ public class Icon {
 				if(file.getName().equals(name.substring(1, name.length()-1)))
 				{
 					icon = new ImageIcon("/usr/share/icons/gnome/48x48/places/folder.png");
+					exec = "thunar "+file.getAbsolutePath();
 					break;
 				}
 				continue; //directly jump to the next element of the for loop
