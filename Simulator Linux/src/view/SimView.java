@@ -9,38 +9,36 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.TransferHandler;
 import javax.swing.border.LineBorder;
+import control.Configuration;
 import control.DndHandler;
 import model.Icon;
 
-public class SimView extends JFrame implements MouseListener {
+public class SimView extends JFrame{
+	/**
+	 * @author TDI Team
+	 */
 	
 	/**
-	 * @author Viktor Vidovic
+	 * A randomly generated serialVersion
 	 */
-	//auto-generated
-	private static final long serialVersionUID = 1L;
-	//Vector contains all icons
-	private Vector<Icon> vs=new Vector<Icon>();
-	//maximum number of columns and rows
-	int cols=5;
-	int rows=8;
-	//grid where the icons are placed
-	JLabel[][] grid=new JLabel[rows][cols];
+	private static final long serialVersionUID = 639166567792984188L;
+	int cols=5; //maximum cols
+	int rows=8; //maximum rows
 	
 	public SimView()
 	{
 		setTitle("Simulation Linux");
-		//get the actual IconConfiguration and generate Icon instances		
-		initDesk();
+		setLocation(0, 0);
+		setSize(MAXIMIZED_HORIZ, MAXIMIZED_VERT);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(true);
+		setVisible(true);			
 	}
 
-	public void initDesk()
-	{
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(800, 600);
-		//set the Grid Layout
-		GridLayout gl=new GridLayout(rows, cols);	
-		this.setLayout(gl);
+	public GridLayout initDesk()
+	{		
+		setLayout(new GridLayout(rows, cols));
+		set
 		for(int i=0; i<rows; i++)
 		{
 			for(int j=0; j<cols; j++)
@@ -105,39 +103,5 @@ public class SimView extends JFrame implements MouseListener {
 		bw.close();
 		//refresh the desktop manager
 		Runtime.getRuntime().exec("xfdesktop --reload").waitFor();
-	}
-	
-	
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		//initiate the Drag&Drop handler when an Icon is pressed on
-		JLabel comp=(JLabel)arg0.getSource();
-		TransferHandler th=comp.getTransferHandler();
-		th.exportAsDrag(comp, arg0, TransferHandler.COPY);	
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		
 	}
 }

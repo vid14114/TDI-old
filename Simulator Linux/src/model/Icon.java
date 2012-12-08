@@ -1,5 +1,4 @@
 package model;
-
 import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,10 +12,8 @@ import javax.swing.ImageIcon;
 import control.Xpm;
 
 /**
- *
- * @author Viktor Vidovic
+ * @author TDI Team
  * Every instance of the class saves one icon with its name and position on the grid
- *
  */
 public class Icon {
 	
@@ -141,9 +138,12 @@ public class Icon {
 		for(String line=br.readLine(); line!=null; line=br.readLine())
 		{
 			String[] splitLine=line.split("=");
-			if(splitLine[0].equals(what))
+			if(splitLine[0].equals(what)){
+				br.close();
 				return splitLine[1];
+			}
 		}
+		br.close();
 		return null;
 	}
 	
@@ -158,6 +158,7 @@ public class Icon {
 				s+=line+"\n";
 			Image i=Xpm.XpmToImage(s);
 			icon=new ImageIcon(i);
+			br.close();
 		}
 		File[] files=dir.listFiles();
 		ArrayList<File> result=new ArrayList<File>();

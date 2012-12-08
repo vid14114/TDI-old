@@ -60,8 +60,6 @@ public class Configuration {
 //		br.close();
 	}
 
-	
-	//look for the newest file in the icons configuration folder because that will be the one for the actual desktop resolution
 	/**
 	 * The method looks for the last modified file in a directory
 	 * This method is important because it helps find out the currently used screen resolution
@@ -69,7 +67,7 @@ public class Configuration {
 	 * @param dir
 	 * @return
 	 */
-	public static File lastFileModified(String dir) {		
+	public File lastFileModified(String dir) {		
         File[] files = new File(dir).listFiles(new FileFilter() {                  
                 public boolean accept(File file) {
                         return file.isFile();
@@ -88,5 +86,9 @@ public class Configuration {
                 }
         }
         return choice;
+	}
+	
+	public void updateConfig(Icon icon){
+		
 	}
 }
