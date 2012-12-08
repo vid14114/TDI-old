@@ -25,13 +25,15 @@ public class SimView extends JFrame{
 	private static final long serialVersionUID = 639166567792984188L;
 	int cols=15; //maximum cols, this values should be found out with a formula which is going to be added later on
 	int rows=7; //maximum rows this values should be found out with a formula which is going to be added later on
+	int width;
+	int height;
 	JLabel[][] labels = new JLabel[rows][cols];
 	
-	public SimView()
+	public SimView(int[] resolution)
 	{
 		setTitle("Simulation Linux");
 		setLocation(0, 0);
-		setSize(600, 500);
+		setSize(resolution[0], resolution[1]);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(true);
 		setVisible(true);			

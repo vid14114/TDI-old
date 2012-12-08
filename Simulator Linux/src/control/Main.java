@@ -16,7 +16,7 @@ public class Main {
 	public void run(){
 		try {
 			Configuration config = new Configuration();			
-			SimView view = new SimView();
+			SimView view = new SimView(config.getResolution());
 			view.initDesk(config.getIcons(), config.getBackground(), config);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Couldn't load the configuration file for initialization.\n"

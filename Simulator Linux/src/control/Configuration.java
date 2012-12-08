@@ -135,6 +135,17 @@ public class Configuration {
 			e.printStackTrace();
 		}
 	}
+	
+	public int[] getResolution()
+	{
+		int[] resolution = new int[2];
+		String[] s=iconsFile.getName().split("-")[1].split("x");
+		Integer width=new Integer(s[0]);
+		Integer height=new Integer(s[1].split("\\.")[0]);
+		resolution[0]=width.intValue();
+		resolution[1]=height.intValue();
+		return resolution;
+	}
 
 	/**
 	 * @return the background
