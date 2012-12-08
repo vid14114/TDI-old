@@ -1,5 +1,6 @@
 package view;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -38,7 +39,7 @@ public class SimView extends JFrame{
 
 	public void initDesk(ArrayList<Icon> icons, Image img, Configuration config)
 	{
-		CustomPanel jpanel = new CustomPanel(img, rows, cols);
+		CustomPanel jpanel = new CustomPanel(this,img, rows, cols);
 		for(int i = 0; i < rows; i++)
 		{
 			for(int j = 0; j < cols; j++)
@@ -69,8 +70,8 @@ public class SimView extends JFrame{
 		add(jpanel);
 		setVisible(true);
 	}
-	
-	public ArrayList<Icon> updateDesktop(){
+
+	public ArrayList<Icon> updateDesktop(){		
 		ArrayList<Icon> icons=new ArrayList<Icon>();
 		for(int i=0; i<labels.length; i++)
 		{
@@ -84,6 +85,7 @@ public class SimView extends JFrame{
 				}
 			}
 		}
+		repaint();
 		return icons;
 	}
 }
@@ -100,14 +102,16 @@ class CustomPanel extends JPanel{
 	 */
 	private static final long serialVersionUID = 8731589894224036259L;
 	Image img;
+	SimView mother;
 	
-	public CustomPanel(Image img, int rows, int cols){
+	public CustomPanel(SimView mother,Image img, int rows, int cols){
 		setLayout(new GridLayout(rows, cols));
 		this.img = img;
+		this.mother = mother;
 	}
 	
 	@Override
-	public void paintComponent(Graphics g){
-		g.drawImage(img,0,0,null);
+	public void paintComponent(Graphics g){		
+		g.drawImage(img, 0, 0, mother.getWidth(), mother.getHeight(), this);
 	}
 }
