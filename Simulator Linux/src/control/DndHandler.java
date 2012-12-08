@@ -7,7 +7,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.TransferHandler;
 
-import view.Test;
+import view.SimView;
 
 public class DndHandler extends TransferHandler{
 	
@@ -16,9 +16,9 @@ public class DndHandler extends TransferHandler{
 	 * Custom DnD Handler for removing the Icon at the old position
 	 */
 	private static final long serialVersionUID = 1L;
-	Test t;
+	SimView t;
 	
-	public DndHandler(String comp, Test t)
+	public DndHandler(String comp, SimView t)
 	{
 		super(comp);
 		this.t=t;

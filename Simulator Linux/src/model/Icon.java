@@ -48,10 +48,6 @@ public class Icon {
 		setCol(col);
 		
 	}
-	
-	public Icon() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public void getConfig() throws IOException
 	{
