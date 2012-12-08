@@ -33,9 +33,8 @@ public class Test extends JFrame implements MouseListener {
 	//grid where the icons are placed
 	JLabel[][] grid=new JLabel[rows][cols];
 	
-	public static void main(String[] args) throws NumberFormatException, IOException {
+	public static void main(String[] args) throws NumberFormatException, IOException, InterruptedException {
 		new Test();
-
 	}
 	
 	public Test() throws NumberFormatException, IOException
@@ -143,7 +142,6 @@ public class Test extends JFrame implements MouseListener {
 		}
 		bw.flush();
 		bw.close();
-		Thread.sleep(100);
 		//refresh the desktop manager
 		Runtime.getRuntime().exec("xfdesktop --reload").waitFor();
 	}
@@ -152,7 +150,6 @@ public class Test extends JFrame implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
