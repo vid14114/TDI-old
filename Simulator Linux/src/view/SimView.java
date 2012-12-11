@@ -49,7 +49,7 @@ public class SimView extends JFrame{
 				labels[i][j] = new JLabel();
 				labels[i][j].setBorder(new LineBorder(Color.BLACK));
 				//set the Drag&Drop handler		
-				DragDropListener ls = new DragDropListener("text", this, config);
+				DragDropListener ls = new DragDropListener("icon", this, config);
 				labels[i][j].setTransferHandler(ls);
 				labels[i][j].addMouseListener(ls);
 				labels[i][j].setName("");
@@ -64,7 +64,7 @@ public class SimView extends JFrame{
 				labels[icons.get(i).getRow()][icons.get(i).getCol()].setIcon(icons.get(i).getIcon());			
 			}
 			else
-				labels[icons.get(i).getRow()][icons.get(i).getCol()].setText((icons.get(i).getName()));			
+				labels[icons.get(i).getRow()][icons.get(i).getCol()].setText((icons.get(i).getName().substring(1, icons.get(i).getName().length()-1)));			
 			labels[icons.get(i).getRow()][icons.get(i).getCol()].setName(icons.get(i).getName());
 			
 		}
@@ -81,7 +81,9 @@ public class SimView extends JFrame{
 			{
 				//get the new position of the icons
 				Icon icon=new Icon(labels[i][j].getText(),i,j);
-				if(icon.getName().length()>1)
+				if(labels[i][j].getIcon()!=null)
+					icon.setIcon(labels[i][j].getIcon(), false);
+				if(icon.getName().length()>1 || icon.getIcon()!=null)
 				{
 					icons.add(icon);
 				}
