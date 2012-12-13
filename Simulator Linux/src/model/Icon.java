@@ -1,9 +1,11 @@
 package model;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class Icon {
 	private int col;
 	private ImageIcon icon;
 	private int searchDepth=0;
-	private String exec;
+	private String exec="";
 	File dir=new File("/usr/share/icons");
 	
 	@Override
@@ -66,8 +68,10 @@ public class Icon {
 		ImageIcon imgic=(ImageIcon) icon;
 		if(first)
 		{
-			BufferedImage icon2=new BufferedImage(imgic.getIconWidth(), imgic.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
-			icon2.getGraphics().drawImage(imgic.getImage(),0,0, imgic.getImageObserver());
+			BufferedImage icon2=new BufferedImage(imgic.getIconWidth()+40, imgic.getIconHeight()+10, BufferedImage.TYPE_INT_ARGB);
+			icon2.getGraphics().drawImage(imgic.getImage(),0,0, imgic.getImageObserver());		
+			icon2.getGraphics().setFont(new Font("Serif", Font.BOLD, 30));
+			icon2.getGraphics().drawString(name.substring(1, name.length()-1), 0, 55);
 			icon2.setRGB(row, col, 0);
 			imgic=new ImageIcon(icon2);
 		}
@@ -113,6 +117,7 @@ public class Icon {
 	 */
 	public void findConfig() throws IOException
 	{
+		setIcon(new ImageIcon("/usr/share/icons/gnome/48x48/status/dialog-question.png"), true);
 		File[] files;
 		if(new File(System.getProperty("user.home")+"/Arbeitsfläche").exists())
 			files=new File(System.getProperty("user.home")+"/Arbeitsfläche").listFiles();
@@ -120,11 +125,19 @@ public class Icon {
 			files=new File(System.getProperty("user.home")+"/Desktop").listFiles();
 		for(File file : files)
 		{
+			if(file.getName().equals(name.substring(1, name.length()-1)) && file.canExecute() && !file.isDirectory())
+			{
+				setIcon(new ImageIcon("/usr/share/icons/gnome/48x48/apps/utilities-terminal.png"),true);
+				BufferedReader br=new BufferedReader(new FileReader(file));
+				while(br.ready())
+					exec+=""+br.readLine()+"\n";
+				br.close();
+			}
 			if(file.isDirectory()) 
 			{
 				if(file.getName().equals(name.substring(1, name.length()-1)))
 				{
-					icon = new ImageIcon("/usr/share/icons/gnome/48x48/places/folder.png");
+					setIcon (new ImageIcon("/usr/share/icons/gnome/48x48/places/folder.png"),true);
 					exec = "thunar "+file.getAbsolutePath();
 					break;
 				}
@@ -143,6 +156,7 @@ public class Icon {
 			}
 			br.close();
 		}
+			
 	}
 	//returns a specific variable out the confName
 	public String getIconVar(String what) throws IOException
@@ -211,9 +225,11 @@ public class Icon {
 		}
 		if(result.size()>0)
 		{
-			icon=new ImageIcon(result.get(0).getAbsolutePath());
+			setIcon(new ImageIcon(result.get(0).getAbsolutePath()),true);
 			icon.setImage(icon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
 		}
+			
+			
 		return result;	
 	}
 }
