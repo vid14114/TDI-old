@@ -24,6 +24,10 @@ public class DragDropListener extends TransferHandler implements MouseListener {
 	private static final long serialVersionUID = 7619130164209787294L;
 	private SimView view;
 	private Configuration config;
+	/**
+	 * A boolean set to true when the user has begun to drag the icons
+	 */
+	boolean dragBegun;
 
 	public DragDropListener(String comp, SimView view, Configuration config) {
 		super(comp);
@@ -38,7 +42,6 @@ public class DragDropListener extends TransferHandler implements MouseListener {
 		JLabel source = (JLabel) c;
 		source.setText("");
 		source.setName("");
-		source.setIcon(null);
 		config.updateConfig(view.updateDesktop());
 	}
 

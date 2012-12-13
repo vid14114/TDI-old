@@ -32,8 +32,8 @@ public class Configuration {
 			String line = br.readLine();
 			if(line.contains("[")){
 				// Here i remove the [] which are used to mark the beginning of an icon
-				/*line.replace("[", "");
-				line.replace("]", "");*/
+				line.replace("[", "");
+				line.replace("]", "");
 				if(line.contains("~"))
 					line.replace("~", ""); //Unix adds the ~ symbol when a file has been currently changed, i remove this symbol
 				i = new Icon(line, Integer.parseInt(br.readLine().split("=")[1]), Integer.parseInt(br.readLine().split("=")[1]));
@@ -53,6 +53,31 @@ public class Configuration {
 				return;
 			}
 		}
+		//Old way of getting the icons
+//		for(line=br.readLine(); line!=null; line=br.readLine())
+//		{
+//			switch(lineNum)
+//			{
+//			case 1:
+//				i=new Icon();
+//				i.setName(line);
+//				break;
+//			case 2:
+//				i.setRow(Integer.parseInt(line.split("=")[1]));
+//				break;
+//			case 3:
+//				i.setCol(Integer.parseInt(line.split("=")[1]));
+//				i.getConfig();
+//				vs.add(i);
+//				break;
+//				//after every Icon there's a blank row
+//			case 4:
+//				lineNum=0;
+//				break;
+//			}
+//			lineNum++;		
+//		}
+//		br.close();
 	}
 
 	/**
@@ -88,25 +113,16 @@ public class Configuration {
 	 * The method is used to overwrite the configuration files
 	 * @param icons The arraylist which contains the updated version of the icons
 	 */
-	public void updateConfig(ArrayList<Icon> newIcons){
+	public void updateConfig(ArrayList<Icon> icons){
 		try{
 			BufferedWriter bw=new BufferedWriter(new FileWriter(iconsFile));
-			for(int i=0; i<newIcons.size(); i++)
+			for(int i=0; i<icons.size(); i++)
 			{
-				String name=newIcons.get(i).getName();
-				if(newIcons.get(i).getIcon()!=null)
-				{
-					for(int j=0; j<icons.size(); j++)
-					{
-						if(icons.get(j).getIcon()!=null && newIcons.get(i).getIcon().equals(icons.get(j).getIcon()))
-							name=icons.get(j).getName().substring(1, icons.get(j).getName().length()-1);
-					}
-				}
-				bw.write("["+name+"]");
+				bw.write(icons.get(i).getName());
 				bw.newLine();
-				bw.write("row="+newIcons.get(i).getRow());
+				bw.write("row="+icons.get(i).getRow());
 				bw.newLine();
-				bw.write("col="+newIcons.get(i).getCol());	
+				bw.write("col="+icons.get(i).getCol());	
 				bw.newLine();
 				bw.newLine();
 			}
