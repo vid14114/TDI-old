@@ -225,8 +225,16 @@ public class Icon {
 		}
 		if(result.size()>0)
 		{
+			for(int i=0; i< result.size(); i++)
+			{
+				if(result.get(i).getAbsolutePath().contains("48"))
+				{
+					setIcon(new ImageIcon(result.get(i).getAbsolutePath()),true);
+					return result;
+				}
+			}
 			setIcon(new ImageIcon(result.get(0).getAbsolutePath()),true);
-			icon.setImage(icon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+			icon.setImage(icon.getImage().getScaledInstance(100, 50, Image.SCALE_DEFAULT));
 		}
 			
 			

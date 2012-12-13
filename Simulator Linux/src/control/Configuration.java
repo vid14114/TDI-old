@@ -99,6 +99,7 @@ public class Configuration {
 							name=icons.get(j).getName().substring(1, icons.get(j).getName().length()-1);
 					}
 				}
+				bw.write("["+name+"]");
 				bw.newLine();
 				bw.write("row="+newIcons.get(i).getRow());
 				bw.newLine();
