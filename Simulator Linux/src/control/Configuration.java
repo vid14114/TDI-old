@@ -31,7 +31,6 @@ public class Configuration {
 		while (br.ready()){
 			String line = br.readLine();
 			if(line.contains("[")){
-				// Here i remove the [] which are used to mark the beginning of an icon
 				if(line.contains("~"))
 					line.replace("~", ""); //Unix adds the ~ symbol when a file has been currently changed, i remove this symbol
 				i = new Icon(line, Integer.parseInt(br.readLine().split("=")[1]), Integer.parseInt(br.readLine().split("=")[1]));
