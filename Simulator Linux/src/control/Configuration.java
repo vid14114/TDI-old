@@ -150,4 +150,38 @@ public class Configuration {
 	public ArrayList<Icon> getIcons(){
 		return icons;
 	}
+	
+	public int calcRows() throws IOException
+	{
+		int[] resolution=getResolution();
+		int height=resolution[1];
+		int panelSize=0;
+		BufferedReader br1=new BufferedReader(new FileReader(System.getProperty("user.home")+"/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"));
+		while(br1.ready())
+		{
+			String line=br1.readLine();
+			if(line.contains("size"))
+				panelSize+=Integer.parseInt(line.split("\"")[5]);
+		}
+		br1.close();
+		int margin=0;
+		BufferedReader br2=new BufferedReader(new FileReader(System.getProperty("user.home")+"/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml"));
+		while(br2.ready())
+		{
+			String line=br2.readLine();
+			if(line.contains("placement_ratio"))
+				margin=Integer.parseInt(line.split("\"")[5]);
+		}
+		br2.close();
+		int iconSize=0;
+		BufferedReader br3=new BufferedReader(new FileReader(System.getProperty("user.home")+"/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"));
+		while(br3.ready())
+		{
+			String line=br3.readLine();
+			if(line.contains("icon-size"))
+				iconSize=Integer.parseInt(line.split("\"")[5]);
+		}
+		br3.close();
+		return ((height-panelSize)-2*margin)/(iconSize+(4*margin));
+	}
 }
