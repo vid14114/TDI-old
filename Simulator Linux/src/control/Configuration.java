@@ -43,7 +43,7 @@ public class Configuration {
 		br = new BufferedReader(new FileReader(System.getProperty("user.home")+"/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"));
 		while(br.ready()){
 			String line = br.readLine();
-			if(line.contains("image-path")){
+			if((line.contains("image-path") && line.contains("value=")) || line.contains("last-image")){
 				String a = line.substring(line.indexOf("value="),line.length()).split("=")[1];
 				a = a.split("\"")[1];
 				setBackground(Toolkit.getDefaultToolkit().getImage(a));
