@@ -42,6 +42,7 @@ public class DragDropListener extends TransferHandler implements MouseListener {
 		JLabel source = (JLabel) c;
 		source.setText("");
 		source.setName("");
+		source.setIcon(null);
 		config.updateConfig(view.updateDesktop());
 	}
 

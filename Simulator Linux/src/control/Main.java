@@ -15,7 +15,8 @@ public class Main {
 	
 	public void run(){
 		try {
-			Configuration config = new Configuration();			
+			Configuration config = new Configuration();
+			int rows=config.calcRows();
 			SimView view = new SimView(config.getResolution());
 			view.initDesk(config.getIcons(), config.getBackground(), config);
 		} catch (IOException e) {
