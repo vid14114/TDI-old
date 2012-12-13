@@ -117,6 +117,7 @@ public class Icon {
 	 */
 	public void findConfig() throws IOException
 	{
+		setIcon(new ImageIcon("/usr/share/icons/gnome/48x48/status/dialog-question.png"), true);
 		File[] files;
 		if(new File(System.getProperty("user.home")+"/Arbeitsfläche").exists())
 			files=new File(System.getProperty("user.home")+"/Arbeitsfläche").listFiles();
@@ -130,6 +131,7 @@ public class Icon {
 				BufferedReader br=new BufferedReader(new FileReader(file));
 				while(br.ready())
 					exec+=""+br.readLine()+"\n";
+				br.close();
 			}
 			if(file.isDirectory()) 
 			{
@@ -154,6 +156,7 @@ public class Icon {
 			}
 			br.close();
 		}
+			
 	}
 	//returns a specific variable out the confName
 	public String getIconVar(String what) throws IOException
@@ -222,9 +225,11 @@ public class Icon {
 		}
 		if(result.size()>0)
 		{
-			icon=new ImageIcon(result.get(0).getAbsolutePath());
+			setIcon(new ImageIcon(result.get(0).getAbsolutePath()),true);
 			icon.setImage(icon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
 		}
+			
+			
 		return result;	
 	}
 }
