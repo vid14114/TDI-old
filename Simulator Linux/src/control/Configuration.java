@@ -181,4 +181,30 @@ public class Configuration {
 		br3.close();
 		return ((height-panelSize)-2*margin)/(iconSize+(3*margin));
 	}
+	
+	public int calcCols() throws IOException
+	{
+		int[] resolution=getResolution();
+		int width=resolution[0];
+
+		int margin=0;
+		BufferedReader br2=new BufferedReader(new FileReader(System.getProperty("user.home")+"/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml"));
+		while(br2.ready())
+		{
+			String line=br2.readLine();
+			if(line.contains("placement_ratio"))
+				margin=Integer.parseInt(line.split("\"")[5]);
+		}
+		br2.close();
+		int iconSize=0;
+		BufferedReader br3=new BufferedReader(new FileReader(System.getProperty("user.home")+"/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"));
+		while(br3.ready())
+		{
+			String line=br3.readLine();
+			if(line.contains("icon-size"))
+				iconSize=Integer.parseInt(line.split("\"")[5]);
+		}
+		br3.close();
+		return ((width)-2*margin)/(iconSize+(4*margin));
+	}
 }
