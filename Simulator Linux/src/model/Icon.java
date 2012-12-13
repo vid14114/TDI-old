@@ -1,8 +1,5 @@
 package model;
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -64,16 +61,8 @@ public class Icon {
 		this.config=confName;
 	}
 	
-	public void setIcon(javax.swing.Icon icon, boolean first) {
-		ImageIcon imgic=(ImageIcon) icon;
-		if(first)
-		{
-			BufferedImage icon2=new BufferedImage(imgic.getIconWidth(), imgic.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
-			icon2.getGraphics().drawImage(imgic.getImage(),0,0, imgic.getImageObserver());
-			icon2.setRGB(row, col, 0);
-			imgic=new ImageIcon(icon2);
-		}
-		this.icon=imgic;
+	public void setIcon(ImageIcon icon) {
+		this.icon=icon;
 	}
 
 	public String getName() {
@@ -177,7 +166,7 @@ public class Icon {
 			for(String line=br.readLine(); line!=null; line=br.readLine())
 				s+=line+"\n";
 			Image i=Xpm.XpmToImage(s);
-			setIcon(new ImageIcon(i), true);
+			icon=new ImageIcon(i);
 			br.close();
 		}
 		File[] files=dir.listFiles();
@@ -188,7 +177,7 @@ public class Icon {
 			{
 				if(file.isFile() && file.getName().contains(iconName))
 				{
-					setIcon(new ImageIcon(file.getAbsolutePath()), true);
+					icon=new ImageIcon(file.getAbsolutePath());
 					result.add(file);
 				}
 				else
@@ -199,7 +188,7 @@ public class Icon {
 						for(File thisFile : tmp)
 							if(thisFile.getName().contains(iconName))
 							{
-								setIcon(new ImageIcon(file.getAbsolutePath()), true);
+								icon=new ImageIcon(file.getAbsolutePath());
 								result.add(thisFile);
 							}
 					}
