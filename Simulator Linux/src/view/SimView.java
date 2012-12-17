@@ -30,6 +30,7 @@ public class SimView extends JFrame{
 	int rows;
 	int width;
 	int height;
+	ArrayList<Icon> icons;
 	JLabel[][] labels;
 	JLabel[] taskLabels;
 	
@@ -57,6 +58,7 @@ public class SimView extends JFrame{
 	 */
 	public void initDesk(ArrayList<Icon> icons, Image img, Configuration config)
 	{
+		this.icons=icons;
 		JPanel panel = new JPanel(new GridLayout(1, cols));
 		DragDropListener ls = new DragDropListener("icon", this, config);
 		////Configuring the taskbar Panel
@@ -100,8 +102,9 @@ public class SimView extends JFrame{
 		setVisible(true);
 	}	
 	
-	public ArrayList<Icon> updateDesktop(){		
-		ArrayList<Icon> icons=new ArrayList<Icon>();
+	public ArrayList<Icon> updateDesktop()
+	{		
+		ArrayList<Icon> newIcons=new ArrayList<Icon>();
 		for(int i=0; i<labels.length; i++)
 		{
 			for(int j=0; j<labels[i].length; j++)
@@ -110,13 +113,23 @@ public class SimView extends JFrame{
 				Icon icon=new Icon(labels[i][j].getText(),i,j);
 				if(labels[i][j].getIcon()!=null)
 					icon.setIcon(labels[i][j].getIcon(), false);
-				
 				if(icon.getName().length()>1 || icon.getIcon()!=null)
-					icons.add(icon);
+					newIcons.add(icon);
+			}
+		}
+		if(newIcons.size()<icons.size())
+		{
+			for(int i=0; i<icons.size(); i++)
+			{
+				if(!newIcons.contains(icons.get(i)))
+				{
+					newIcons.add(icons.get(i));
+					labels[icons.get(i).getRow()][icons.get(i).getCol()].setIcon(icons.get(i).getIcon());
+				}
 			}
 		}
 		repaint();
-		return icons;
+		return newIcons;
 	}
 }
 

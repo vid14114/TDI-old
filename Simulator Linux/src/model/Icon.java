@@ -35,7 +35,7 @@ public class Icon {
 	 */
 	public boolean equals(Object obj) {
 		Icon i=(Icon)obj;
-		if(i.getName().equals(name))
+		if(i.getIcon().equals(icon))
 			return true;
 		return false;
 	}
