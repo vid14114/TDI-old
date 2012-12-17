@@ -1,6 +1,8 @@
 package view;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -23,28 +25,50 @@ public class SimView extends JFrame{
 	 * A randomly generated serialVersion
 	 */
 	private static final long serialVersionUID = 639166567792984188L;
+	
 	int cols;
 	int rows;
 	int width;
 	int height;
 	JLabel[][] labels;
+	JLabel[] taskLabels;
 	
 	public SimView(int[] resolution, int rows, int cols)
 	{
+		width = resolution[0];
+		height = resolution[1];
 		this.rows=rows;
 		this.cols=cols;
 		labels = new JLabel[rows][cols];
+		taskLabels = new JLabel[cols];
 		setTitle("Simulation Linux");
 		setLocation(0, 0);
-		setSize(resolution[0], resolution[1]);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(width, height);
 		setResizable(true);
 		setVisible(true);			
 	}
 
+	/**
+	 * Initialises the view of the program
+	 * @param icons The icons to be displayed
+	 * @param img The background image
+	 * @param config A configuration instance
+	 */
 	public void initDesk(ArrayList<Icon> icons, Image img, Configuration config)
 	{
-		CustomPanel jpanel = new CustomPanel(this,img, rows, cols);
+		JPanel panel = new JPanel(new GridLayout(1, cols));
+		DragDropListener ls = new DragDropListener("icon", this, config);
+		////Configuring the taskbar Panel
+		for(int i = 0; i < cols; i++){
+			taskLabels[i] = new JLabel();
+			taskLabels[i].setBorder(new LineBorder(Color.WHITE));
+			taskLabels[i].setTransferHandler(ls);
+			taskLabels[i].addMouseListener(ls);
+			panel.add(taskLabels[i]);
+		}
+		/////Configuring the main JPanel
+		CustomPanel jpanel = new CustomPanel(this,img, rows, cols);		
 		for(int i = 0; i < rows; i++)
 		{
 			for(int j = 0; j < cols; j++)
@@ -52,7 +76,6 @@ public class SimView extends JFrame{
 				labels[i][j] = new JLabel();
 				labels[i][j].setBorder(new LineBorder(Color.BLACK));
 				//set the Drag&Drop handler		
-				DragDropListener ls = new DragDropListener("icon", this, config);
 				labels[i][j].setTransferHandler(ls);
 				labels[i][j].addMouseListener(ls);
 				labels[i][j].setName("");
@@ -63,19 +86,20 @@ public class SimView extends JFrame{
 		{
 			//populate the grid with icons
 			if(icons.get(i).getIcon() != null)
-			{
 				labels[icons.get(i).getRow()][icons.get(i).getCol()].setIcon(icons.get(i).getIcon());			
-			}
 			else
 				 labels[icons.get(i).getRow()][icons.get(i).getCol()].setText((icons.get(i).getName().substring(1, icons.get(i).getName().length()-1)));		
-			labels[icons.get(i).getRow()][icons.get(i).getCol()].setName(icons.get(i).getName());
-			
+			labels[icons.get(i).getRow()][icons.get(i).getCol()].setName(icons.get(i).getName());			
 		}
+		//Here maria can change the background of the jpanel
+		panel.setBackground(Color.BLACK);
+		panel.setPreferredSize(new Dimension(width, height/10));
 		//add the JPanel to the frame and make everything visible
-		add(jpanel);
+		add(jpanel,BorderLayout.CENTER);		
+		add(panel,BorderLayout.SOUTH);
 		setVisible(true);
-	}
-
+	}	
+	
 	public ArrayList<Icon> updateDesktop(){		
 		ArrayList<Icon> icons=new ArrayList<Icon>();
 		for(int i=0; i<labels.length; i++)
@@ -112,6 +136,7 @@ class CustomPanel extends JPanel{
 	
 	public CustomPanel(SimView mother,Image img, int rows, int cols){
 		setLayout(new GridLayout(rows, cols));
+		setSize(mother.getWidth(), mother.getHeight()/100*95);
 		this.img = img;
 		this.mother = mother;
 	}
