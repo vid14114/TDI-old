@@ -61,9 +61,9 @@ public class SimView extends JFrame{
 		for(int i=0; i<icons.size(); i++)
 		{
 			if(icons.get(i).getRow()>rows)
-				rows=icons.get(i).getRow();
+				rows=icons.get(i).getRow()+1;
 			if(icons.get(i).getCol()>cols)
-				cols=icons.get(i).getCol();
+				cols=icons.get(i).getCol()+1;
 		}
 			
 		this.icons=icons;
