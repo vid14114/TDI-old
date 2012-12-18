@@ -1,11 +1,11 @@
 package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.IOException;
 import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -38,8 +38,8 @@ public class SimView extends JFrame{
 	{
 		width = resolution[0];
 		height = resolution[1];
-		this.rows=rows;
-		this.cols=cols;
+		this.rows=rows;//max rows
+		this.cols=cols;//max cols
 		labels = new JLabel[rows][cols];
 		taskLabels = new JLabel[cols];
 		setTitle("Simulation Linux");
@@ -102,7 +102,7 @@ public class SimView extends JFrame{
 		setVisible(true);
 	}	
 	
-	public ArrayList<Icon> updateDesktop()
+	public ArrayList<Icon> updateDesktop() 
 	{		
 		ArrayList<Icon> newIcons=new ArrayList<Icon>();
 		for(int i=0; i<labels.length; i++)
@@ -112,11 +112,29 @@ public class SimView extends JFrame{
 				//get the new position of the icons
 				Icon icon=new Icon(labels[i][j].getText(),i,j);
 				if(labels[i][j].getIcon()!=null)
+				{	
 					icon.setIcon(labels[i][j].getIcon(), false);
+					//checks if icon is in taskbar 
+					if(i==rows)
+					{	
+						// runs the program
+						try {
+							String exePath=icon.getIconVar("Exec");
+							Runtime.getRuntime().exec(exePath);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+				}	
 				if(icon.getName().length()>1 || icon.getIcon()!=null)
 					newIcons.add(icon);
+				
+				
 			}
 		}
+		
 		if(newIcons.size()<icons.size())
 		{
 			for(int i=0; i<icons.size(); i++)
