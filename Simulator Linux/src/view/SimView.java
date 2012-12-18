@@ -58,6 +58,14 @@ public class SimView extends JFrame{
 	 */
 	public void initDesk(ArrayList<Icon> icons, Image img, Configuration config)
 	{
+		for(int i=0; i<icons.size(); i++)
+		{
+			if(icons.get(i).getRow()>rows)
+				rows=icons.get(i).getRow();
+			if(icons.get(i).getCol()>cols)
+				cols=icons.get(i).getCol();
+		}
+			
 		this.icons=icons;
 		JPanel panel = new JPanel(new GridLayout(1, cols));
 		DragDropListener ls = new DragDropListener("icon", this, config);
