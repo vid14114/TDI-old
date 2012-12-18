@@ -40,8 +40,6 @@ public class SimView extends JFrame{
 		height = resolution[1];
 		this.rows=rows;//max rows
 		this.cols=cols;//max cols
-		labels = new JLabel[rows][cols];
-		taskLabels = new JLabel[cols];
 		setTitle("Simulation Linux");
 		setLocation(0, 0);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -61,10 +59,13 @@ public class SimView extends JFrame{
 		for(int i=0; i<icons.size(); i++)
 		{
 			if(icons.get(i).getRow()>rows)
-				rows=icons.get(i).getRow()+1;
+				rows=icons.get(i).getRow();
 			if(icons.get(i).getCol()>cols)
-				cols=icons.get(i).getCol()+1;
+				cols=icons.get(i).getCol();
 		}
+		
+		labels = new JLabel[rows][cols];
+		taskLabels = new JLabel[cols];
 			
 		this.icons=icons;
 		JPanel panel = new JPanel(new GridLayout(1, cols));
