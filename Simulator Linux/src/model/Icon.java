@@ -9,9 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
-
 import control.Xpm;
 
 /**
@@ -37,7 +35,7 @@ public class Icon {
 	 */
 	public boolean equals(Object obj) {
 		Icon i=(Icon)obj;
-		if(i.getName().equals(name))
+		if(i.getIcon().equals(icon))
 			return true;
 		return false;
 	}
@@ -225,8 +223,16 @@ public class Icon {
 		}
 		if(result.size()>0)
 		{
+			for(int i=0; i< result.size(); i++)
+			{
+				if(result.get(i).getAbsolutePath().contains("48"))
+				{
+					setIcon(new ImageIcon(result.get(i).getAbsolutePath()),true);
+					return result;
+				}
+			}
 			setIcon(new ImageIcon(result.get(0).getAbsolutePath()),true);
-			icon.setImage(icon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+			icon.setImage(icon.getImage().getScaledInstance(100, 50, Image.SCALE_DEFAULT));
 		}
 			
 			
