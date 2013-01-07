@@ -59,9 +59,9 @@ public class SimView extends JFrame{
 		for(int i=0; i<icons.size(); i++)
 		{
 			if(icons.get(i).getRow()>rows)
-				rows=icons.get(i).getRow();
+				rows=icons.get(i).getRow()+1;//Here +1 needs to be added cause the getRow() accesses a given position and arrays start with 0
 			if(icons.get(i).getCol()>cols)
-				cols=icons.get(i).getCol();
+				cols=icons.get(i).getCol()+1;
 		}
 		
 		labels = new JLabel[rows][cols];
