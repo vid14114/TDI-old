@@ -3,6 +3,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -171,6 +172,23 @@ public class Icon {
 		br.close();
 		return null;
 	}
+	public String getExePath(String iconName)throws IOException
+	{
+		System.out.println(config);
+		BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream("/usr/share/applications/"+iconName+".desktop")));
+		for(String line=br.readLine(); line!=null; line=br.readLine())
+		{
+			String[] splitLine=line.split("=");
+			if(splitLine[0].equals("Exec")){
+				br.close();
+				return splitLine[1];
+			}
+		}
+		br.close();
+		return null;
+	}
+	
+	
 	
 	/** @Vidovic--> more info please
 	 * Goes through all subdirectories of a given folder to find a graphic that matches the icon
