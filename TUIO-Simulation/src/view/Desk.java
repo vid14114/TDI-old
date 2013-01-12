@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -57,7 +59,40 @@ public class Desk extends JFrame{
 	}
 	//This is the center of the menuDesk with the tilt options
 	public JPanel centralMenuDesk() {
-		JPanel p = new JPanel();
+		//buttons
+		JButton tiltLeft=new JButton("Left");
+		JButton tiltRight=new JButton("Right");
+		JButton tiltDown=new JButton("Down");
+		JButton tiltUp=new JButton("Up");
+		JLabel middle=new JLabel("TDI");
+		
+		//master Panel
+		JPanel master = new JPanel();
+		master.setLayout(new GridLayout(3,3));
+		
+		//Panel for the top
+		JPanel topPanel=new JPanel();
+		topPanel.setLayout(new FlowLayout());
+		
+		//Panel for the middle -> button left
+		JPanel middlePanel1=new JPanel();
+		middlePanel1.setLayout(new FlowLayout());
+		
+		//Panel for the middle -> TDI
+		JPanel middlePanel2=new JPanel();
+		middlePanel2.setLayout(new FlowLayout());
+		
+		//Panel for the middle -> button right
+		JPanel middlePanel3=new JPanel();
+		middlePanel3.setLayout(new FlowLayout());
+		
+		//Panel for the bottom
+		JPanel bottomPanel=new JPanel();
+		bottomPanel.setLayout(new FlowLayout());
+		
+		
+
+		
 		return p;
 	}
 	//This is the south of the menuDesk with the add,delete,update options - maybe implemented as a menu
