@@ -1,57 +1,35 @@
 package view;
 
-import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
-public class Draw extends Canvas {
+import javax.swing.JPanel;
 
-	/**
-	 * 
-	 */
+public class Draw extends JPanel {
+
 	private static final long serialVersionUID = 5072266578204453646L;
 	int xPos;
 	int yPos;
 	int height;
 	int width;
-
+	Graphics2D g2D;
 	enum drawableStuff {
 		Rectangle
 	}
 
 	drawableStuff drawing;
 
-	public Draw(int xPos, int yPos, int width, int height) {
-		this.xPos = xPos;
-		this.yPos = yPos;
-		this.width = width;
-		this.height = height;
-	}
+	public Draw() {
 
+	}
+	//Just for experimentation right now - draws a line that seperates the
+	//taskbar and and the desktop
 	public void paint(Graphics g) {
-		switch (drawing) {
-		case Rectangle:
-			g.setColor(Color.black);
-			g.fillRect(xPos, yPos, width, height);
-			break;
-		default:
-			break;
-		}
+		g2D=(Graphics2D) g.create();
+		g2D.drawRect(10, 10, getWidth()/10, getHeight()/10);
+		g2D.drawRect(0, getHeight()/5*4, getWidth(), 1);
 	}
-	
 
-	@Override
-	public void update(Graphics arg0) {
-		// TODO Auto-generated method stub
-		switch (drawing) {
-		case Rectangle:
-			arg0.setColor(Color.black);
-			arg0.fillRect(xPos, yPos, width, height);
-			break;
-		default:
-			break;
-		}
-	}
 
 	public drawableStuff getDrawing() {
 		return drawing;
