@@ -145,7 +145,7 @@ public class Icon {
 			for(String line=br.readLine(); line!=null; line=br.readLine())
 			{
 				String[] splitLine=line.split("=");
-				if(splitLine[0].equals("Name"))
+				if(splitLine.length>0 && splitLine[0].equals("Name"))
 				{
 					if(splitLine[1].equals(name.substring(1, name.length()-1)))
 						config=file;
