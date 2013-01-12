@@ -112,7 +112,7 @@ public class SimView extends JFrame{
 		setVisible(true);
 	}	
 	
-	public ArrayList<Icon> updateDesktop() 
+	public ArrayList<Icon> updateDesktop() throws IOException 
 	{		
 		ArrayList<Icon> newIcons=new ArrayList<Icon>();
 		for(int i=0; i<labels.length; i++)
@@ -124,32 +124,11 @@ public class SimView extends JFrame{
 				if(labels[i][j].getIcon()!=null)
 				{	
 					icon.setIcon(labels[i][j].getIcon(), false);
-					//checks if icon is in taskbar 
-					//if(icon.getRow()==rows+1)//taskbar own panel ... -> abi
-					if(i==rows-1)// row before Taskbar
-					{	
-						// runs the program
-						try {
-							String name=icon.getName();
-							String exePath= icon.getExePath(name);
-							System.out.println(icon.getExePath(name)+" XXXXXXXXX");
-							Runtime.getRuntime().exec(exePath);//executes the icon set into taskbar
-							
-							if(icon.getName().length()>1 || icon.getIcon()!=null)
-								newIcons.add(icon);
-							
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-					}
 				}	
 				if(icon.getName().length()>1 || icon.getIcon()!=null)
 					newIcons.add(icon);
-				
-				}
 			}
 		}
-		
 		if(newIcons.size()<icons.size())
 		{
 			for(int i=0; i<icons.size(); i++)
@@ -161,6 +140,46 @@ public class SimView extends JFrame{
 				}
 			}
 		}
+		
+		for(int i=0; i<taskLabels.length; i++)
+		{
+			for(int j=0; j<icons.size(); j++)
+			{
+				if(taskLabels[i].getIcon() != null && taskLabels[i].getIcon().equals(icons.get(j).getIcon()) && !icons.get(j).getOpened())
+				{
+					Process p=Runtime.getRuntime().exec(icons.get(j).getExec());
+					for(int k=0; k<newIcons.size(); k++)
+					{
+						if(icons.get(j).equals(newIcons.get(k)))
+						{
+							newIcons.get(k).setOpened(true);
+							newIcons.get(k).setProcess(p);
+							String str=p.toString();
+							System.out.println(str);
+						}
+					}
+				}
+			}
+		}
+		
+		for(int i=0; i<icons.size(); i++)
+		{
+			int count=0;
+			for(int j=0; j<taskLabels.length; j++)
+			{
+				if(taskLabels[j].getIcon() != null && taskLabels[j].getIcon().equals(icons.get(i).getIcon()))
+					count++;
+			}
+			if(count<1)
+			{
+				if(icons.get(i).getProcess()!=null)
+				{
+					icons.get(i).setOpened(false);
+					icons.get(i).getProcess().destroy();
+				}
+			}
+		}
+		
 		repaint();
 		return newIcons;
 	}

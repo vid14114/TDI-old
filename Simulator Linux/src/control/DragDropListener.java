@@ -7,6 +7,7 @@ package control;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -39,7 +40,12 @@ public class DragDropListener extends TransferHandler implements MouseListener {
 		source.setText("");
 		source.setName("");
 		source.setIcon(null);
-		config.updateConfig(view.updateDesktop());
+		try {
+			config.updateConfig(view.updateDesktop());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
