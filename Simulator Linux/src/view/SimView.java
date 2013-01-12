@@ -58,9 +58,9 @@ public class SimView extends JFrame{
 	{
 		for(int i=0; i<icons.size(); i++)
 		{
-			if(icons.get(i).getRow()>rows)
+			if(icons.get(i).getRow()>=rows)
 				rows=icons.get(i).getRow()+1;//Here +1 needs to be added cause the getRow() accesses a given position and arrays start with 0
-			if(icons.get(i).getCol()>cols)
+			if(icons.get(i).getCol()>=cols)
 				cols=icons.get(i).getCol()+1;
 		}
 		
@@ -96,13 +96,14 @@ public class SimView extends JFrame{
 		for(int i=0; i<icons.size(); i++)
 		{
 			//populate the grid with icons
+
 			if(icons.get(i).getIcon() != null)
 				labels[icons.get(i).getRow()][icons.get(i).getCol()].setIcon(icons.get(i).getIcon());			
 			else
 				 labels[icons.get(i).getRow()][icons.get(i).getCol()].setText((icons.get(i).getName().substring(1, icons.get(i).getName().length()-1)));		
 			labels[icons.get(i).getRow()][icons.get(i).getCol()].setName(icons.get(i).getName());			
 		}
-		//Here maria can change the background of the jpanel
+		//Here you can change the background of the jpanel
 		panel.setBackground(Color.BLACK);
 		panel.setPreferredSize(new Dimension(width, height/10));
 		//add the JPanel to the frame and make everything visible
@@ -124,23 +125,28 @@ public class SimView extends JFrame{
 				{	
 					icon.setIcon(labels[i][j].getIcon(), false);
 					//checks if icon is in taskbar 
-					if(i==rows)
+					//if(icon.getRow()==rows+1)//taskbar own panel ... -> abi
+					if(i==rows-1)// row before Taskbar
 					{	
 						// runs the program
 						try {
-							String exePath=icon.getIconVar("Exec");
-							Runtime.getRuntime().exec(exePath);
+							String name=icon.getName();
+							String exePath= icon.getExePath(name);
+							System.out.println(icon.getExePath(name)+" XXXXXXXXX");
+							Runtime.getRuntime().exec(exePath);//executes the icon set into taskbar
+							
+							if(icon.getName().length()>1 || icon.getIcon()!=null)
+								newIcons.add(icon);
+							
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						}
-						
 					}
 				}	
 				if(icon.getName().length()>1 || icon.getIcon()!=null)
 					newIcons.add(icon);
 				
-				
+				}
 			}
 		}
 		
