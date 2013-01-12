@@ -28,6 +28,8 @@ public class Icon {
 	private ImageIcon icon;
 	private int searchDepth=0;
 	private String exec="";
+	private boolean opened=false;
+	private Process process;
 	File dir=new File("/usr/share/icons");
 	
 	@Override
@@ -49,12 +51,31 @@ public class Icon {
 		
 	}
 
+	public boolean getOpened()
+	{
+		return opened;
+	}
+	
+	public void setOpened(boolean opened)
+	{
+		this.opened=opened;
+	}
+	
+	public Process getProcess() {
+		return process;
+	}
+
+	public void setProcess(Process process) {
+		this.process = process;
+	}
+
 	public void getConfig() throws IOException
 	{
 		findConfig();
 		if(config!=null)
 		{
 			iconName=getIconVar("Icon");
+			exec=getIconVar("Exec");
 			findIcon(dir);
 		}
 	}
@@ -126,17 +147,18 @@ public class Icon {
 		{
 			if(file.getName().equals(name.substring(1, name.length()-1)) && file.canExecute() && !file.isDirectory())
 			{
-				setIcon(new ImageIcon("/usr/share/icons/gnome/48x48/apps/utilities-terminal.png"),true);
+				setIcon(new ImageIcon("/usr/share/icons/gnome/48x48/apps/utilities-terminal.png"), true);
 				BufferedReader br=new BufferedReader(new FileReader(file));
 				while(br.ready())
 					exec+=""+br.readLine()+"\n";
 				br.close();
+				break;
 			}
 			if(file.isDirectory()) 
 			{
 				if(file.getName().equals(name.substring(1, name.length()-1)))
 				{
-					setIcon (new ImageIcon("/usr/share/icons/gnome/48x48/places/folder.png"),true);
+					setIcon (new ImageIcon("/usr/share/icons/gnome/48x48/places/folder.png"), true);
 					exec = "thunar "+file.getAbsolutePath();
 					break;
 				}
@@ -155,7 +177,6 @@ public class Icon {
 			}
 			br.close();
 		}
-			
 	}
 	//returns a specific variable out the confName
 	public String getIconVar(String what) throws IOException
