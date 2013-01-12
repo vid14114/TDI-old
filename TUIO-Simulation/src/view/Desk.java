@@ -2,17 +2,19 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.lang.reflect.Array;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.TUIO;
+
 public class Desk extends JFrame{
 
 	private static final long serialVersionUID = -5944444691938882393L;
 
-	
 	public Desk() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1250, 700);
