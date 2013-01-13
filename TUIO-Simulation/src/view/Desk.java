@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel; 
+import javax.swing.JTextField;
 
 public class Desk extends JFrame{
 
@@ -39,19 +40,23 @@ public class Desk extends JFrame{
 	//This is the top part of the menuDesk with the information about the TUIO
 	public JPanel topMenuDesk() {
 		JPanel p = new JPanel();
-		p.setLayout(new GridLayout(3,2));
+		p.setLayout(new GridLayout(4,2));
 		JLabel j1 = new JLabel("ID");
-		JLabel j2 = new JLabel("#");
-		JLabel j3 = new JLabel("Position");
-		JLabel j4 = new JLabel("#");
-		JLabel j5 = new JLabel("Rotation");
-		JLabel j6 = new JLabel("#");
+		JTextField j2 = new JTextField();
+		JLabel j3 = new JLabel("Position x");
+		JTextField j4 = new JTextField();
+		JLabel j5 = new JLabel("Position y");
+		JTextField j6 = new JTextField();
+		JLabel j7 = new JLabel("Rotation");
+		JTextField j8 = new JTextField();
 		p.add(j1);
 		p.add(j2);
 		p.add(j3);
 		p.add(j4);
 		p.add(j5);
 		p.add(j6);
+		p.add(j7);
+		p.add(j8);
 		return p;
 	}
 	//This is the center of the menuDesk with the tilt options
@@ -102,5 +107,4 @@ public class Desk extends JFrame{
 		return p;
 	}
 	
-
 }
