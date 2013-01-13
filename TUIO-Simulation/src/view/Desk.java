@@ -3,6 +3,8 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.MouseInfo;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,6 +17,7 @@ public class Desk extends JFrame{
 
 	public Desk() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setTitle("TUIO Desk Simulation");
 		setSize(1250, 700);
 		setLayout(new BorderLayout());
 		add(workDesk(), BorderLayout.CENTER);
@@ -41,13 +44,13 @@ public class Desk extends JFrame{
 	public JPanel topMenuDesk() {
 		JPanel p = new JPanel();
 		p.setLayout(new GridLayout(4,2));
-		JLabel j1 = new JLabel("ID");
+		JLabel j1 = new JLabel("ID:");
 		JTextField j2 = new JTextField();
-		JLabel j3 = new JLabel("Position x");
+		JLabel j3 = new JLabel("X-Axis:");
 		JTextField j4 = new JTextField();
-		JLabel j5 = new JLabel("Position y");
+		JLabel j5 = new JLabel("Y-Axis:");
 		JTextField j6 = new JTextField();
-		JLabel j7 = new JLabel("Rotation");
+		JLabel j7 = new JLabel("Rotation:");
 		JTextField j8 = new JTextField();
 		p.add(j1);
 		p.add(j2);
@@ -97,12 +100,10 @@ public class Desk extends JFrame{
 	public JPanel bottomMenuDesk() {
 		JPanel p = new JPanel();
 		p.setLayout(new GridLayout(1,3));
-		JButton b1 = new JButton("ADD");
-		JButton b2 = new JButton("DEL");
-		JButton b3 = new JButton("UPDATE");
-		p.add(b1);
-		p.add(b2);
-		p.add(b3);
+		JButton delButton = new JButton("DELETE");
+		JButton addModButton = new JButton("ADD / MODIFY");
+		p.add(delButton);
+		p.add(addModButton);
 		
 		return p;
 	}
