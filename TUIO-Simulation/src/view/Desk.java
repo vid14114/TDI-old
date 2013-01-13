@@ -91,11 +91,7 @@ public class Desk extends JFrame{
 		//Panel for the bottom
 		JPanel bottomPanel=new JPanel();
 		bottomPanel.setLayout(new FlowLayout());
-		
-		
-
-		
-		return p;
+		return master;
 	}
 	//This is the south of the menuDesk with the add,delete,update options - maybe implemented as a menu
 	public JPanel bottomMenuDesk() {
