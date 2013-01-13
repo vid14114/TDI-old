@@ -1,9 +1,13 @@
 package model;
 
 public class TUIO {
+	//The id of the TUIO - this value must be unique
 	private int id;
+	// Position on the x-axis
 	private int xPos;
+	//Position on the y-axis
 	private int yPos;
+	//Rotation of the TUIO 0= no rotation 360=0 and 180 is flipped.
 	private double rotation;
 	public TUIO(int id, int xPos, int yPos, double rotation){
 		this.id=id;
