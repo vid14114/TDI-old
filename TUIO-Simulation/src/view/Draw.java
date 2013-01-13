@@ -5,6 +5,10 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import control.Main;
+
+import model.TUIO;
+
 public class Draw extends JPanel {
 
 	private static final long serialVersionUID = 5072266578204453646L;
@@ -26,7 +30,9 @@ public class Draw extends JPanel {
 	//taskbar and and the desktop
 	public void paint(Graphics g) {
 		g2D=(Graphics2D) g.create();
-		g2D.drawRect(10, 10, getWidth()/10, getHeight()/10);
+		for(TUIO t : Main.tuios){
+			g2D.drawRect(t.getxPos(), t.getyPos(), getWidth()/10, getHeight()/10);
+		}
 		g2D.drawRect(0, getHeight()/5*4, getWidth(), 1);
 	}
 

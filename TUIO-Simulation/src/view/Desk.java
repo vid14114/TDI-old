@@ -2,16 +2,11 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.lang.reflect.Array;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import model.TUIO;
+import javax.swing.JPanel; 
 
 public class Desk extends JFrame{
 
