@@ -31,9 +31,9 @@ public class Draw extends JPanel {
 	public void paint(Graphics g) {
 		g2D=(Graphics2D) g.create();
 		for(TUIO t : Main.tuios){
-			g2D.drawRect(t.getxPos(), t.getyPos(), getWidth()/10, getHeight()/10);
+			g2D.drawRect(t.getxPos(), t.getyPos(), 70, 50);
 		}
-		g2D.drawRect(0, getHeight()/5*4, getWidth(), 1);
+		g2D.drawRect(0, getHeight()-70, getWidth(), 1);
 	}
 
 

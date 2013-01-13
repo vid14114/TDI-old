@@ -13,7 +13,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		Desk d = new Desk();
 		tuios[0]=new TUIO(1, 10, 10, 0);
-		tuios[1]=new TUIO(2, 50, 50, 0);
+		tuios[1]=new TUIO(2, 80, 80, 0);
 	}
 
 }
