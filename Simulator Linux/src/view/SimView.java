@@ -148,16 +148,8 @@ public class SimView extends JFrame{
 				if(taskLabels[i].getIcon() != null && taskLabels[i].getIcon().equals(icons.get(j).getIcon()) && !icons.get(j).getOpened())
 				{
 					Process p=Runtime.getRuntime().exec(icons.get(j).getExec());
-					for(int k=0; k<newIcons.size(); k++)
-					{
-						if(icons.get(j).equals(newIcons.get(k)))
-						{
-							newIcons.get(k).setOpened(true);
-							newIcons.get(k).setProcess(p);
-							String str=p.toString();
-							System.out.println(str);
-						}
-					}
+					icons.get(j).setOpened(true);
+					icons.get(j).setProcess(p);
 				}
 			}
 		}

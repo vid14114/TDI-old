@@ -76,6 +76,8 @@ public class Icon {
 		{
 			iconName=getIconVar("Icon");
 			exec=getIconVar("Exec");
+			if(exec.contains("%U"))
+				exec=exec.substring(0, exec.length()-2);
 			findIcon(dir);
 		}
 	}
@@ -186,21 +188,6 @@ public class Icon {
 		{
 			String[] splitLine=line.split("=");
 			if(splitLine[0].equals(what)){
-				br.close();
-				return splitLine[1];
-			}
-		}
-		br.close();
-		return null;
-	}
-	public String getExePath(String iconName)throws IOException
-	{
-		System.out.println(config);
-		BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream("/usr/share/applications/"+iconName+".desktop")));
-		for(String line=br.readLine(); line!=null; line=br.readLine())
-		{
-			String[] splitLine=line.split("=");
-			if(splitLine[0].equals("Exec")){
 				br.close();
 				return splitLine[1];
 			}
