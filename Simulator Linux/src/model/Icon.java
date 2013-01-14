@@ -30,7 +30,7 @@ public class Icon {
 	private String exec="";
 	private Process process;
 	File dir=new File("/usr/share/icons");
-	private String pid; //process ID
+	private String wmctrl; //wmctrl ID
 	
 	@Override
 	/**
@@ -255,11 +255,11 @@ public class Icon {
 		return result;	
 	}
 
-	public String getPid() {
-		return pid;
+	public String getWmctrl() {
+		return wmctrl;
 	}
 
-	public void setPid(String pid) {
-		this.pid = pid;
+	public void setWmctrl(String wmctrl) {
+		this.wmctrl = wmctrl;
 	}
 }

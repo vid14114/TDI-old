@@ -150,30 +150,60 @@ public class SimView extends JFrame{
 		{
 			for(int j=0; j<icons.size(); j++)
 			{
-				if(taskLabels[i].getIcon() != null && taskLabels[i].getIcon().equals(icons.get(j).getIcon()) && icons.get(j).getPid()==null)
+				if(taskLabels[i].getIcon() != null && taskLabels[i].getIcon().equals(icons.get(j).getIcon()) && icons.get(j).getWmctrl()==null)
 				{
 					String exec=icons.get(j).getExec();
 					Process p=Runtime.getRuntime().exec(exec); //excecute the program
-					Process pid=Runtime.getRuntime().exec("ps a"); //get a list of all processes with name+pid
-					BufferedReader br=new BufferedReader(new InputStreamReader(pid.getInputStream()));
-					String line;
-					while((line = br.readLine()) !=null)
-					{
-						if(line.contains(exec))
-							break; //find line corresponding to our program
-					}
-					int index=1;
-					for(; index<line.length(); index++)
-					{
-						if(!Character.isDigit(line.charAt(index)))
-							break; //find the end-point of the Process number (ID)
-					}
-					icons.get(j).setPid(line.substring(1, index));
 					icons.get(j).setProcess(p);
+					Process pid=Runtime.getRuntime().exec("ps a"); //get a list of all processes with name+PID
+					
+					
+					BufferedReader br_pid=new BufferedReader(new InputStreamReader(pid.getInputStream()));
+					
+					
+					String pid_line;
+					while((pid_line = br_pid.readLine()) !=null)
+					{
+						if(pid_line.contains(exec))
+							break; //find line from 'ps a' corresponding to our program
+					}
+					int index=1; //index begins at 1 because every line from 'ps a' starts with a whitespace
+					for(; index<pid_line.length(); index++)
+					{
+						if(!Character.isDigit(pid_line.charAt(index)))
+						{
+							pid_line=pid_line.substring(1, index);
+							break; //find the end-point of the Process number (ID)
+						}
+					}
+					while(icons.get(j).getWmctrl()==null) //some windows need long to open... need to wait until they are fully opened 
+					{
+						Process wmctrl=Runtime.getRuntime().exec("wmctrl -lp"); // get a list with all windows with the wmctrlID and the PID
+						BufferedReader br_wmctrl=new BufferedReader(new InputStreamReader(wmctrl.getInputStream()));
+						String wmctrl_line;
+						while((wmctrl_line = br_wmctrl.readLine()) !=null)
+						{
+							if(wmctrl_line.contains(pid_line)) //find line from 'wmctrl -lp' corresponding to our program
+								break; //no need to furthermore iterate through the loop
+						}
+						index=2;
+						for(; index<wmctrl_line.length(); index++) //index begins at 2 because every wmctrl-ID starts with '0x...'
+						{
+							if(!Character.isDigit(pid_line.charAt(index)))
+							{
+								icons.get(j).setWmctrl(wmctrl_line.substring(0, index));
+								break; //no need to furthermore iterate through the loop
+							}
+						}
+					}
+					
+					
+					System.out.println(icons.get(j).getWmctrl());
 					break;
 				}
 			}
 		}
+		
 		
 		for(int i=0; i<icons.size(); i++) //closing (okay... killing :/  ) a program
 		{
@@ -190,7 +220,7 @@ public class SimView extends JFrame{
 			{
 				if(icons.get(i).getProcess()!=null)
 				{
-					icons.get(i).setPid(null);
+					icons.get(i).setWmctrl(null);
 					icons.get(i).getProcess().destroy();
 				}
 			}
