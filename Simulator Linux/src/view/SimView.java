@@ -5,7 +5,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -141,32 +146,51 @@ public class SimView extends JFrame{
 			}
 		}
 		
-		for(int i=0; i<taskLabels.length; i++)
+		for(int i=0; i<taskLabels.length; i++) //opening a program
 		{
 			for(int j=0; j<icons.size(); j++)
 			{
-				if(taskLabels[i].getIcon() != null && taskLabels[i].getIcon().equals(icons.get(j).getIcon()) && !icons.get(j).getOpened())
+				if(taskLabels[i].getIcon() != null && taskLabels[i].getIcon().equals(icons.get(j).getIcon()) && icons.get(j).getPid()==null)
 				{
-					Process p=Runtime.getRuntime().exec(icons.get(j).getExec());
-					icons.get(j).setOpened(true);
+					String exec=icons.get(j).getExec();
+					Process p=Runtime.getRuntime().exec(exec); //excecute the program
+					Process pid=Runtime.getRuntime().exec("ps a"); //get a list of all processes with name+pid
+					BufferedReader br=new BufferedReader(new InputStreamReader(pid.getInputStream()));
+					String line;
+					while((line = br.readLine()) !=null)
+					{
+						if(line.contains(exec))
+							break; //find line corresponding to our program
+					}
+					int index=1;
+					for(; index<line.length(); index++)
+					{
+						if(!Character.isDigit(line.charAt(index)))
+							break; //find the end-point of the Process number (ID)
+					}
+					icons.get(j).setPid(line.substring(1, index));
 					icons.get(j).setProcess(p);
+					break;
 				}
 			}
 		}
 		
-		for(int i=0; i<icons.size(); i++)
+		for(int i=0; i<icons.size(); i++) //closing (okay... killing :/  ) a program
 		{
 			int count=0;
 			for(int j=0; j<taskLabels.length; j++)
 			{
 				if(taskLabels[j].getIcon() != null && taskLabels[j].getIcon().equals(icons.get(i).getIcon()))
+				{
 					count++;
+					break;
+				}
 			}
 			if(count<1)
 			{
 				if(icons.get(i).getProcess()!=null)
 				{
-					icons.get(i).setOpened(false);
+					icons.get(i).setPid(null);
 					icons.get(i).getProcess().destroy();
 				}
 			}
@@ -190,7 +214,6 @@ class CustomPanel extends JPanel{
 	private static final long serialVersionUID = 8731589894224036259L;
 	Image img;
 	SimView mother;
-	
 	public CustomPanel(SimView mother,Image img, int rows, int cols){
 		setLayout(new GridLayout(rows, cols));
 		setSize(mother.getWidth(), mother.getHeight()/100*95);

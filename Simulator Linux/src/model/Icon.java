@@ -28,9 +28,9 @@ public class Icon {
 	private ImageIcon icon;
 	private int searchDepth=0;
 	private String exec="";
-	private boolean opened=false;
 	private Process process;
 	File dir=new File("/usr/share/icons");
+	private String pid; //process ID
 	
 	@Override
 	/**
@@ -49,16 +49,6 @@ public class Icon {
 		setRow(row);
 		setCol(col);
 		
-	}
-
-	public boolean getOpened()
-	{
-		return opened;
-	}
-	
-	public void setOpened(boolean opened)
-	{
-		this.opened=opened;
 	}
 	
 	public Process getProcess() {
@@ -263,5 +253,13 @@ public class Icon {
 			
 			
 		return result;	
+	}
+
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
 }
