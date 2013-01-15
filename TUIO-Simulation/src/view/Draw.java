@@ -2,11 +2,8 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import javax.swing.JPanel;
-
 import control.Main;
-
 import model.TUIO;
 
 public class Draw extends JPanel {
