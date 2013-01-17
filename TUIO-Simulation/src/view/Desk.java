@@ -76,10 +76,13 @@ public class Desk extends JFrame{
 		//Panel for the top
 		JPanel topPanel=new JPanel();
 		topPanel.setLayout(new FlowLayout());
+		topPanel.add(tiltUp, topPanel.CENTER_ALIGNMENT);
+		
 		
 		//Panel for the middle -> button left
 		JPanel middlePanel1=new JPanel();
 		middlePanel1.setLayout(new FlowLayout());
+		topPanel.add(middlePanel1, topPanel.CENTER_ALIGNMENT);
 		
 		//Panel for the middle -> TDI
 		JPanel middlePanel2=new JPanel();
@@ -92,6 +95,12 @@ public class Desk extends JFrame{
 		//Panel for the bottom
 		JPanel bottomPanel=new JPanel();
 		bottomPanel.setLayout(new FlowLayout());
+		
+		master.add(topPanel);
+		master.add(middlePanel1);
+		master.add(middlePanel2);
+		master.add(middlePanel3);
+		master.add(bottomPanel);
 		return master;
 	}
 	//This is the south of the menuDesk with the add,delete,update options - maybe implemented as a menu
