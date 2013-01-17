@@ -67,7 +67,8 @@ public class Desk extends JFrame{
 		JButton tiltRight=new JButton("Right");
 		JButton tiltDown=new JButton("Down");
 		JButton tiltUp=new JButton("Up");
-		JLabel middle=new JLabel("TDI");
+		JLabel TDI=new JLabel("TDI");
+		
 		
 		//master Panel
 		JPanel master = new JPanel();
@@ -82,19 +83,22 @@ public class Desk extends JFrame{
 		//Panel for the middle -> button left
 		JPanel middlePanel1=new JPanel();
 		middlePanel1.setLayout(new FlowLayout());
-		topPanel.add(middlePanel1, topPanel.CENTER_ALIGNMENT);
+		middlePanel1.add(tiltLeft, topPanel.CENTER_ALIGNMENT);
 		
 		//Panel for the middle -> TDI
 		JPanel middlePanel2=new JPanel();
 		middlePanel2.setLayout(new FlowLayout());
+		middlePanel2.add(TDI, topPanel.CENTER_ALIGNMENT);
 		
 		//Panel for the middle -> button right
 		JPanel middlePanel3=new JPanel();
 		middlePanel3.setLayout(new FlowLayout());
+		middlePanel3.add(tiltRight, topPanel.CENTER_ALIGNMENT);
 		
 		//Panel for the bottom
 		JPanel bottomPanel=new JPanel();
 		bottomPanel.setLayout(new FlowLayout());
+		bottomPanel.add(tiltDown, topPanel.CENTER_ALIGNMENT);
 		
 		master.add(topPanel);
 		master.add(middlePanel1);
