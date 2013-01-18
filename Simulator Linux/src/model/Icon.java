@@ -66,8 +66,8 @@ public class Icon {
 		{
 			iconName=getIconVar("Icon");
 			exec=getIconVar("Exec");
-			if(exec.contains("%U"))
-				exec=exec.substring(0, exec.length()-2);
+			if(exec.contains("%U") || exec.contains("%F"))
+				exec=exec.substring(0, exec.length()-3);
 			findIcon(dir);
 		}
 	}

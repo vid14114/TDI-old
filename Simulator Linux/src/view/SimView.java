@@ -153,7 +153,7 @@ public class SimView extends JFrame{
 				if(taskLabels[i].getIcon() != null && taskLabels[i].getIcon().equals(icons.get(j).getIcon()) && icons.get(j).getWmctrl()==null)
 				{
 					String exec=icons.get(j).getExec();
-					Process p=Runtime.getRuntime().exec(exec); //excecute the program
+					Process p=Runtime.getRuntime().exec(exec); //execute the program
 					icons.get(j).setProcess(p);
 					Process pid=Runtime.getRuntime().exec("ps a"); //get a list of all processes with name+PID
 					
@@ -187,18 +187,17 @@ public class SimView extends JFrame{
 								break; //no need to furthermore iterate through the loop
 						}
 						index=2;
+						if(wmctrl_line==null)
+							continue;
 						for(; index<wmctrl_line.length(); index++) //index begins at 2 because every wmctrl-ID starts with '0x...'
 						{
-							if(!Character.isDigit(pid_line.charAt(index)))
+							if(wmctrl_line.charAt(index)==' ')
 							{
 								icons.get(j).setWmctrl(wmctrl_line.substring(0, index));
 								break; //no need to furthermore iterate through the loop
 							}
 						}
 					}
-					
-					
-					System.out.println(icons.get(j).getWmctrl());
 					break;
 				}
 			}
@@ -218,10 +217,11 @@ public class SimView extends JFrame{
 			}
 			if(count<1)
 			{
-				if(icons.get(i).getProcess()!=null)
+				if(icons.get(i).getWmctrl()!=null)
 				{
+					String[] cmd={"wmctrl", "-i", "-c", ""+icons.get(i).getWmctrl()};
+					Runtime.getRuntime().exec(cmd);
 					icons.get(i).setWmctrl(null);
-					icons.get(i).getProcess().destroy();
 				}
 			}
 		}
