@@ -30,7 +30,10 @@ public class Icon {
 	private String exec="";
 	private Process process;
 	File dir=new File("/usr/share/icons");
-	private String wmctrl; //wmctrl ID
+	/**
+	 * The id used to minimize, maximize and close programs
+	 */
+	private String wmctrl;
 	
 	@Override
 	/**
@@ -255,10 +258,17 @@ public class Icon {
 		return result;	
 	}
 
+	/**
+	 * @return the wmctrl id used to manipulate programs
+	 */
 	public String getWmctrl() {
 		return wmctrl;
 	}
 
+	/**
+	 * Sets the wmctrl id
+	 * @param wmctrl
+	 */
 	public void setWmctrl(String wmctrl) {
 		this.wmctrl = wmctrl;
 	}
