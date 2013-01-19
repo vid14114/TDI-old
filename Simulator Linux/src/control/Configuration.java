@@ -230,7 +230,7 @@ public class Configuration {
 					BufferedReader br_pid=new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec("ps -a").getInputStream())); //Get a list of all pids
 					String pid_line;
 					while((pid_line = br_pid.readLine()) !=null && !pid_line.contains(exec)); //Shorter way of searching for the right line
-					pid_line.trim(); //Removes all the leading or trailing whitespaces
+					pid_line=pid_line.trim(); //Removes all the leading or trailing whitespaces
 					int i2 = 0;
 					for(; i2 < pid_line.length() && Character.isDigit(pid_line.charAt(i2)); i2++);					
 					pid_line=pid_line.substring(1, i2);
