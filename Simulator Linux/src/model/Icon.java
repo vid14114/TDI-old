@@ -3,6 +3,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -27,7 +28,9 @@ public class Icon {
 	private ImageIcon icon;
 	private int searchDepth=0;
 	private String exec="";
+	private Process process;
 	File dir=new File("/usr/share/icons");
+	private String wmctrl; //wmctrl ID
 	
 	@Override
 	/**
@@ -47,6 +50,14 @@ public class Icon {
 		setCol(col);
 		
 	}
+	
+	public Process getProcess() {
+		return process;
+	}
+
+	public void setProcess(Process process) {
+		this.process = process;
+	}
 
 	public void getConfig() throws IOException
 	{
@@ -54,6 +65,9 @@ public class Icon {
 		if(config!=null)
 		{
 			iconName=getIconVar("Icon");
+			exec=getIconVar("Exec");
+			if(exec.contains("%U") || exec.contains("%F"))
+				exec=exec.substring(0, exec.length()-3);
 			findIcon(dir);
 		}
 	}
@@ -125,17 +139,18 @@ public class Icon {
 		{
 			if(file.getName().equals(name.substring(1, name.length()-1)) && file.canExecute() && !file.isDirectory())
 			{
-				setIcon(new ImageIcon("/usr/share/icons/gnome/48x48/apps/utilities-terminal.png"),true);
+				setIcon(new ImageIcon("/usr/share/icons/gnome/48x48/apps/utilities-terminal.png"), true);
 				BufferedReader br=new BufferedReader(new FileReader(file));
 				while(br.ready())
 					exec+=""+br.readLine()+"\n";
 				br.close();
+				break;
 			}
 			if(file.isDirectory()) 
 			{
 				if(file.getName().equals(name.substring(1, name.length()-1)))
 				{
-					setIcon (new ImageIcon("/usr/share/icons/gnome/48x48/places/folder.png"),true);
+					setIcon (new ImageIcon("/usr/share/icons/gnome/48x48/places/folder.png"), true);
 					exec = "thunar "+file.getAbsolutePath();
 					break;
 				}
@@ -145,7 +160,7 @@ public class Icon {
 			for(String line=br.readLine(); line!=null; line=br.readLine())
 			{
 				String[] splitLine=line.split("=");
-				if(splitLine[0].equals("Name"))
+				if(splitLine.length>0 && splitLine[0].equals("Name"))
 				{
 					if(splitLine[1].equals(name.substring(1, name.length()-1)))
 						config=file;
@@ -154,7 +169,6 @@ public class Icon {
 			}
 			br.close();
 		}
-			
 	}
 	//returns a specific variable out the confName
 	public String getIconVar(String what) throws IOException
@@ -171,6 +185,8 @@ public class Icon {
 		br.close();
 		return null;
 	}
+	
+	
 	
 	/** @Vidovic--> more info please
 	 * Goes through all subdirectories of a given folder to find a graphic that matches the icon
@@ -237,5 +253,13 @@ public class Icon {
 			
 			
 		return result;	
+	}
+
+	public String getWmctrl() {
+		return wmctrl;
+	}
+
+	public void setWmctrl(String wmctrl) {
+		this.wmctrl = wmctrl;
 	}
 }

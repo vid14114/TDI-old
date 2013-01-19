@@ -5,7 +5,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -58,9 +63,9 @@ public class SimView extends JFrame{
 	{
 		for(int i=0; i<icons.size(); i++)
 		{
-			if(icons.get(i).getRow()>rows)
+			if(icons.get(i).getRow()>=rows)
 				rows=icons.get(i).getRow()+1;//Here +1 needs to be added cause the getRow() accesses a given position and arrays start with 0
-			if(icons.get(i).getCol()>cols)
+			if(icons.get(i).getCol()>=cols)
 				cols=icons.get(i).getCol()+1;
 		}
 		
@@ -96,13 +101,14 @@ public class SimView extends JFrame{
 		for(int i=0; i<icons.size(); i++)
 		{
 			//populate the grid with icons
+
 			if(icons.get(i).getIcon() != null)
 				labels[icons.get(i).getRow()][icons.get(i).getCol()].setIcon(icons.get(i).getIcon());			
 			else
 				 labels[icons.get(i).getRow()][icons.get(i).getCol()].setText((icons.get(i).getName().substring(1, icons.get(i).getName().length()-1)));		
 			labels[icons.get(i).getRow()][icons.get(i).getCol()].setName(icons.get(i).getName());			
 		}
-		//Here maria can change the background of the jpanel
+		//Here you can change the background of the jpanel
 		panel.setBackground(Color.BLACK);
 		panel.setPreferredSize(new Dimension(width, height/10));
 		//add the JPanel to the frame and make everything visible
@@ -111,7 +117,7 @@ public class SimView extends JFrame{
 		setVisible(true);
 	}	
 	
-	public ArrayList<Icon> updateDesktop() 
+	public ArrayList<Icon> updateDesktop() throws IOException 
 	{		
 		ArrayList<Icon> newIcons=new ArrayList<Icon>();
 		for(int i=0; i<labels.length; i++)
@@ -123,27 +129,11 @@ public class SimView extends JFrame{
 				if(labels[i][j].getIcon()!=null)
 				{	
 					icon.setIcon(labels[i][j].getIcon(), false);
-					//checks if icon is in taskbar 
-					if(i==rows)
-					{	
-						// runs the program
-						try {
-							String exePath=icon.getIconVar("Exec");
-							Runtime.getRuntime().exec(exePath);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-					}
 				}	
 				if(icon.getName().length()>1 || icon.getIcon()!=null)
 					newIcons.add(icon);
-				
-				
 			}
 		}
-		
 		if(newIcons.size()<icons.size())
 		{
 			for(int i=0; i<icons.size(); i++)
@@ -155,6 +145,87 @@ public class SimView extends JFrame{
 				}
 			}
 		}
+		
+		for(int i=0; i<taskLabels.length; i++) //opening a program
+		{
+			for(int j=0; j<icons.size(); j++)
+			{
+				if(taskLabels[i].getIcon() != null && taskLabels[i].getIcon().equals(icons.get(j).getIcon()) && icons.get(j).getWmctrl()==null)
+				{
+					String exec=icons.get(j).getExec();
+					Process p=Runtime.getRuntime().exec(exec); //execute the program
+					icons.get(j).setProcess(p);
+					Process pid=Runtime.getRuntime().exec("ps a"); //get a list of all processes with name+PID
+					
+					
+					BufferedReader br_pid=new BufferedReader(new InputStreamReader(pid.getInputStream()));
+					
+					
+					String pid_line;
+					while((pid_line = br_pid.readLine()) !=null)
+					{
+						if(pid_line.contains(exec))
+							break; //find line from 'ps a' corresponding to our program
+					}
+					int index=1; //index begins at 1 because every line from 'ps a' starts with a whitespace
+					for(; index<pid_line.length(); index++)
+					{
+						if(!Character.isDigit(pid_line.charAt(index)))
+						{
+							pid_line=pid_line.substring(1, index);
+							break; //find the end-point of the Process number (ID)
+						}
+					}
+					while(icons.get(j).getWmctrl()==null) //some windows need long to open... need to wait until they are fully opened 
+					{
+						Process wmctrl=Runtime.getRuntime().exec("wmctrl -lp"); // get a list with all windows with the wmctrlID and the PID
+						BufferedReader br_wmctrl=new BufferedReader(new InputStreamReader(wmctrl.getInputStream()));
+						String wmctrl_line;
+						while((wmctrl_line = br_wmctrl.readLine()) !=null)
+						{
+							if(wmctrl_line.contains(pid_line)) //find line from 'wmctrl -lp' corresponding to our program
+								break; //no need to furthermore iterate through the loop
+						}
+						index=2;
+						if(wmctrl_line==null)
+							continue;
+						for(; index<wmctrl_line.length(); index++) //index begins at 2 because every wmctrl-ID starts with '0x...'
+						{
+							if(wmctrl_line.charAt(index)==' ')
+							{
+								icons.get(j).setWmctrl(wmctrl_line.substring(0, index));
+								break; //no need to furthermore iterate through the loop
+							}
+						}
+					}
+					break;
+				}
+			}
+		}
+		
+		
+		for(int i=0; i<icons.size(); i++) //closing (okay... killing :/  ) a program
+		{
+			int count=0;
+			for(int j=0; j<taskLabels.length; j++)
+			{
+				if(taskLabels[j].getIcon() != null && taskLabels[j].getIcon().equals(icons.get(i).getIcon()))
+				{
+					count++;
+					break;
+				}
+			}
+			if(count<1)
+			{
+				if(icons.get(i).getWmctrl()!=null)
+				{
+					String[] cmd={"wmctrl", "-i", "-c", ""+icons.get(i).getWmctrl()};
+					Runtime.getRuntime().exec(cmd);
+					icons.get(i).setWmctrl(null);
+				}
+			}
+		}
+		
 		repaint();
 		return newIcons;
 	}
@@ -173,7 +244,6 @@ class CustomPanel extends JPanel{
 	private static final long serialVersionUID = 8731589894224036259L;
 	Image img;
 	SimView mother;
-	
 	public CustomPanel(SimView mother,Image img, int rows, int cols){
 		setLayout(new GridLayout(rows, cols));
 		setSize(mother.getWidth(), mother.getHeight()/100*95);

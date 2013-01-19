@@ -1,64 +1,32 @@
 package view;
 
-import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import javax.swing.JPanel;
+import control.Main;
+import model.TUIO;
 
-public class Draw extends Canvas {
+public class Draw extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5072266578204453646L;
 	int xPos;
 	int yPos;
 	int height;
 	int width;
+	Graphics2D g2D;
 
-	enum drawableStuff {
-		Rectangle
+	public Draw() {
+
 	}
-
-	drawableStuff drawing;
-
-	public Draw(int xPos, int yPos, int width, int height) {
-		this.xPos = xPos;
-		this.yPos = yPos;
-		this.width = width;
-		this.height = height;
-	}
-
+	//Just for experimentation right now - draws a line that seperates the
+	//taskbar and and the desktop
 	public void paint(Graphics g) {
-		switch (drawing) {
-		case Rectangle:
-			g.setColor(Color.black);
-			g.fillRect(xPos, yPos, width, height);
-			break;
-		default:
-			break;
+		g2D=(Graphics2D) g.create();
+		//Goes through the array of TUIOs and draws every one of them.
+		for(TUIO t : Main.tuios){
+			g2D.drawRect(t.getxPos(), t.getyPos(), 70, 50);
 		}
-	}
-	
-
-	@Override
-	public void update(Graphics arg0) {
-		// TODO Auto-generated method stub
-		switch (drawing) {
-		case Rectangle:
-			arg0.setColor(Color.black);
-			arg0.fillRect(xPos, yPos, width, height);
-			break;
-		default:
-			break;
-		}
-	}
-
-	public drawableStuff getDrawing() {
-		return drawing;
-	}
-
-	public void setDrawing(drawableStuff drawing) {
-		this.drawing = drawing;
+		g2D.drawRect(0, getHeight()-70, getWidth(), 1);
 	}
 
 }
