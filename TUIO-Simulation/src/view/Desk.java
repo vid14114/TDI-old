@@ -34,8 +34,7 @@ public class Desk extends JFrame{
 		JPanel p = new JPanel();
 		p.setLayout(new BorderLayout());
 		p.add(topMenuDesk(),BorderLayout.NORTH);
-		p.add(centralMenuDesk(),BorderLayout.CENTER);
-		p.add(bottomMenuDesk(),BorderLayout.SOUTH);
+		p.add(bottomMenuDesk(),BorderLayout.CENTER);
 		return p;
 	}
 	//This is the top part of the menuDesk with the information about the TUIO
@@ -61,7 +60,7 @@ public class Desk extends JFrame{
 		return p;
 	}
 	//This is the center of the menuDesk with the tilt options
-	public JPanel centralMenuDesk() {
+	public JPanel bottomMenuDesk() {
 		//buttons
 		JButton tiltLeft=new JButton("Left");
 		JButton tiltRight=new JButton("Right");
@@ -106,17 +105,6 @@ public class Desk extends JFrame{
 		master.add(middlePanel3);
 		master.add(bottomPanel);
 		return master;
-	}
-	//This is the south of the menuDesk with the add,delete,update options - maybe implemented as a menu
-	public JPanel bottomMenuDesk() {
-		JPanel p = new JPanel();
-		p.setLayout(new GridLayout(1,3));
-		JButton delButton = new JButton("DELETE");
-		JButton addModButton = new JButton("ADD / MODIFY");
-		p.add(delButton);
-		p.add(addModButton);
-		
-		return p;
 	}
 	
 }
