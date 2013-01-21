@@ -3,9 +3,14 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel; 
 import javax.swing.JTextField;
 
@@ -20,7 +25,50 @@ public class Desk extends JFrame{
 		setLayout(new BorderLayout());
 		add(workDesk(), BorderLayout.CENTER);
 		add(menuDesk(), BorderLayout.EAST);
+		setJMenuBar(menuBar());
 		setVisible(true);
+	}
+	
+	public JMenuBar menuBar(){
+		//Where the GUI is created:
+		JMenuBar menuBar;
+		JMenu menu;
+		JMenuItem menuItem;
+		JFrame frame;
+		
+		//Create the menu bar.
+		menuBar = new JMenuBar();
+
+		//Build the first menu.
+		menu = new JMenu("A Menu");
+		menu.setMnemonic(KeyEvent.VK_A);
+		//should show you the description!!!!
+		menu.setToolTipText("This allows you to modify/delete/add TDIs");
+		menuBar.add(menu);
+
+		//a group of JMenuItems
+		menuItem = new JMenuItem("Add/Modify");
+		//shows the Mnemonic to use this item
+		//menuItem.setAccelerator(KeyStroke.getKeyStroke(
+		  //      KeyEvent.VK_1, ActionEvent.ALT_MASK));
+		menuItem.getAccessibleContext().setAccessibleDescription(
+		        "This doesn't really do anything");
+		menu.add(menuItem);
+
+		menuItem = new JMenuItem("Delete");
+		menu.add(menuItem);
+
+		//Build second menu in the menu bar.
+		menu = new JMenu("About");
+		menu.getAccessibleContext().setAccessibleDescription(
+		        "This menu does nothing too :)");
+		menuBar.add(menu);
+		
+		menu = new JMenu("Help");
+		menu.getAccessibleContext().setAccessibleDescription(
+		        "This menu does nothing too :)");
+		menuBar.add(menu);
+		return menuBar;
 	}
 
 	//This simulates the desk the user works on
