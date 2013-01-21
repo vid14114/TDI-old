@@ -28,14 +28,14 @@ public class Desk extends JFrame{
 		setJMenuBar(menuBar());
 		setVisible(true);
 	}
-	
+
 	public JMenuBar menuBar(){
 		//Where the GUI is created:
 		JMenuBar menuBar;
 		JMenu menu;
 		JMenuItem menuItem;
 		JFrame frame;
-		
+
 		//Create the menu bar.
 		menuBar = new JMenuBar();
 
@@ -45,14 +45,13 @@ public class Desk extends JFrame{
 		//should show you the description!!!!
 		menu.setToolTipText("This allows you to modify/delete/add TDIs");
 		menuBar.add(menu);
-
 		//a group of JMenuItems
 		menuItem = new JMenuItem("Add/Modify");
 		//shows the Mnemonic to use this item
 		//menuItem.setAccelerator(KeyStroke.getKeyStroke(
-		  //      KeyEvent.VK_1, ActionEvent.ALT_MASK));
+		//      KeyEvent.VK_1, ActionEvent.ALT_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription(
-		        "This doesn't really do anything");
+				"This doesn't really do anything");
 		menu.add(menuItem);
 
 		menuItem = new JMenuItem("Delete");
@@ -61,12 +60,12 @@ public class Desk extends JFrame{
 		//Build second menu in the menu bar.
 		menu = new JMenu("About");
 		menu.getAccessibleContext().setAccessibleDescription(
-		        "This menu does nothing too :)");
+				"This menu does nothing too :)");
 		menuBar.add(menu);
-		
+
 		menu = new JMenu("Help");
 		menu.getAccessibleContext().setAccessibleDescription(
-		        "This menu does nothing too :)");
+				"This menu does nothing too :)");
 		menuBar.add(menu);
 		return menuBar;
 	}
@@ -115,38 +114,38 @@ public class Desk extends JFrame{
 		JButton tiltDown=new JButton("Down");
 		JButton tiltUp=new JButton("Up");
 		JLabel TDI=new JLabel("TDI");
-		
-		
+
+
 		//master Panel
 		JPanel master = new JPanel();
 		master.setLayout(new GridLayout(3,3));
-		
+
 		//Panel for the top
 		JPanel topPanel=new JPanel();
 		topPanel.setLayout(new FlowLayout());
 		topPanel.add(tiltUp, topPanel.CENTER_ALIGNMENT);
-		
-		
+
+
 		//Panel for the middle -> button left
 		JPanel middlePanel1=new JPanel();
 		middlePanel1.setLayout(new FlowLayout());
 		middlePanel1.add(tiltLeft, topPanel.CENTER_ALIGNMENT);
-		
+
 		//Panel for the middle -> TDI
 		JPanel middlePanel2=new JPanel();
 		middlePanel2.setLayout(new FlowLayout());
 		middlePanel2.add(TDI, topPanel.CENTER_ALIGNMENT);
-		
+
 		//Panel for the middle -> button right
 		JPanel middlePanel3=new JPanel();
 		middlePanel3.setLayout(new FlowLayout());
 		middlePanel3.add(tiltRight, topPanel.CENTER_ALIGNMENT);
-		
+
 		//Panel for the bottom
 		JPanel bottomPanel=new JPanel();
 		bottomPanel.setLayout(new FlowLayout());
 		bottomPanel.add(tiltDown, topPanel.CENTER_ALIGNMENT);
-		
+
 		master.add(topPanel);
 		master.add(middlePanel1);
 		master.add(middlePanel2);
@@ -154,5 +153,5 @@ public class Desk extends JFrame{
 		master.add(bottomPanel);
 		return master;
 	}
-	
+
 }
