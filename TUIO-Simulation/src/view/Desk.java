@@ -118,39 +118,51 @@ public class Desk extends JFrame{
 
 		//master Panel
 		JPanel master = new JPanel();
-		master.setLayout(new GridLayout(3,3));
+		//GridLayout(rows,cols)
+		GridLayout gr=new GridLayout(3,1);
+		master.setLayout(gr);
+		
 
-		//Panel for the top
+		//Panel for the top -> button up
 		JPanel topPanel=new JPanel();
-		topPanel.setLayout(new FlowLayout());
-		topPanel.add(tiltUp, topPanel.CENTER_ALIGNMENT);
+		//							(align, hgap, vgap)
+		topPanel.setLayout(new FlowLayout(1,1,150));
+		topPanel.add(tiltUp);
 
 
 		//Panel for the middle -> button left
 		JPanel middlePanel1=new JPanel();
 		middlePanel1.setLayout(new FlowLayout());
-		middlePanel1.add(tiltLeft, topPanel.CENTER_ALIGNMENT);
+		middlePanel1.add(tiltLeft);
 
 		//Panel for the middle -> TDI
 		JPanel middlePanel2=new JPanel();
 		middlePanel2.setLayout(new FlowLayout());
-		middlePanel2.add(TDI, topPanel.CENTER_ALIGNMENT);
+		middlePanel2.add(TDI);
 
 		//Panel for the middle -> button right
 		JPanel middlePanel3=new JPanel();
 		middlePanel3.setLayout(new FlowLayout());
-		middlePanel3.add(tiltRight, topPanel.CENTER_ALIGNMENT);
+		middlePanel3.add(tiltRight);
 
-		//Panel for the bottom
+		//Panel for the bottom -> button down
 		JPanel bottomPanel=new JPanel();
-		bottomPanel.setLayout(new FlowLayout());
-		bottomPanel.add(tiltDown, topPanel.CENTER_ALIGNMENT);
+		//								(align, hgap(horizontal gap), vgap(vertical gap))
+		bottomPanel.setLayout(new FlowLayout(1,1,10));
+		bottomPanel.add(tiltDown);
+		
+		//Panel for the middle so that all Three Items are in one row
+		JPanel mid=new JPanel();
+		mid.setLayout(new FlowLayout(1,10,10));
+		mid.add(middlePanel1);
+		mid.add(middlePanel2);
+		mid.add(middlePanel3);
+		
 
 		master.add(topPanel);
-		master.add(middlePanel1);
-		master.add(middlePanel2);
-		master.add(middlePanel3);
+		master.add(mid);
 		master.add(bottomPanel);
+		
 		return master;
 	}
 
