@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -109,60 +110,32 @@ public class Desk extends JFrame{
 	//This is the center of the menuDesk with the tilt options
 	public JPanel bottomMenuDesk() {
 		//buttons
+		
 		JButton tiltLeft=new JButton("Left");
 		JButton tiltRight=new JButton("Right");
 		JButton tiltDown=new JButton("Down");
 		JButton tiltUp=new JButton("Up");
 		JLabel TDI=new JLabel("TDI");
 
-
-		//master Panel
-		JPanel master = new JPanel();
+		//master panel
+		JPanel master=new JPanel();
+		master.setLayout(new FlowLayout());
+		
+		//inner Panel
+		JPanel inner = new JPanel();
 		//GridLayout(rows,cols)
-		GridLayout gr=new GridLayout(3,1);
-		master.setLayout(gr);
+		inner.setLayout(new GridLayout(3,3));
 		
+		inner.add(new JLabel());
+		inner.add(tiltUp);
+		inner.add(new JLabel());
+		inner.add(tiltLeft);
+		inner.add(TDI);
+		inner.add(tiltRight);
+		inner.add(new JLabel());
+		inner.add(tiltDown);
 
-		//Panel for the top -> button up
-		JPanel topPanel=new JPanel();
-		//							(align, hgap, vgap)
-		topPanel.setLayout(new FlowLayout(1,1,150));
-		topPanel.add(tiltUp);
-
-
-		//Panel for the middle -> button left
-		JPanel middlePanel1=new JPanel();
-		middlePanel1.setLayout(new FlowLayout());
-		middlePanel1.add(tiltLeft);
-
-		//Panel for the middle -> TDI
-		JPanel middlePanel2=new JPanel();
-		middlePanel2.setLayout(new FlowLayout());
-		middlePanel2.add(TDI);
-
-		//Panel for the middle -> button right
-		JPanel middlePanel3=new JPanel();
-		middlePanel3.setLayout(new FlowLayout());
-		middlePanel3.add(tiltRight);
-
-		//Panel for the bottom -> button down
-		JPanel bottomPanel=new JPanel();
-		//								(align, hgap(horizontal gap), vgap(vertical gap))
-		bottomPanel.setLayout(new FlowLayout(1,1,10));
-		bottomPanel.add(tiltDown);
-		
-		//Panel for the middle so that all Three Items are in one row
-		JPanel mid=new JPanel();
-		mid.setLayout(new FlowLayout(1,10,10));
-		mid.add(middlePanel1);
-		mid.add(middlePanel2);
-		mid.add(middlePanel3);
-		
-
-		master.add(topPanel);
-		master.add(mid);
-		master.add(bottomPanel);
-		
+		master.add(inner);
 		return master;
 	}
 
