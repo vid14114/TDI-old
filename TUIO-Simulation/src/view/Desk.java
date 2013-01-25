@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BoxLayout;
@@ -13,7 +14,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel; 
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 import control.TUIOMouseListener;
 
@@ -36,41 +41,94 @@ public class Desk extends JFrame{
 	public JMenuBar menuBar(){
 		//Where the GUI is created:
 		JMenuBar menuBar;
-		JMenu menu;
-		JMenuItem menuItem;
-		JFrame frame;
 
 		//Create the menu bar.
 		menuBar = new JMenuBar();
 
 		//Build the first menu.
-		menu = new JMenu("A Menu");
-		menu.setMnemonic(KeyEvent.VK_A);
-		//should show you the description!!!!
-		menu.setToolTipText("This allows you to modify/delete/add TDIs");
-		menuBar.add(menu);
+		JMenu menu1 = new JMenu("Action");
+		//gives a shortcut to menu1
+		menu1.setMnemonic(KeyEvent.VK_A);
+		menuBar.add(menu1);
+		
 		//a group of JMenuItems
-		menuItem = new JMenuItem("Add/Modify");
-		//shows the Mnemonic to use this item
-		//menuItem.setAccelerator(KeyStroke.getKeyStroke(
-		//      KeyEvent.VK_1, ActionEvent.ALT_MASK));
-		menuItem.getAccessibleContext().setAccessibleDescription(
-				"This doesn't really do anything");
-		menu.add(menuItem);
+		JMenuItem menuItem1 = new JMenuItem("Add/Modify");
+		menu1.add(menuItem1);
 
-		menuItem = new JMenuItem("Delete");
-		menu.add(menuItem);
+		JMenuItem menuItem2 = new JMenuItem("Delete");
+		menu1.add(menuItem2);
 
-		//Build second menu in the menu bar.
-		menu = new JMenu("About");
-		menu.getAccessibleContext().setAccessibleDescription(
-				"This menu does nothing too :)");
-		menuBar.add(menu);
+		//Build About menu into the menu bar
+		JMenu menu2 = new JMenu("About");
+		//gives a shortcut to menu2
+		menu2.setMnemonic(KeyEvent.VK_B);
+		menu2.addMenuListener(new MenuListener() {
+			JFrame frame = new JFrame();
+			@Override
+			public void menuSelected(MenuEvent e) {
+	            frame.requestFocus();
+	            frame.setVisible(true);
+	            frame.setTitle("About");
+	            frame.setSize(500,500);
+	            frame.setLocation(250, 100);
+	            JPanel panel = new JPanel();
+	            frame.add(panel);
+	            JTextArea text = new JTextArea("", 5, 50);
+	            text.setLineWrap(true);
+	            JScrollPane sbrText = new JScrollPane(text);
+	            sbrText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+	            frame.setAlwaysOnTop(true);
+			}
 
-		menu = new JMenu("Help");
-		menu.getAccessibleContext().setAccessibleDescription(
-				"This menu does nothing too :)");
-		menuBar.add(menu);
+			@Override
+			public void menuCanceled(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void menuDeselected(MenuEvent e) {
+				
+			}
+		});
+		menuBar.add(menu2);
+		
+		//Build the Help menu for the users
+		JMenu menu3 = new JMenu("Help");
+		//gives a shortcut to menu3
+		menu3.setMnemonic(KeyEvent.VK_H);
+		menu3.addMenuListener(new MenuListener() {
+			
+			@Override
+			public void menuSelected(MenuEvent e) {
+				JFrame frame = new JFrame();
+	            frame.setVisible(true);
+	            frame.setTitle("Help");
+	            frame.setSize(500,500);
+	            frame.setLocation(250, 100);
+	            JPanel panel = new JPanel();
+	            frame.add(panel);
+	            JTextArea text = new JTextArea("", 5, 50);
+	            text.setLineWrap(true);
+	            JScrollPane sbrText = new JScrollPane(text);
+	            sbrText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+	            frame.add(sbrText); 
+	            frame.setAlwaysOnTop(true);
+			}
+
+			@Override
+			public void menuCanceled(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void menuDeselected(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		menuBar.add(menu3);
 		return menuBar;
 	}
 
