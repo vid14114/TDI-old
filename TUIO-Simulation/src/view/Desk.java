@@ -25,8 +25,10 @@ import control.TUIOMouseListener;
 public class Desk extends JFrame{
 
 	private static final long serialVersionUID = -5944444691938882393L;
+	public JTextField idJTextField;
 	public JTextField xAxisJTextField;
 	public JTextField yAxisJTextField;
+	public JTextField rotationJTextField;
 	public Desk() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("TUIO Desk Simulation");
@@ -152,21 +154,21 @@ public class Desk extends JFrame{
 		JPanel p = new JPanel();
 		p.setLayout(new GridLayout(4,2));
 		JLabel j1 = new JLabel("ID:");
-		JTextField j2 = new JTextField();
+		idJTextField = new JTextField();
 		JLabel xAxisLabel = new JLabel("X-Axis:");
 		xAxisJTextField = new JTextField();
 		JLabel yAxisLabel = new JLabel("Y-Axis:");
 		yAxisJTextField= new JTextField();
 		JLabel j7 = new JLabel("Rotation:");
-		JTextField j8 = new JTextField();
+		rotationJTextField = new JTextField();
 		p.add(j1);
-		p.add(j2);
+		p.add(idJTextField);
 		p.add(xAxisLabel);
 		p.add(xAxisJTextField);
 		p.add(yAxisLabel);
 		p.add(yAxisJTextField);
 		p.add(j7);
-		p.add(j8);
+		p.add(rotationJTextField);
 		return p;
 	}
 	//This is the center of the menuDesk with the tilt options
