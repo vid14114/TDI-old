@@ -3,6 +3,8 @@ package control;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import model.TUIO;
+
 import view.Desk;
 
 public class TUIOMouseListener implements MouseListener{
@@ -13,8 +15,16 @@ public class TUIOMouseListener implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		d.xAxisJTextField.setText(""+arg0.getX());
-		d.yAxisJTextField.setText(""+arg0.getY());
+		for(TUIO t:Main.tuios){
+			if(arg0.getX()>t.getxPos()&&(arg0.getX()<t.getxPos()+70))
+			{
+				if(arg0.getY()>t.getyPos()&&(arg0.getY()<t.getyPos()+50))
+				{
+					d.xAxisJTextField.setText(""+t.getxPos());
+					d.yAxisJTextField.setText(""+t.getyPos());
+				}
+			}
+		}
 	}
 
 	@Override
