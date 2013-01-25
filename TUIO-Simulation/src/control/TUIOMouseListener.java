@@ -20,8 +20,10 @@ public class TUIOMouseListener implements MouseListener{
 			{
 				if(arg0.getY()>t.getyPos()&&(arg0.getY()<t.getyPos()+50))
 				{
+					d.idJTextField.setText(""+t.getId());
 					d.xAxisJTextField.setText(""+t.getxPos());
 					d.yAxisJTextField.setText(""+t.getyPos());
+					d.rotationJTextField.setText(""+t.getRotation());
 				}
 			}
 		}
