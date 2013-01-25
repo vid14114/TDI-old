@@ -15,10 +15,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel; 
 import javax.swing.JTextField;
 
+import control.TUIOMouseListener;
+
 public class Desk extends JFrame{
 
 	private static final long serialVersionUID = -5944444691938882393L;
-
+	public JTextField xAxisJTextField;
+	public JTextField yAxisJTextField;
 	public Desk() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("TUIO Desk Simulation");
@@ -72,8 +75,9 @@ public class Desk extends JFrame{
 	}
 
 	//This simulates the desk the user works on
-	public JPanel workDesk() {
+	public Draw workDesk() {
 		Draw t = new Draw();
+		t.addMouseListener(new TUIOMouseListener(this));
 		return t;
 	}
 
@@ -91,18 +95,18 @@ public class Desk extends JFrame{
 		p.setLayout(new GridLayout(4,2));
 		JLabel j1 = new JLabel("ID:");
 		JTextField j2 = new JTextField();
-		JLabel j3 = new JLabel("X-Axis:");
-		JTextField j4 = new JTextField();
-		JLabel j5 = new JLabel("Y-Axis:");
-		JTextField j6 = new JTextField();
+		JLabel xAxisLabel = new JLabel("X-Axis:");
+		xAxisJTextField = new JTextField();
+		JLabel yAxisLabel = new JLabel("Y-Axis:");
+		yAxisJTextField= new JTextField();
 		JLabel j7 = new JLabel("Rotation:");
 		JTextField j8 = new JTextField();
 		p.add(j1);
 		p.add(j2);
-		p.add(j3);
-		p.add(j4);
-		p.add(j5);
-		p.add(j6);
+		p.add(xAxisLabel);
+		p.add(xAxisJTextField);
+		p.add(yAxisLabel);
+		p.add(yAxisJTextField);
 		p.add(j7);
 		p.add(j8);
 		return p;
