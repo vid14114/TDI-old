@@ -4,7 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -64,12 +68,17 @@ public class Desk extends JFrame{
 		JMenu menu2 = new JMenu("About");
 		//gives a shortcut to menu2
 		menu2.setMnemonic(KeyEvent.VK_B);
-		menu2.addMenuListener(new MenuListener() {
-			JFrame frame = new JFrame();
+		menu2.addMouseListener(new MouseListener() {
+			
 			@Override
-			public void menuSelected(MenuEvent e) {
-	            frame.requestFocus();
-	            frame.setVisible(true);
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				JFrame frame = new JFrame();					           
 	            frame.setTitle("About");
 	            frame.setSize(500,500);
 	            frame.setLocation(250, 100);
@@ -80,17 +89,24 @@ public class Desk extends JFrame{
 	            JScrollPane sbrText = new JScrollPane(text);
 	            sbrText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 	            frame.setAlwaysOnTop(true);
+	            frame.setVisible(true);
+	            frame.requestFocus();
 			}
-
+			
 			@Override
-			public void menuCanceled(MenuEvent e) {
+			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
 				
 			}
-
+			
 			@Override
-			public void menuDeselected(MenuEvent e) {
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
 				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {				
 			}
 		});
 		menuBar.add(menu2);
@@ -99,12 +115,17 @@ public class Desk extends JFrame{
 		JMenu menu3 = new JMenu("Help");
 		//gives a shortcut to menu3
 		menu3.setMnemonic(KeyEvent.VK_H);
-		menu3.addMenuListener(new MenuListener() {
+		menu3.addMouseListener(new MouseListener() {
 			
 			@Override
-			public void menuSelected(MenuEvent e) {
-				JFrame frame = new JFrame();
-	            frame.setVisible(true);
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				JFrame frame = new JFrame();	            
 	            frame.setTitle("Help");
 	            frame.setSize(500,500);
 	            frame.setLocation(250, 100);
@@ -115,19 +136,25 @@ public class Desk extends JFrame{
 	            JScrollPane sbrText = new JScrollPane(text);
 	            sbrText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 	            frame.add(sbrText); 
+	            frame.setVisible(true);
 	            frame.setAlwaysOnTop(true);
+	            frame.requestFocus();
 			}
-
+			
 			@Override
-			public void menuCanceled(MenuEvent e) {
+			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
 				
 			}
-
+			
 			@Override
-			public void menuDeselected(MenuEvent e) {
+			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
 				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {				
 			}
 		});
 		menuBar.add(menu3);
