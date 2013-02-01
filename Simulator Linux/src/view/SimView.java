@@ -14,6 +14,7 @@ import javax.swing.border.LineBorder;
 
 import control.Configuration;
 import control.DragDropListener;
+import control.ProcessManipulator;
 import model.Icon;
 
 public class SimView extends JFrame{
@@ -112,7 +113,7 @@ public class SimView extends JFrame{
 		setVisible(true);
 	}	
 	
-	public ArrayList<Icon> updateDesktop(Configuration config) throws IOException 
+	public ArrayList<Icon> updateDesktop(Configuration config) throws IOException
 	{		
 		ArrayList<Icon> newIcons=new ArrayList<Icon>();
 		for(int i=0; i<labels.length; i++)
@@ -140,7 +141,7 @@ public class SimView extends JFrame{
 				}
 			}
 		}
-		config.monitorPrograms(taskLabels, labels);
+		ProcessManipulator.monitorPrograms(icons,taskLabels, labels);
 		repaint();
 		return newIcons;
 	}

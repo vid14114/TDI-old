@@ -43,8 +43,7 @@ public class DragDropListener extends TransferHandler implements MouseListener {
 		try {
 			config.updateConfig(view.updateDesktop(config));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getStackTrace());
 		}
 	}
 
