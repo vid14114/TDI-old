@@ -18,12 +18,18 @@ import model.Icon;
 public class ProcessManipulator {
 
 	public static void minimizeProgram(String wmctrlID){
-		String []cmd = {"wmctrl", "-i", "-r", wmctrlID, "-b", "toggle", "below"};
+		String []cmd = {"wmctrl", "-i", "-r", wmctrlID, "-b", "toggle,below"};
 		try {
 			Runtime.getRuntime().exec(cmd);
 		} catch (IOException e) {
 			System.err.println("An error happened while trying to minimize a program");
 		}
+	}
+	
+	public static void maximizeProgram(String wmctrlID) throws IOException
+	{
+		String[] cmd={"wmctrl", "-i", "-r", wmctrlID, "-b", "toggle,maximized_vert,maximized_horz"};
+		Runtime.getRuntime().exec(cmd);
 	}
 	
 	public static void monitorPrograms(ArrayList<Icon> icons, JLabel[] taskLabels, JLabel[][] labels) throws IOException{
