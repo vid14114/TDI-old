@@ -33,6 +33,14 @@ public class Desk extends JFrame{
 	public JTextField xAxisJTextField;
 	public JTextField yAxisJTextField;
 	public JTextField rotationJTextField;
+	public JLabel ShowTitlt=new JLabel("TDI");
+	
+
+	public void setShowTitlt(String text) {
+		
+		ShowTitlt.setText(text);
+	}
+	
 	public Desk() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("TUIO Desk Simulation");
@@ -203,10 +211,14 @@ public class Desk extends JFrame{
 		//buttons
 		
 		JButton tiltLeft=new JButton("Left");
+		tiltLeft.setActionCommand("tiltLeft");
 		JButton tiltRight=new JButton("Right");
+		tiltLeft.setActionCommand("tiltRight");
 		JButton tiltDown=new JButton("Down");
+		tiltLeft.setActionCommand("tiltDown");
 		JButton tiltUp=new JButton("Up");
-		JLabel TDI=new JLabel("TDI");
+		tiltLeft.setActionCommand("tiltUp");
+		
 
 		//master panel
 		JPanel master=new JPanel();
@@ -221,7 +233,7 @@ public class Desk extends JFrame{
 		inner.add(tiltUp);
 		inner.add(new JLabel());
 		inner.add(tiltLeft);
-		inner.add(TDI);
+		inner.add(ShowTitlt);
 		inner.add(tiltRight);
 		inner.add(new JLabel());
 		inner.add(tiltDown);
