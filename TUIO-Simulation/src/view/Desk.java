@@ -25,6 +25,7 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
 import control.TUIOMouseListener;
+import control.UniversalActionListener;
 
 public class Desk extends JFrame{
 
@@ -33,7 +34,8 @@ public class Desk extends JFrame{
 	public JTextField xAxisJTextField;
 	public JTextField yAxisJTextField;
 	public JTextField rotationJTextField;
-	public JLabel ShowTitlt=new JLabel("TDI");
+	public JLabel ShowTitlt=new JLabel("");
+	UniversalActionListener actionListener=new UniversalActionListener();
 	
 
 	public void setShowTitlt(String text) {
@@ -209,16 +211,22 @@ public class Desk extends JFrame{
 	//This is the center of the menuDesk with the tilt options
 	public JPanel bottomMenuDesk() {
 		//buttons
-		
+
 		JButton tiltLeft=new JButton("Left");
 		tiltLeft.setActionCommand("tiltLeft");
-		JButton tiltRight=new JButton("Right");
-		tiltLeft.setActionCommand("tiltRight");
-		JButton tiltDown=new JButton("Down");
-		tiltLeft.setActionCommand("tiltDown");
-		JButton tiltUp=new JButton("Up");
-		tiltLeft.setActionCommand("tiltUp");
+		tiltLeft.addActionListener(actionListener);
 		
+		JButton tiltRight=new JButton("Right");
+		tiltRight.setActionCommand("tiltRight");
+		tiltRight.addActionListener(actionListener);
+		
+		JButton tiltDown=new JButton("Down");
+		tiltDown.setActionCommand("tiltDown");
+		tiltDown.addActionListener(actionListener);
+		
+		JButton tiltUp=new JButton("Up");
+		tiltUp.setActionCommand("tiltUp");
+		tiltUp.addActionListener(actionListener);
 
 		//master panel
 		JPanel master=new JPanel();
