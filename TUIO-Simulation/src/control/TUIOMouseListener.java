@@ -2,9 +2,7 @@ package control;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import model.TUIO;
-
 import view.Desk;
 
 public class TUIOMouseListener implements MouseListener{
