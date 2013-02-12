@@ -34,11 +34,11 @@ public class Desk extends JFrame{
 	public JTextField xAxisJTextField;
 	public JTextField yAxisJTextField;
 	public JTextField rotationJTextField;
-	public JLabel ShowTitlt=new JLabel("");
+	public static JLabel ShowTitlt=new JLabel("");
 	UniversalActionListener actionListener=new UniversalActionListener();
 	
 
-	public void setShowTitlt(String text) {
+	public static void setShowTitlt(String text) {
 		
 		ShowTitlt.setText(text);
 	}
