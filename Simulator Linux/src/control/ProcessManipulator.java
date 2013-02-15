@@ -26,6 +26,16 @@ public class ProcessManipulator {
 		}
 	}
 	
+	public static void moveProgram(String wmctrlID, int x, int y, int widht, int heigth){
+		String []cmd = {"wmctrl", "-i", "-r", wmctrlID, "-e", "0,"+x+","+y+","+widht+","+heigth};
+		try {
+			Runtime.getRuntime().exec(cmd);
+		} catch (IOException e) {
+			System.err.println("An error happened while trying to move or resize a program");
+		}
+	}
+	
+	
 	public static void maximizeProgram(String wmctrlID) throws IOException
 	{
 		String[] cmd={"wmctrl", "-i", "-r", wmctrlID, "-b", "toggle,maximized_vert,maximized_horz"};
