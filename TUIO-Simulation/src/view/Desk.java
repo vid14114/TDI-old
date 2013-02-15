@@ -26,6 +26,7 @@ import javax.swing.event.MenuListener;
 
 import control.TUIOMouseListener;
 import control.UniversalActionListener;
+import control.MenuMouseListener;
 
 public class Desk extends JFrame{
 
@@ -36,6 +37,7 @@ public class Desk extends JFrame{
 	public JTextField rotationJTextField;
 	public static JLabel ShowTitlt=new JLabel("");
 	UniversalActionListener actionListener=new UniversalActionListener();
+	MenuMouseListener menuMouseListener = new MenuMouseListener(this);
 	
 
 	public static void setShowTitlt(String text) {
@@ -78,95 +80,14 @@ public class Desk extends JFrame{
 		JMenu menu2 = new JMenu("About");
 		//gives a shortcut to menu2
 		menu2.setMnemonic(KeyEvent.VK_B);
-		menu2.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				JFrame frame = new JFrame();					           
-	            frame.setTitle("About");
-	            frame.setSize(500,500);
-	            frame.setLocation(250, 100);
-	            JPanel panel = new JPanel();
-	            frame.add(panel);
-	            JTextArea text = new JTextArea("", 5, 50);
-	            text.setLineWrap(true);
-	            JScrollPane sbrText = new JScrollPane(text);
-	            sbrText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-	            frame.setAlwaysOnTop(true);
-	            frame.setVisible(true);
-	            frame.requestFocus();
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {				
-			}
-		});
+		menu2.addMouseListener(menuMouseListener);
 		menuBar.add(menu2);
 		
 		//Build the Help menu for the users
 		JMenu menu3 = new JMenu("Help");
 		//gives a shortcut to menu3
 		menu3.setMnemonic(KeyEvent.VK_H);
-		menu3.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				JFrame frame = new JFrame();	            
-	            frame.setTitle("Help");
-	            frame.setSize(500,500);
-	            frame.setLocation(250, 100);
-	            JPanel panel = new JPanel();
-	            frame.add(panel);
-	            JTextArea text = new JTextArea("", 5, 50);
-	            text.setLineWrap(true);
-	            JScrollPane sbrText = new JScrollPane(text);
-	            sbrText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-	            frame.add(sbrText); 
-	            frame.setVisible(true);
-	            frame.setAlwaysOnTop(true);
-	            frame.requestFocus();
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {				
-			}
-		});
+		menu3.addMouseListener(menuMouseListener);
 		menuBar.add(menu3);
 		return menuBar;
 	}
