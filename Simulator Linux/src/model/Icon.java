@@ -3,7 +3,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -34,6 +33,7 @@ public class Icon {
 	 * The id used to minimize, maximize and close programs
 	 */
 	private String wmctrl;
+	boolean minimized; // true -> program is minimized
 	
 	@Override
 	/**
@@ -134,8 +134,8 @@ public class Icon {
 	{
 		setIcon(new ImageIcon("/usr/share/icons/gnome/48x48/status/dialog-question.png"), true);
 		File[] files;
-		if(new File(System.getProperty("user.home")+"/Arbeitsfläche").exists())
-			files=new File(System.getProperty("user.home")+"/Arbeitsfläche").listFiles();
+		if(new File(System.getProperty("user.home")+"/Arbeitsfl��che").exists())
+			files=new File(System.getProperty("user.home")+"/Arbeitsfl��che").listFiles();
 		else
 			files=new File(System.getProperty("user.home")+"/Desktop").listFiles();
 		for(File file : files)
