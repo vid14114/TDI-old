@@ -19,5 +19,7 @@ public class Main {
 		tuios.add(new TUIO(2, 80, 80, 0));
 		tuios.add(new TUIO(3, 100, 160, 0));
 	}
+	
+	
 
 }

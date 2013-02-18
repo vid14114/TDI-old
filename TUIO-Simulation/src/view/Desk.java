@@ -3,14 +3,9 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import javax.swing.BoxLayout;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,12 +13,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel; 
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
+import control.MyDocumentListener;
 import control.TUIOMouseListener;
 import control.UniversalActionListener;
 import control.MenuMouseListener;
@@ -31,17 +23,16 @@ import control.MenuMouseListener;
 public class Desk extends JFrame{
 
 	private static final long serialVersionUID = -5944444691938882393L;
-	public JTextField idJTextField;
+	public JLabel idJTextField;
 	public JTextField xAxisJTextField;
 	public JTextField yAxisJTextField;
 	public JTextField rotationJTextField;
 	public static JLabel ShowTitlt=new JLabel("");
 	UniversalActionListener actionListener=new UniversalActionListener();
 	MenuMouseListener menuMouseListener = new MenuMouseListener(this);
-	
+	MyDocumentListener docLis = new MyDocumentListener();
 
 	public static void setShowTitlt(String text) {
-		
 		ShowTitlt.setText(text);
 	}
 	
@@ -111,14 +102,23 @@ public class Desk extends JFrame{
 	public JPanel topMenuDesk() {
 		JPanel p = new JPanel();
 		p.setLayout(new GridLayout(4,2));
+		
 		JLabel j1 = new JLabel("ID:");
-		idJTextField = new JTextField();
+		idJTextField = new JLabel();
+		
 		JLabel xAxisLabel = new JLabel("X-Axis:");
 		xAxisJTextField = new JTextField();
+		xAxisJTextField.getDocument().addDocumentListener(docLis);
+		
 		JLabel yAxisLabel = new JLabel("Y-Axis:");
 		yAxisJTextField= new JTextField();
+		yAxisJTextField.getDocument().addDocumentListener(docLis);
+		
 		JLabel j7 = new JLabel("Rotation:");
 		rotationJTextField = new JTextField();
+		rotationJTextField.getDocument().addDocumentListener(docLis);
+		
+		
 		p.add(j1);
 		p.add(idJTextField);
 		p.add(xAxisLabel);
