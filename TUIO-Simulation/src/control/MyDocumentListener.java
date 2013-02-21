@@ -8,7 +8,7 @@ public class MyDocumentListener implements DocumentListener{
 
 	public int xAxis;
 	public int yAxis;
-	public int rotation;
+	public double rotation;
 	/**
 	 * @param args
 	 */
@@ -27,7 +27,7 @@ public class MyDocumentListener implements DocumentListener{
 	}
 	public void setRotation(String i)
 	{
-		rotation=Integer.valueOf(i);
+		rotation=Double.valueOf(i);
 	}
 	
 	public int getY()
@@ -38,7 +38,7 @@ public class MyDocumentListener implements DocumentListener{
 	{
 		return xAxis;
 	}
-	public int getRotation()
+	public double getRotation()
 	{
 		return rotation;
 	}
@@ -51,6 +51,7 @@ public class MyDocumentListener implements DocumentListener{
 		try {
 			if(y.getDocument().getProperty("TextField").equals("xAxis"))
 			{
+				System.out.println(y.getDocument().getText(0,( y.getDocument().getLength())));
 				setX(y.getDocument().getText(0,( y.getDocument().getLength())));
 			}
 			if(y.getDocument().getProperty("TextField").equals("yAxis"))
@@ -75,6 +76,7 @@ public class MyDocumentListener implements DocumentListener{
 		try {
 			if(z.getDocument().getProperty("TextField").equals("xAxis"))
 			{
+				System.out.println(z.getDocument().getText(0,( z.getDocument().getLength())));
 				setX(z.getDocument().getText(0,( z.getDocument().getLength())));
 			}
 			if(z.getDocument().getProperty("TextField").equals("yAxis"))
