@@ -30,7 +30,7 @@ public class MyDocumentListener implements DocumentListener{
 		rotation=Integer.valueOf(i);
 	}
 	
-	public int getY()
+	/*	public int getY()
 	{
 		return yAxis;
 	}
@@ -41,7 +41,7 @@ public class MyDocumentListener implements DocumentListener{
 	public int getRotation()
 	{
 		return rotation;
-	}
+	}*/
 	
 	@Override
 	public void insertUpdate(DocumentEvent y) {
