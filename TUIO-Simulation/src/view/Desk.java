@@ -105,18 +105,22 @@ public class Desk extends JFrame{
 		
 		JLabel j1 = new JLabel("ID:");
 		idJTextField = new JLabel();
-		
+				
 		JLabel xAxisLabel = new JLabel("X-Axis:");
 		xAxisJTextField = new JTextField();
 		xAxisJTextField.getDocument().addDocumentListener(docLis);
+		xAxisJTextField.getDocument().putProperty("TextField", "xAxis");
+
 		
 		JLabel yAxisLabel = new JLabel("Y-Axis:");
 		yAxisJTextField= new JTextField();
 		yAxisJTextField.getDocument().addDocumentListener(docLis);
+		yAxisJTextField.getDocument().putProperty("TextField", "yAxis");
 		
 		JLabel j7 = new JLabel("Rotation:");
 		rotationJTextField = new JTextField();
 		rotationJTextField.getDocument().addDocumentListener(docLis);
+		rotationJTextField.getDocument().putProperty("TextField", "rotation");
 		
 		
 		p.add(j1);
