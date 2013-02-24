@@ -20,7 +20,6 @@ public class Draw extends JPanel {
 	public Draw() {
 
 	}
-	//Just for experimentation right now - draws a line that seperates the
 	//taskbar and and the desktop
 	public void paint(Graphics g) {
 		g2D=(Graphics2D) g.create();
@@ -36,6 +35,7 @@ public class Draw extends JPanel {
 			Image i= Toolkit.getDefaultToolkit().getImage("TUIO.jpg");
 			g2D.drawImage(i, t.getxPos(), t.getyPos(), null);
 		}
+		// draws the taskbar
 		g2D.drawRect(0, getHeight()-70, getWidth(), 1);
 	}
 

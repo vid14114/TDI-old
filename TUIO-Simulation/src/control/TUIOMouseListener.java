@@ -14,6 +14,8 @@ public class TUIOMouseListener implements MouseListener{
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		for(TUIO t:Main.tuios.values()){
+			//If the position of the mouse is within a 
+			//TUIO it sets the values of the TDInfo to the corresponding ones.
 			if(arg0.getX()>t.getxPos()&&(arg0.getX()<t.getxPos()+70))
 			{
 				if(arg0.getY()>t.getyPos()&&(arg0.getY()<t.getyPos()+50))
