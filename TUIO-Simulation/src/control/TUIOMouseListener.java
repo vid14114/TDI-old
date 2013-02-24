@@ -65,6 +65,10 @@ public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		d.idJLabel.setText(""+idOfTUIOToBeDragged);
+		d.xAxisJTextField.setText(""+Main.tuios.get(idOfTUIOToBeDragged).getxPos());
+		d.yAxisJTextField.setText(""+Main.tuios.get(idOfTUIOToBeDragged).getyPos());
+		d.rotationJTextField.setText(""+Main.tuios.get(idOfTUIOToBeDragged).getRotation());
 		// Releases the id of the TUIO to be dragged.
 		idOfTUIOToBeDragged=0;
 	}
