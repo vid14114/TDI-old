@@ -1,14 +1,16 @@
 package control;
 
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
 public class MyDocumentListener implements DocumentListener{
-
-	public int xAxis;
-	public int yAxis;
-	public double rotation;
+// reads the values out of the textboxes that show the rotation and the x/y axis
+// it returns Double values
+	public String xAxis;
+	public String yAxis;
+	public String rotation;
 	/**
 	 * @param args
 	 */
@@ -16,51 +18,77 @@ public class MyDocumentListener implements DocumentListener{
 		// TODO Auto-generated method stub
 
 	}
-	
+// getters and setters
 	public void setY(String i)
 	{
-		yAxis=Integer.valueOf(i);
+		yAxis=i;
 	}
 	public void setX(String i)
 	{
-		xAxis=Integer.valueOf(i);
+		xAxis=i;
 	}
 	public void setRotation(String i)
 	{
-		rotation=Double.valueOf(i);
+		rotation=i;
 	}
 	
-	/*	public int getY()
+	public double getY()
 	{
-		return yAxis;
+		try
+		{
+			return Double.parseDouble(yAxis);
+		}
+		catch(NumberFormatException e)
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Please insert only numbers");
+		}
+		return 0;
 	}
-	public int getX()
+	public double getX()
 	{
-		return xAxis;
+		try
+		{
+			return Double.parseDouble(xAxis);
+		}
+		catch(NumberFormatException e)
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Please insert only numbers");
+		}
+		return 0;
 	}
 	public double getRotation()
 	{
-		return rotation;
-	}*/
+		try
+		{
+			return Double.parseDouble(rotation);
+		}
+		catch(NumberFormatException e)
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Please insert only numbers");
+		}
+		return 0;
+	}
 	
 	@Override
 	public void insertUpdate(DocumentEvent y) {
 		// TODO Auto-generated method stub
-		// Gives notification that there was an insert into the document.
+		// Gives notification that there was an insert into the document  (= the textField).
 		
 		try {
-			if(y.getDocument().getProperty("TextField").equals("xAxis"))
+			if(y.getDocument().getProperty("TextField").equals("xAxis")) // checks witch TextField has been changed 
 			{
-				System.out.println(y.getDocument().getText(0,( y.getDocument().getLength())));
-				setX(y.getDocument().getText(0,( y.getDocument().getLength())));
+				setX(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
 			}
-			if(y.getDocument().getProperty("TextField").equals("yAxis"))
+			if(y.getDocument().getProperty("TextField").equals("yAxis")) // checks witch TextField has been changed 
 			{
-				setY(y.getDocument().getText(0,( y.getDocument().getLength())));
+				setY(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
 			}
-			if(y.getDocument().getProperty("TextField").equals("rotation"))
+			if(y.getDocument().getProperty("TextField").equals("rotation")) // checks witch TextField has been changed 
 			{
-				setRotation(y.getDocument().getText(0,( y.getDocument().getLength())));
+				setRotation(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
 			}
 			
 		} catch (BadLocationException e) {
@@ -72,20 +100,19 @@ public class MyDocumentListener implements DocumentListener{
 	@Override
 	public void removeUpdate(DocumentEvent z) {
 		// TODO Auto-generated method stub
-		// Gives notification that a portion of the document has been removed.
+		// Gives notification that a portion of the document (= the textField) has been removed.
 		try {
-			if(z.getDocument().getProperty("TextField").equals("xAxis"))
+			if(z.getDocument().getProperty("TextField").equals("xAxis")) // checks witch TextField has been changed 
 			{
-				System.out.println(z.getDocument().getText(0,( z.getDocument().getLength())));
-				setX(z.getDocument().getText(0,( z.getDocument().getLength())));
+				setX(z.getDocument().getText(0,( z.getDocument().getLength()))); // sets the local variable
 			}
-			if(z.getDocument().getProperty("TextField").equals("yAxis"))
+			if(z.getDocument().getProperty("TextField").equals("yAxis"))  // checks witch TextField has been changed 
 			{
-				setY(z.getDocument().getText(0,( z.getDocument().getLength())));
+				setY(z.getDocument().getText(0,( z.getDocument().getLength()))); // sets the local variable
 			}
-			if(z.getDocument().getProperty("TextField").equals("rotation"))
+			if(z.getDocument().getProperty("TextField").equals("rotation"))  // checks witch TextField has been changed 
 			{
-				setRotation(z.getDocument().getText(0,( z.getDocument().getLength())));
+				setRotation(z.getDocument().getText(0,( z.getDocument().getLength()))); // sets the local variable
 			}
 			
 		} catch (BadLocationException e) {
