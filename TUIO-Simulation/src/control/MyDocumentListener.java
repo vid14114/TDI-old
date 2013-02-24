@@ -27,17 +27,17 @@ public class MyDocumentListener implements DocumentListener{
 		// TODO Auto-generated method stub
 			}
 // getters and setters
-	public void setY(String i)
+	public void setY(String str)
 	{
-		yAxis=i;
+		yAxis=str;
 	}
-	public void setX(String i)
+	public void setX(String str)
 	{
-		xAxis=i;
+		xAxis=str;
 	}
-	public void setRotation(String i)
+	public void setRotation(String str)
 	{
-		rotation=i;
+		rotation=str;
 	}
 	
 	public int getY()
@@ -49,7 +49,7 @@ public class MyDocumentListener implements DocumentListener{
 		catch(NumberFormatException e)
 		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Please insert only numbers");
+			//JOptionPane.showMessageDialog(null, "Please insert only numbers");
 		}
 		return 0;
 	}
@@ -62,7 +62,7 @@ public class MyDocumentListener implements DocumentListener{
 		catch(NumberFormatException e)
 		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Please insert only numbers");
+			//JOptionPane.showMessageDialog(null, "Please insert only numbers");
 		}
 		return 0;
 	}
@@ -75,47 +75,48 @@ public class MyDocumentListener implements DocumentListener{
 		catch(NumberFormatException e)
 		{
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Please insert only numbers");
+			//JOptionPane.showMessageDialog(null, "Please insert only numbers");
 		}
 		return 0;
 	}
 	
 	@Override
-	public void insertUpdate(DocumentEvent y) {
+	public void insertUpdate(DocumentEvent docEvent) {
 		// TODO Auto-generated method stub
 		// Gives notification that there was an insert into the document  (= the textField).
 		
 		try {
-			if(y.getDocument().getProperty("TextField").equals("xAxis")) // checks which TextField has been changed 
+			if(docEvent.getDocument().getProperty("TextField").equals("xAxis")) // checks if the TextField xAxis has been changed 
 			{
-				setX(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
+				setX(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable xAxis
+				// setX(docEvent.getDocument().getText(min,max))
 				for(TUIO t:Main.tuios.values())
 				{
-					if(t.getId()==d.getIdJLabel()) // if same id 
+					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 					{
-						t.setxPos(getX());
+						t.setxPos(getX()); // changes the position of the TUIO
 					}
 				}
 			}
-			if(y.getDocument().getProperty("TextField").equals("yAxis")) // checks which TextField has been changed 
+			if(docEvent.getDocument().getProperty("TextField").equals("yAxis")) // checks if the TextField  yAxis has been changed 
 			{
-				setY(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
+				setY(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable yAxis
 				for(TUIO t:Main.tuios.values())
 				{
-					if(t.getId()==d.getIdJLabel()) // if same id 
+					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 					{
-						t.setyPos(getY());
+						t.setyPos(getY());// changes the position of the TUIO
 					}
 				}
 			}
-			if(y.getDocument().getProperty("TextField").equals("rotation")) // checks which TextField has been changed 
+			if(docEvent.getDocument().getProperty("TextField").equals("rotation")) // checks is the TextField rotation has been changed 
 			{
-				setRotation(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
+				setRotation(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable rotation
 				for(TUIO t:Main.tuios.values())
 				{
-					if(t.getId()==d.getIdJLabel()) // if same id 
+					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 					{
-						t.setRotation(getRotation());
+						t.setRotation(getRotation());// changes the position of the TUIO
 					}
 				}
 			}
@@ -128,40 +129,40 @@ public class MyDocumentListener implements DocumentListener{
 	}
 	
 	@Override
-	public void removeUpdate(DocumentEvent z) {
+	public void removeUpdate(DocumentEvent docEvent) {
 		// TODO Auto-generated method stub
 		// Gives notification that a portion of the document (= the textField) has been removed.
 		try {
-			if(z.getDocument().getProperty("TextField").equals("xAxis")) // checks which TextField has been changed 
+			if(docEvent.getDocument().getProperty("TextField").equals("xAxis")) // checks if the  TextField xAxis has been changed (deletion)
 			{
-				setX(z.getDocument().getText(0,( z.getDocument().getLength()))); // sets the local variable
+				setX(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable xAxis
 				for(TUIO t:Main.tuios.values())
 				{
-					if(t.getId()==d.getIdJLabel()) // if same id 
+					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 					{
-						t.setxPos(getX());
+						t.setxPos(getX());// changes the position of the TUIO
 					}
 				}
 			}
-			if(z.getDocument().getProperty("TextField").equals("yAxis"))  // checks which TextField has been changed 
+			if(docEvent.getDocument().getProperty("TextField").equals("yAxis"))  // checks if the TextField yAxis has been changed (deletion)
 			{
-				setY(z.getDocument().getText(0,( z.getDocument().getLength()))); // sets the local variable
+				setY(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable yAxis
 				for(TUIO t:Main.tuios.values())
 				{
-					if(t.getId()==d.getIdJLabel()) // if same id 
+					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 					{
-						t.setyPos(getY());
+						t.setyPos(getY());// changes the position of the TUIO
 					}
 				}
 			}
-			if(z.getDocument().getProperty("TextField").equals("rotation"))  // checks which TextField has been changed 
+			if(docEvent.getDocument().getProperty("TextField").equals("rotation"))  // checks if the TextField rotation has been changed (deletion)
 			{
-				setRotation(z.getDocument().getText(0,( z.getDocument().getLength()))); // sets the local variable
+				setRotation(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable rotation
 				for(TUIO t:Main.tuios.values())
 				{
-					if(t.getId()==d.getIdJLabel()) // if same id 
+					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 					{
-						t.setRotation(getRotation());
+						t.setRotation(getRotation());// changes the position of the TUIO
 					}
 				}
 			}
