@@ -13,7 +13,7 @@ public class TUIOMouseListener implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		for(TUIO t:Main.tuios){
+		for(TUIO t:Main.tuios.values()){
 			if(arg0.getX()>t.getxPos()&&(arg0.getX()<t.getxPos()+70))
 			{
 				if(arg0.getY()>t.getyPos()&&(arg0.getY()<t.getyPos()+50))

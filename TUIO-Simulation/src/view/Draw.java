@@ -3,10 +3,7 @@ package view;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.ImageCapabilities;
 import java.awt.Toolkit;
-
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import control.Main;
 import model.TUIO;
@@ -35,7 +32,7 @@ public class Draw extends JPanel {
 		}
 		g2D.drawImage(Toolkit.getDefaultToolkit().getImage("Desk.jpg"),0,0,null);
 		//Goes through the array of TUIOs and draws every one of them.
-		for(TUIO t : Main.tuios){
+		for(TUIO t : Main.tuios.values()){
 			Image i= Toolkit.getDefaultToolkit().getImage("TUIO.jpg");
 			g2D.drawImage(i, t.getxPos(), t.getyPos(), null);
 		}
