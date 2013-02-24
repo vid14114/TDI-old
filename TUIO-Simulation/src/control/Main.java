@@ -15,6 +15,7 @@ public class Main {
 		Desk d = new Desk();
 		// adding new TUIOs this will be moved away from this later
 		// on - just test values for now
+		// id , x, y, rotation
 		tuios.add(new TUIO(1, 10, 10, 0));
 		tuios.add(new TUIO(2, 80, 80, 0));
 		tuios.add(new TUIO(3, 100, 160, 0));

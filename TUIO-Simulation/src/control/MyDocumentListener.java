@@ -32,11 +32,11 @@ public class MyDocumentListener implements DocumentListener{
 		rotation=i;
 	}
 	
-	public double getY()
+	public int getY()
 	{
 		try
 		{
-			return Double.parseDouble(yAxis);
+			return Integer.parseInt(xAxis);
 		}
 		catch(NumberFormatException e)
 		{
@@ -45,11 +45,11 @@ public class MyDocumentListener implements DocumentListener{
 		}
 		return 0;
 	}
-	public double getX()
+	public int getX()
 	{
 		try
 		{
-			return Double.parseDouble(xAxis);
+			return Integer.parseInt(xAxis);
 		}
 		catch(NumberFormatException e)
 		{
@@ -81,6 +81,7 @@ public class MyDocumentListener implements DocumentListener{
 			if(y.getDocument().getProperty("TextField").equals("xAxis")) // checks witch TextField has been changed 
 			{
 				setX(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
+				
 			}
 			if(y.getDocument().getProperty("TextField").equals("yAxis")) // checks witch TextField has been changed 
 			{
