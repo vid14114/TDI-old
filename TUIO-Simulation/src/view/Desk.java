@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
-
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,7 +12,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel; 
 import javax.swing.JTextField;
-
 import control.MyDocumentListener;
 import control.TUIOMouseListener;
 import control.UniversalActionListener;
@@ -23,7 +20,7 @@ import control.MenuMouseListener;
 public class Desk extends JFrame{
 
 	private static final long serialVersionUID = -5944444691938882393L;
-	private JLabel idJTextField;
+	public JLabel idJLabel;
 	public JTextField xAxisJTextField;
 	public JTextField yAxisJTextField;
 	public JTextField rotationJTextField;
@@ -106,7 +103,7 @@ public class Desk extends JFrame{
 		p.setLayout(new GridLayout(4,2));
 		
 		JLabel j1 = new JLabel("ID:");
-		setIdJTextField(new JLabel());
+		setIdJLabel(new JLabel());
 				
 		JLabel xAxisLabel = new JLabel("X-Axis:");
 		xAxisJTextField = new JTextField();
@@ -126,7 +123,7 @@ public class Desk extends JFrame{
 		
 		
 		p.add(j1);
-		p.add(idJTextField);
+		p.add(idJLabel);
 		p.add(xAxisLabel);
 		p.add(xAxisJTextField);
 		p.add(yAxisLabel);
@@ -179,14 +176,14 @@ public class Desk extends JFrame{
 
 
 
-	public int getIdJTextField() {
-		return Integer.parseInt(idJTextField.getText());
+	public int getIdJLabel() {
+		return Integer.parseInt(idJLabel.getText());
 	}
 
 
 
-	public void setIdJTextField(JLabel idJTextField) {
-		this.idJTextField = idJTextField;
+	public void setIdJLabel(JLabel idJTextField) {
+		this.idJLabel = idJTextField;
 	}
 
 }
