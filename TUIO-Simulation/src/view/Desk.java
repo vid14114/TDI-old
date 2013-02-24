@@ -101,7 +101,7 @@ public class Desk extends JFrame{
 		p.setLayout(new GridLayout(4,2));
 		
 		JLabel j1 = new JLabel("ID:");
-		setIdJLabel(new JLabel());
+		setIdJLabel(new JLabel("1"));
 				
 		JLabel xAxisLabel = new JLabel("X-Axis:");
 		xAxisJTextField = new JTextField();
@@ -181,6 +181,7 @@ public class Desk extends JFrame{
 
 
 	public void setIdJLabel(JLabel idJTextField) {
+		
 		this.idJLabel = idJTextField;
 	}
 

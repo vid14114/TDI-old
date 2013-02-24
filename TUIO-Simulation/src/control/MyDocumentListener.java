@@ -44,7 +44,7 @@ public class MyDocumentListener implements DocumentListener{
 	{
 		try
 		{
-			return Integer.parseInt(xAxis);
+			return Integer.parseInt(yAxis);
 		}
 		catch(NumberFormatException e)
 		{
@@ -135,14 +135,35 @@ public class MyDocumentListener implements DocumentListener{
 			if(z.getDocument().getProperty("TextField").equals("xAxis")) // checks which TextField has been changed 
 			{
 				setX(z.getDocument().getText(0,( z.getDocument().getLength()))); // sets the local variable
+				for(TUIO t:Main.tuios.values())
+				{
+					if(t.getId()==d.getIdJLabel()) // if same id 
+					{
+						t.setxPos(getX());
+					}
+				}
 			}
 			if(z.getDocument().getProperty("TextField").equals("yAxis"))  // checks which TextField has been changed 
 			{
 				setY(z.getDocument().getText(0,( z.getDocument().getLength()))); // sets the local variable
+				for(TUIO t:Main.tuios.values())
+				{
+					if(t.getId()==d.getIdJLabel()) // if same id 
+					{
+						t.setyPos(getY());
+					}
+				}
 			}
 			if(z.getDocument().getProperty("TextField").equals("rotation"))  // checks which TextField has been changed 
 			{
 				setRotation(z.getDocument().getText(0,( z.getDocument().getLength()))); // sets the local variable
+				for(TUIO t:Main.tuios.values())
+				{
+					if(t.getId()==d.getIdJLabel()) // if same id 
+					{
+						t.setRotation(getRotation());
+					}
+				}
 			}
 			
 		} catch (BadLocationException e) {
