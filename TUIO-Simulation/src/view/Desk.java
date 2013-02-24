@@ -27,7 +27,7 @@ public class Desk extends JFrame{
 	public static JLabel ShowTitlt=new JLabel("");
 	UniversalActionListener actionListener=new UniversalActionListener();
 	MenuMouseListener menuMouseListener = new MenuMouseListener(this);
-	MyDocumentListener docLis = new MyDocumentListener();
+	MyDocumentListener docLis = new MyDocumentListener(this);
 
 	public static void setShowTitlt(String text) {
 		ShowTitlt.setText(text);

@@ -19,10 +19,13 @@ public class MyDocumentListener implements DocumentListener{
 	/**
 	 * @param args
 	 */
-	public void main(String[] args, Desk d) {
-		// TODO Auto-generated method stub
+	public MyDocumentListener(Desk d)
+	{
 		this.d = d;
 	}
+	public void main(String[] args) {
+		// TODO Auto-generated method stub
+			}
 // getters and setters
 	public void setY(String i)
 	{
@@ -90,17 +93,31 @@ public class MyDocumentListener implements DocumentListener{
 				{
 					if(t.getId()==d.getIdJLabel()) // if same id 
 					{
-						
+						t.setxPos(getX());
 					}
 				}
 			}
 			if(y.getDocument().getProperty("TextField").equals("yAxis")) // checks witch TextField has been changed 
 			{
 				setY(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
+				for(TUIO t:Main.tuios.values())
+				{
+					if(t.getId()==d.getIdJLabel()) // if same id 
+					{
+						t.setyPos(getY());
+					}
+				}
 			}
 			if(y.getDocument().getProperty("TextField").equals("rotation")) // checks witch TextField has been changed 
 			{
 				setRotation(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
+				for(TUIO t:Main.tuios.values())
+				{
+					if(t.getId()==d.getIdJLabel()) // if same id 
+					{
+						t.setRotation(getRotation());
+					}
+				}
 			}
 			
 		} catch (BadLocationException e) {
