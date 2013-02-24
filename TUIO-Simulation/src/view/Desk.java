@@ -84,6 +84,7 @@ public class Desk extends JFrame{
 	public Draw workDesk() {
 		Draw t = new Draw();
 		t.addMouseListener(new TUIOMouseListener(this));
+		t.addMouseMotionListener(new TUIOMouseListener(this));
 		return t;
 	}
 

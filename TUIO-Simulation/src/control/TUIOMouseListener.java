@@ -9,7 +9,8 @@ import view.Desk;
 
 public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 	Desk d;
-	int draggedTUIO;
+	static int x;
+	boolean pressed;
 	public TUIOMouseListener(Desk d){
 		this.d=d;
 	}
@@ -50,12 +51,12 @@ public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 		// TODO Auto-generated method stub
 		for(TUIO t:Main.tuios.values()){
 			//If the position of the mouse is within a 
-			//TUIO it sets the values of the TDInfo to the corresponding ones.
 			if(arg0.getX()>t.getxPos()&&(arg0.getX()<t.getxPos()+70))
 			{
 				if(arg0.getY()>t.getyPos()&&(arg0.getY()<t.getyPos()+50))
 				{
-					draggedTUIO=t.getId();
+					x=t.getId();
+					System.out.println(""+x);
 				}
 			}
 		}
@@ -68,15 +69,13 @@ public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		TUIO t=Main.tuios.get(draggedTUIO);
-		Main.tuios.get(draggedTUIO).setxPos(e.getX());
-		Main.tuios.get(draggedTUIO).setyPos(e.getY());
+		Main.tuios.get(x).setxPos(e.getX());
+		Main.tuios.get(x).setyPos(e.getY());
 		d.repaint();
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	    // TODO Auto-generated method stub
 	}
 
 }
