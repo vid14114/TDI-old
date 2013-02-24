@@ -86,7 +86,7 @@ public class MyDocumentListener implements DocumentListener{
 		// Gives notification that there was an insert into the document  (= the textField).
 		
 		try {
-			if(y.getDocument().getProperty("TextField").equals("xAxis")) // checks witch TextField has been changed 
+			if(y.getDocument().getProperty("TextField").equals("xAxis")) // checks which TextField has been changed 
 			{
 				setX(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
 				for(TUIO t:Main.tuios.values())
@@ -97,7 +97,7 @@ public class MyDocumentListener implements DocumentListener{
 					}
 				}
 			}
-			if(y.getDocument().getProperty("TextField").equals("yAxis")) // checks witch TextField has been changed 
+			if(y.getDocument().getProperty("TextField").equals("yAxis")) // checks which TextField has been changed 
 			{
 				setY(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
 				for(TUIO t:Main.tuios.values())
@@ -108,7 +108,7 @@ public class MyDocumentListener implements DocumentListener{
 					}
 				}
 			}
-			if(y.getDocument().getProperty("TextField").equals("rotation")) // checks witch TextField has been changed 
+			if(y.getDocument().getProperty("TextField").equals("rotation")) // checks which TextField has been changed 
 			{
 				setRotation(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
 				for(TUIO t:Main.tuios.values())
@@ -131,15 +131,15 @@ public class MyDocumentListener implements DocumentListener{
 		// TODO Auto-generated method stub
 		// Gives notification that a portion of the document (= the textField) has been removed.
 		try {
-			if(z.getDocument().getProperty("TextField").equals("xAxis")) // checks witch TextField has been changed 
+			if(z.getDocument().getProperty("TextField").equals("xAxis")) // checks which TextField has been changed 
 			{
 				setX(z.getDocument().getText(0,( z.getDocument().getLength()))); // sets the local variable
 			}
-			if(z.getDocument().getProperty("TextField").equals("yAxis"))  // checks witch TextField has been changed 
+			if(z.getDocument().getProperty("TextField").equals("yAxis"))  // checks which TextField has been changed 
 			{
 				setY(z.getDocument().getText(0,( z.getDocument().getLength()))); // sets the local variable
 			}
-			if(z.getDocument().getProperty("TextField").equals("rotation"))  // checks witch TextField has been changed 
+			if(z.getDocument().getProperty("TextField").equals("rotation"))  // checks which TextField has been changed 
 			{
 				setRotation(z.getDocument().getText(0,( z.getDocument().getLength()))); // sets the local variable
 			}
