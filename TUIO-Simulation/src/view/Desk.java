@@ -33,8 +33,6 @@ public class Desk extends JFrame{
 		ShowTitlt.setText(text);
 	}
 	
-	
-	
 	public Desk() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("TUIO Desk Simulation");

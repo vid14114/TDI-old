@@ -124,6 +124,7 @@ public class MyDocumentListener implements DocumentListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		d.repaint();
 	}
 	
 	@Override
@@ -148,6 +149,7 @@ public class MyDocumentListener implements DocumentListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		d.repaint();
 	}
 
 	@Override
