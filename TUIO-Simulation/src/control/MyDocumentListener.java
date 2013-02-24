@@ -86,9 +86,9 @@ public class MyDocumentListener implements DocumentListener{
 			if(y.getDocument().getProperty("TextField").equals("xAxis")) // checks witch TextField has been changed 
 			{
 				setX(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
-				for(TUIO t:Main.tuios)
+				for(TUIO t:Main.tuios.values())
 				{
-					if(t.getId()==d.getIdJTextField()) // if same id 
+					if(t.getId()==d.getIdJLabel()) // if same id 
 					{
 						
 					}
