@@ -9,7 +9,7 @@ import view.Desk;
 
 public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 	Desk d;
-	static int x;
+	static int idOfTUIOToBeDragged;
 	boolean pressed;
 	public TUIOMouseListener(Desk d){
 		this.d=d;
@@ -49,14 +49,14 @@ public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		// Looks at which TUIO is to be dragged and sets the variable.
 		for(TUIO t:Main.tuios.values()){
 			//If the position of the mouse is within a 
 			if(arg0.getX()>t.getxPos()&&(arg0.getX()<t.getxPos()+70))
 			{
 				if(arg0.getY()>t.getyPos()&&(arg0.getY()<t.getyPos()+50))
 				{
-					x=t.getId();
-					System.out.println(""+x);
+					idOfTUIOToBeDragged=t.getId();
 				}
 			}
 		}
@@ -65,12 +65,15 @@ public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		// Releases the id of the TUIO to be dragged.
+		idOfTUIOToBeDragged=0;
 	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Main.tuios.get(x).setxPos(e.getX());
-		Main.tuios.get(x).setyPos(e.getY());
+		//Moves the TUIO when it is being dragged.
+		Main.tuios.get(idOfTUIOToBeDragged).setxPos(e.getX());
+		Main.tuios.get(idOfTUIOToBeDragged).setyPos(e.getY());
 		d.repaint();
 	}
 	@Override
