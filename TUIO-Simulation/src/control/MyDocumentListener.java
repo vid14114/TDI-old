@@ -5,18 +5,23 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
+import view.Desk;
+
+import model.TUIO;
+
 public class MyDocumentListener implements DocumentListener{
 // reads the values out of the textboxes that show the rotation and the x/y axis
 // it returns Double values
 	public String xAxis;
 	public String yAxis;
 	public String rotation;
+	private Desk d;
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public void main(String[] args, Desk d) {
 		// TODO Auto-generated method stub
-
+		this.d = d;
 	}
 // getters and setters
 	public void setY(String i)
@@ -81,7 +86,13 @@ public class MyDocumentListener implements DocumentListener{
 			if(y.getDocument().getProperty("TextField").equals("xAxis")) // checks witch TextField has been changed 
 			{
 				setX(y.getDocument().getText(0,( y.getDocument().getLength()))); // sets the local variable
-				
+				for(TUIO t:Main.tuios)
+				{
+					if(t.getId()==d.getIdJTextField()) // if same id 
+					{
+						
+					}
+				}
 			}
 			if(y.getDocument().getProperty("TextField").equals("yAxis")) // checks witch TextField has been changed 
 			{
