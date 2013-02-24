@@ -23,7 +23,7 @@ import control.MenuMouseListener;
 public class Desk extends JFrame{
 
 	private static final long serialVersionUID = -5944444691938882393L;
-	public JLabel idJTextField;
+	private JLabel idJTextField;
 	public JTextField xAxisJTextField;
 	public JTextField yAxisJTextField;
 	public JTextField rotationJTextField;
@@ -35,6 +35,8 @@ public class Desk extends JFrame{
 	public static void setShowTitlt(String text) {
 		ShowTitlt.setText(text);
 	}
+	
+	
 	
 	public Desk() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -104,7 +106,7 @@ public class Desk extends JFrame{
 		p.setLayout(new GridLayout(4,2));
 		
 		JLabel j1 = new JLabel("ID:");
-		idJTextField = new JLabel();
+		setIdJTextField(new JLabel());
 				
 		JLabel xAxisLabel = new JLabel("X-Axis:");
 		xAxisJTextField = new JTextField();
@@ -173,6 +175,18 @@ public class Desk extends JFrame{
 
 		master.add(inner);
 		return master;
+	}
+
+
+
+	public int getIdJTextField() {
+		return Integer.parseInt(idJTextField.getText());
+	}
+
+
+
+	public void setIdJTextField(JLabel idJTextField) {
+		this.idJTextField = idJTextField;
 	}
 
 }
