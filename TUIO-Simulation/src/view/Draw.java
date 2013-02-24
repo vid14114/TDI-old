@@ -23,13 +23,6 @@ public class Draw extends JPanel {
 	//taskbar and and the desktop
 	public void paint(Graphics g) {
 		g2D=(Graphics2D) g.create();
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		g2D.drawImage(Toolkit.getDefaultToolkit().getImage("Desk.jpg"),0,0,null);
 		//Goes through the array of TUIOs and draws every one of them.
 		for(TUIO t : Main.tuios.values()){
 			Image i= Toolkit.getDefaultToolkit().getImage("TUIO.jpg");
