@@ -48,7 +48,7 @@ public class MyDocumentListener implements DocumentListener{
 		}
 		catch(NumberFormatException e)
 		{
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!NumberFormat Exception at the MyDokumentListener Class => getRotation()!!!!!!!!!!!!!!!!!");
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!NumberFormat Exception at the MyDokumentListener Class => getY()!!!!!!!!!!!!!!!!!");
 			//JOptionPane.showMessageDialog(null, "Please insert only numbers");
 		}
 		return 0;
@@ -61,7 +61,7 @@ public class MyDocumentListener implements DocumentListener{
 		}
 		catch(NumberFormatException e)
 		{
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!NumberFormat Exception at the MyDokumentListener Class => getRotation()!!!!!!!!!!!!!!!!!");
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!NumberFormat Exception at the MyDokumentListener Class => getX()!!!!!!!!!!!!!!!!!");
 			//JOptionPane.showMessageDialog(null, "Please insert only numbers");
 		}
 		return 0;
