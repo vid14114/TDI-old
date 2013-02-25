@@ -95,31 +95,40 @@ public class MyDocumentListener implements DocumentListener{
 				// setX(docEvent.getDocument().getText(min,max))
 				for(TUIO t:Main.tuios.values())
 				{
-					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
-					{
-						t.setxPos(getX()); // changes the position of the TUIO
-					}
+					 if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
+					 {
+						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+						{
+							t.setxPos(getX()); // changes the position of the TUIO
+						}
+					 }
 				}
 			}
 			if(docEvent.getDocument().getProperty("TextField").equals("yAxis")) // checks if the TextField  yAxis has been changed 
 			{
 				setY(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable yAxis
-				for(TUIO t:Main.tuios.values())
+				if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
 				{
-					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+					for(TUIO t:Main.tuios.values())
 					{
-						t.setyPos(getY());// changes the position of the TUIO
+						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+						{
+							t.setyPos(getY());// changes the position of the TUIO
+						}
 					}
 				}
 			}
 			if(docEvent.getDocument().getProperty("TextField").equals("rotation")) // checks is the TextField rotation has been changed 
 			{
 				setRotation(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable rotation
-				for(TUIO t:Main.tuios.values())
+				if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
 				{
-					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+					for(TUIO t:Main.tuios.values())
 					{
-						t.setRotation(getRotation());// changes the position of the TUIO
+						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+						{
+							t.setRotation(getRotation());// changes the position of the TUIO
+						}
 					}
 				}
 			}
@@ -139,33 +148,42 @@ public class MyDocumentListener implements DocumentListener{
 			if(docEvent.getDocument().getProperty("TextField").equals("xAxis")) // checks if the  TextField xAxis has been changed (deletion)
 			{
 				setX(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable xAxis
-				for(TUIO t:Main.tuios.values())
+				if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
 				{
-					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+					for(TUIO t:Main.tuios.values())
 					{
-						t.setxPos(getX());// changes the position of the TUIO
+						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+						{
+							t.setxPos(getX());// changes the position of the TUIO
+						}
 					}
 				}
 			}
 			if(docEvent.getDocument().getProperty("TextField").equals("yAxis"))  // checks if the TextField yAxis has been changed (deletion)
 			{
 				setY(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable yAxis
-				for(TUIO t:Main.tuios.values())
+				if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
 				{
-					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+					for(TUIO t:Main.tuios.values())
 					{
-						t.setyPos(getY());// changes the position of the TUIO
+						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+						{
+							t.setyPos(getY());// changes the position of the TUIO
+						}
 					}
 				}
 			}
 			if(docEvent.getDocument().getProperty("TextField").equals("rotation"))  // checks if the TextField rotation has been changed (deletion)
 			{
 				setRotation(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable rotation
-				for(TUIO t:Main.tuios.values())
+				if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
 				{
-					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+					for(TUIO t:Main.tuios.values())
 					{
-						t.setRotation(getRotation());// changes the position of the TUIO
+						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+						{
+							t.setRotation(getRotation());// changes the position of the TUIO
+						}
 					}
 				}
 			}
