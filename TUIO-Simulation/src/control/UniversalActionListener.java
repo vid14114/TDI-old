@@ -16,6 +16,8 @@ public class UniversalActionListener implements ActionListener{
 	 */
 	Desk d;
 	public static int differentYAxis=0;
+	public static int differentXAxis=0;
+	
 	
 	public UniversalActionListener(Desk d)
 	{
@@ -78,6 +80,7 @@ public class UniversalActionListener implements ActionListener{
 							Main.tuios.remove(t.getId());
 							//delete this TUIO
 							d.repaint();
+							return;
 						}
 					 }
 				}
@@ -85,9 +88,30 @@ public class UniversalActionListener implements ActionListener{
 		if(e.getActionCommand()=="AddMenuItem")
 		{
 			//adds a TUIO
-				Main.tuios.put(Main.automaticGeneratedId, new TUIO(Main.automaticGeneratedId,5,5+differentYAxis,0));
-				Main.automaticGeneratedId ++;
-				differentYAxis += 60; // used to set the position of the new added tuio under the last one so that overlapping is prevented
+			//500 the begin of the taskbar (maxyAxis)
+			//885 max xAxis
+				if(differentYAxis<=500)
+				{
+					Main.tuios.put(Main.automaticGeneratedId, new TUIO(Main.automaticGeneratedId,5+differentXAxis,5+differentYAxis,0));
+					
+					Main.automaticGeneratedId ++;
+					differentYAxis += 60; // used to set the position of the new added tuio under the last one so that overlapping is prevented
+				}
+				else
+				{
+					if(differentXAxis<=885)
+					{
+						differentYAxis = 0;
+						differentXAxis += 80;
+						
+						Main.tuios.put(Main.automaticGeneratedId, new TUIO(Main.automaticGeneratedId,5+differentXAxis,5+differentYAxis,0));
+						
+						Main.automaticGeneratedId ++;
+						differentYAxis += 60;
+					}
+					else
+						JOptionPane.showMessageDialog(null, "Not enough space left on the table");
+				}
 				d.repaint();
 		}
 		

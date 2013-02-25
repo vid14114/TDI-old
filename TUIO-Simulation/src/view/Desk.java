@@ -60,11 +60,13 @@ public class Desk extends JFrame{
 		JMenuItem menuItem1 = new JMenuItem("Add");
 		menuItem1.addActionListener(actionListener);
 		menuItem1.setActionCommand("AddMenuItem");
+		menuItem1.setMnemonic(KeyEvent.VK_ENTER);
 		menu1.add(menuItem1);
 
 		JMenuItem menuItem2 = new JMenuItem("Delete");
 		menuItem2.addActionListener(actionListener);
 		menuItem2.setActionCommand("deleteMenuItem");
+		menuItem2.setMnemonic(KeyEvent.VK_DELETE);
 		menu1.add(menuItem2);
 
 		JMenu menu2 = new JMenu("About");
