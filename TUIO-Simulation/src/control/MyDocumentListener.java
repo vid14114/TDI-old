@@ -42,40 +42,51 @@ public class MyDocumentListener implements DocumentListener{
 	
 	public int getY()
 	{
+		if(!yAxis.equals("")){ // If the value is not empty. (Can happen when being focused, because the TUIOMouseListener changes values when clicking etc.)
 		try
 		{
-			return Integer.parseInt(yAxis);
+			String s=yAxis.replaceAll("\n", "");
+			return Integer.parseInt(s);
 		}
 		catch(NumberFormatException e)
 		{
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!NumberFormat Exception at the MyDokumentListener Class => getY()!!!!!!!!!!!!!!!!!");
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!NumberFormat Exception at the MyDocumentListener Class => getY()!!!!!!!!!!!!!!!!!");
 			//JOptionPane.showMessageDialog(null, "Please insert only numbers");
+		}
 		}
 		return 0;
 	}
 	public int getX()
 	{
+		if(!xAxis.equals("")){ //If the value is not empty. (Can happen when being focused, because the TUIOMouseListener changes values when clicking etc.)
 		try
 		{
-			return Integer.parseInt(xAxis);
+			String s=xAxis;
+			s.trim();
+			return Integer.parseInt(s);
 		}
 		catch(NumberFormatException e)
 		{
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!NumberFormat Exception at the MyDokumentListener Class => getX()!!!!!!!!!!!!!!!!!");
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!NumberFormat Exception at the MyDocumentListener Class => getX()!!!!!!!!!!!!!!!!!");
 			//JOptionPane.showMessageDialog(null, "Please insert only numbers");
+		}
 		}
 		return 0;
 	}
 	public double getRotation()
 	{
+		if(!rotation.equals("")){ //If the value is not empty. (Can happen when being focused, because the TUIOMouseListener changes values when clicking etc.)
 		try
 		{
-			return Double.parseDouble(rotation);
+			String s=rotation.replaceAll("\n", "");
+			
+			return Double.parseDouble(s);
 		}
 		catch(NumberFormatException e)
 		{
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!NumberFormat Exception at the MyDokumentListener Class => getRotation()!!!!!!!!!!!!!!!!!");
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!NumberFormat Exception at the MyDocumentListener Class => getRotation()!!!!!!!!!!!!!!!!!");
 			//JOptionPane.showMessageDialog(null, "Please insert only numbers");
+		}
 		}
 		return 0;
 	}
