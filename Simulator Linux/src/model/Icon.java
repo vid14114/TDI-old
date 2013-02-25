@@ -71,7 +71,8 @@ public class Icon {
 			exec=getIconVar("Exec");
 			if(exec.contains("%U") || exec.contains("%F"))
 				exec=exec.substring(0, exec.length()-3);
-			findIcon(dir);
+			if(iconName!=null)
+				findIcon(dir);
 		}
 	}
 	
@@ -182,6 +183,8 @@ public class Icon {
 			String[] splitLine=line.split("=");
 			if(splitLine[0].equals(what)){
 				br.close();
+				if(what.equals("Icon") && splitLine.length<2)
+					return null;
 				return splitLine[1];
 			}
 		}
