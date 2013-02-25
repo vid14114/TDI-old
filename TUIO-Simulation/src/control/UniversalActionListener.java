@@ -68,18 +68,19 @@ public class UniversalActionListener implements ActionListener{
 		if(e.getActionCommand()=="deleteMenuItem")
 		{
 			// deletes selected TUIO
-			for(TUIO t:Main.tuios.values())
-			{
-				 if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
-				 {
-					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
-					{
-						Main.tuios.remove(t.getId());
-						//delete this TUIO
-						d.repaint();
-					}
-				 }
-			}
+			if(Main.tuios.size()!=0)
+				for(TUIO t:Main.tuios.values())
+				{
+					 if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
+					 {
+						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+						{
+							Main.tuios.remove(t.getId());
+							//delete this TUIO
+							d.repaint();
+						}
+					 }
+				}
 		}
 		if(e.getActionCommand()=="AddMenuItem")
 		{
