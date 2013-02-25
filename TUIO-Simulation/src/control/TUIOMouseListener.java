@@ -9,15 +9,15 @@ import view.Desk;
 
 public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 	Desk d;
-	static int idOfTUIOToBeDragged;
-	boolean pressed;
+	static int idOfTUIOToBeDragged; 
+	static int mouseTUIOEdgeDifferenceX; //X Difference between mouse and TUIO
+	static int mouseTUIOEdgeDifferenceY; //Y Difference between mouse and TUIO
 	public TUIOMouseListener(Desk d){
 		this.d=d;
-		idOfTUIOToBeDragged=-1;
+		idOfTUIOToBeDragged=-1; //(default)
 	}
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		for(TUIO t:Main.tuios.values()){
 			//If the position of the mouse is within a 
 			//TUIO it sets the values of the TDInfo to the corresponding ones.
@@ -49,7 +49,6 @@ public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		// Looks at which TUIO is to be dragged and sets the variable.
 		for(TUIO t:Main.tuios.values()){
 			//If the position of the mouse is within a 
@@ -58,6 +57,8 @@ public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 				if(arg0.getY()>t.getyPos()&&(arg0.getY()<t.getyPos()+50))
 				{
 					idOfTUIOToBeDragged=t.getId();
+					mouseTUIOEdgeDifferenceY=arg0.getY()-t.getyPos();
+					mouseTUIOEdgeDifferenceX=arg0.getX()-t.getxPos();
 				}
 			}
 		}
@@ -65,7 +66,6 @@ public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		// Sets the values in TDInfo to the dragged TUIO
 		if(idOfTUIOToBeDragged!=-1){ // If you do not drag NOTHING
 		d.idJLabel.setText(""+idOfTUIOToBeDragged);
@@ -78,11 +78,10 @@ public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
 		//Moves the TUIO when it is being dragged.
 		if(idOfTUIOToBeDragged!=-1){ // If you do not drag NOTHING
-		Main.tuios.get(idOfTUIOToBeDragged).setxPos(e.getX());
-		Main.tuios.get(idOfTUIOToBeDragged).setyPos(e.getY());
+		Main.tuios.get(idOfTUIOToBeDragged).setxPos(e.getX()-mouseTUIOEdgeDifferenceX); // X postion of moue - mouse to TUIO edge difference, so it doesn't jump around.
+		Main.tuios.get(idOfTUIOToBeDragged).setyPos(e.getY()-mouseTUIOEdgeDifferenceY); // Y postion of moue - mouse to TUIO edge difference, so it doesn't jump around.
 		d.repaint();
 		}
 	}
