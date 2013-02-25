@@ -15,14 +15,26 @@ public class Draw extends JPanel {
 	int yPos;
 	int height;
 	int width;
+	static int back;
 	Graphics2D g2D;
 
 	public Draw() {
-
 	}
 	//taskbar and and the desktop
 	public void paint(Graphics g) {
 		g2D=(Graphics2D) g.create();
+		Image backdraw= Toolkit.getDefaultToolkit().getImage("Desk.jpg");
+		g2D.drawImage(backdraw,0, 0, null);
+		if(back==0){
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		back=1;
+		}
+		
 		//Goes through the array of TUIOs and draws every one of them.
 		for(TUIO t : Main.tuios.values()){
 			Image i= Toolkit.getDefaultToolkit().getImage("TUIO.jpg");
@@ -31,5 +43,4 @@ public class Draw extends JPanel {
 		// draws the taskbar
 		g2D.drawRect(0, getHeight()-70, getWidth(), 1);
 	}
-
 }
