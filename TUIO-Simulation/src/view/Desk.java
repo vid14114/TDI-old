@@ -45,7 +45,6 @@ public class Desk extends JFrame{
 	}
 
 	public JMenuBar menuBar(){
-		//Where the GUI is created:
 		JMenuBar menuBar;
 
 		//Create the menu bar.
@@ -64,16 +63,13 @@ public class Desk extends JFrame{
 		JMenuItem menuItem2 = new JMenuItem("Delete");
 		menu1.add(menuItem2);
 
-		//Build About menu into the menu bar
 		JMenu menu2 = new JMenu("About");
-		//gives a shortcut to menu2
 		menu2.setMnemonic(KeyEvent.VK_B);
 		menu2.addMouseListener(menuMouseListener);
 		menuBar.add(menu2);
 		
 		//Build the Help menu for the users
 		JMenu menu3 = new JMenu("Help");
-		//gives a shortcut to menu3
 		menu3.setMnemonic(KeyEvent.VK_H);
 		menu3.addMouseListener(menuMouseListener);
 		menuBar.add(menu3);
