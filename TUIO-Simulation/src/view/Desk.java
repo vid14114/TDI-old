@@ -175,7 +175,7 @@ public class Desk extends JFrame{
 		if(!idJLabel.getText().equals(""))
 		return Integer.parseInt(idJLabel.getText());
 		else
-			return 0; // return 0 as default value because no TUIO is allowed to have the id 0
+			return -1; // return -1 as default value because no TUIO is allowed to have the id 0
 	}
 
 
