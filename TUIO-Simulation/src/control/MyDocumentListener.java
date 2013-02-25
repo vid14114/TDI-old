@@ -106,6 +106,7 @@ public class MyDocumentListener implements DocumentListener{
 					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 					{
 						t.setxPos(getX()); // changes the position of the TUIO
+						System.out.println(getX());
 					}
 				}
 			}
