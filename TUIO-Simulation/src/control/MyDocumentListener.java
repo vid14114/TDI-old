@@ -1,97 +1,193 @@
 package control;
 
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
-public class MyDocumentListener implements DocumentListener{
+import view.Desk;
 
-	public int xAxis;
-	public int yAxis;
-	public double rotation;
+import model.TUIO;
+
+public class MyDocumentListener implements DocumentListener{
+// reads the values out of the textboxes that show the rotation and the x/y axis
+// it returns Double values
+	public String xAxis;
+	public String yAxis;
+	public String rotation;
+	private Desk d;
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public MyDocumentListener(Desk d)
+	{
+		this.d = d;
+	}
+// getters and setters
+	public void setY(String str)
+	{
+		yAxis=str;
+	}
+	public void setX(String str)
+	{
+		xAxis=str;
+	}
+	public void setRotation(String str)
+	{
+		rotation=str;
 	}
 	
-	public void setY(String i)
+	public int getY()
 	{
-		yAxis=Integer.valueOf(i);
-	}
-	public void setX(String i)
-	{
-		xAxis=Integer.valueOf(i);
-	}
-	public void setRotation(String i)
-	{
-		rotation=Double.valueOf(i);
-	}
-	
-	/*	public int getY()
-	{
-		return yAxis;
+		if(!yAxis.equals("")){ // If the value is not empty. (Can happen when being focused, because the TUIOMouseListener changes values when clicking etc.)
+		try
+		{
+			return Integer.parseInt(yAxis);
+		}
+		catch(NumberFormatException e)
+		{
+			JOptionPane.showMessageDialog(null, "Please insert only numbers");
+		}
+		}
+		return 0;
 	}
 	public int getX()
 	{
-		return xAxis;
+		if(!xAxis.equals("")){ //If the value is not empty. (Can happen when being focused, because the TUIOMouseListener changes values when clicking etc.)
+		try
+		{
+			return Integer.parseInt(xAxis);
+		}
+		catch(NumberFormatException e)
+		{
+			JOptionPane.showMessageDialog(null, "Please insert only numbers");
+		}
+		}
+		return 0;
 	}
 	public double getRotation()
 	{
-		return rotation;
-	}*/
-	
-	@Override
-	public void insertUpdate(DocumentEvent y) {
-		// TODO Auto-generated method stub
-		// Gives notification that there was an insert into the document.
-		
-		try {
-			if(y.getDocument().getProperty("TextField").equals("xAxis"))
-			{
-				System.out.println(y.getDocument().getText(0,( y.getDocument().getLength())));
-				setX(y.getDocument().getText(0,( y.getDocument().getLength())));
-			}
-			if(y.getDocument().getProperty("TextField").equals("yAxis"))
-			{
-				setY(y.getDocument().getText(0,( y.getDocument().getLength())));
-			}
-			if(y.getDocument().getProperty("TextField").equals("rotation"))
-			{
-				setRotation(y.getDocument().getText(0,( y.getDocument().getLength())));
-			}
-			
-		} catch (BadLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(!rotation.equals("")){ //If the value is not empty. (Can happen when being focused, because the TUIOMouseListener changes values when clicking etc.)
+		try
+		{	
+			return Double.parseDouble(rotation);
 		}
+		catch(NumberFormatException e)
+		{
+			JOptionPane.showMessageDialog(null, "Please insert only numbers");
+		}
+		}
+		return 0;
 	}
 	
 	@Override
-	public void removeUpdate(DocumentEvent z) {
-		// TODO Auto-generated method stub
-		// Gives notification that a portion of the document has been removed.
+	public void insertUpdate(DocumentEvent docEvent) {
+		// Gives notification that there was an insert into the document  (= the textField).
+		
 		try {
-			if(z.getDocument().getProperty("TextField").equals("xAxis"))
+			if(docEvent.getDocument().getProperty("TextField").equals("xAxis")) // checks if the TextField xAxis has been changed 
 			{
-				System.out.println(z.getDocument().getText(0,( z.getDocument().getLength())));
-				setX(z.getDocument().getText(0,( z.getDocument().getLength())));
+				setX(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable xAxis
+				// setX(docEvent.getDocument().getText(min,max))
+				for(TUIO t:Main.tuios.values())
+				{
+					 if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
+					 {
+						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+						{
+							t.setxPos(getX()); // changes the position of the TUIO
+						}
+					 }
+				}
 			}
-			if(z.getDocument().getProperty("TextField").equals("yAxis"))
+			if(docEvent.getDocument().getProperty("TextField").equals("yAxis")) // checks if the TextField  yAxis has been changed 
 			{
-				setY(z.getDocument().getText(0,( z.getDocument().getLength())));
+				setY(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable yAxis
+				if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
+				{
+					for(TUIO t:Main.tuios.values())
+					{
+						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+						{
+							t.setyPos(getY());// changes the position of the TUIO
+						}
+					}
+				}
 			}
-			if(z.getDocument().getProperty("TextField").equals("rotation"))
+			if(docEvent.getDocument().getProperty("TextField").equals("rotation")) // checks is the TextField rotation has been changed 
 			{
-				setRotation(z.getDocument().getText(0,( z.getDocument().getLength())));
+				setRotation(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable rotation
+				if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
+				{
+					for(TUIO t:Main.tuios.values())
+					{
+						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+						{
+							t.setRotation(getRotation());// changes the position of the TUIO
+						}
+					}
+				}
 			}
 			
 		} catch (BadLocationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		d.repaint();
+	}
+	
+	@Override
+	public void removeUpdate(DocumentEvent docEvent) {
+		// Gives notification that a portion of the document (= the textField) has been removed.
+		try {
+			if(docEvent.getDocument().getProperty("TextField").equals("xAxis")) // checks if the  TextField xAxis has been changed (deletion)
+			{
+				setX(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable xAxis
+				if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
+				{
+					for(TUIO t:Main.tuios.values())
+					{
+						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+						{
+							t.setxPos(getX());// changes the position of the TUIO
+						}
+					}
+				}
+			}
+			if(docEvent.getDocument().getProperty("TextField").equals("yAxis"))  // checks if the TextField yAxis has been changed (deletion)
+			{
+				setY(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable yAxis
+				if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
+				{
+					for(TUIO t:Main.tuios.values())
+					{
+						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+						{
+							t.setyPos(getY());// changes the position of the TUIO
+						}
+					}
+				}
+			}
+			if(docEvent.getDocument().getProperty("TextField").equals("rotation"))  // checks if the TextField rotation has been changed (deletion)
+			{
+				setRotation(docEvent.getDocument().getText(0,( docEvent.getDocument().getLength()))); // sets the local variable rotation
+				if(d.getIdJLabel()!=0) // 0 is the default value that the getIdJLabel() method returns if the idTextField is empty
+				{
+					for(TUIO t:Main.tuios.values())
+					{
+						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
+						{
+							t.setRotation(getRotation());// changes the position of the TUIO
+						}
+					}
+				}
+			}
+			
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		d.repaint();
 	}
 
 	@Override
