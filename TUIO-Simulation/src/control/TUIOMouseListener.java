@@ -11,6 +11,8 @@ public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 	Desk d;
 	static int idOfTUIOToBeDragged;
 	boolean pressed;
+	static int mouseTuioEdgeDifferenceX;
+	static int mouseTuioEdgeDifferenceY;
 	public TUIOMouseListener(Desk d){
 		this.d=d;
 		idOfTUIOToBeDragged=-1;
@@ -58,6 +60,8 @@ public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 				if(arg0.getY()>t.getyPos()&&(arg0.getY()<t.getyPos()+50))
 				{
 					idOfTUIOToBeDragged=t.getId();
+					mouseTuioEdgeDifferenceY=arg0.getY()-t.getyPos();
+					mouseTuioEdgeDifferenceX=arg0.getX()-t.getxPos();
 				}
 			}
 		}
@@ -81,8 +85,8 @@ public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 		// TODO Auto-generated method stub
 		//Moves the TUIO when it is being dragged.
 		if(idOfTUIOToBeDragged!=-1){ // If you do not drag NOTHING
-		Main.tuios.get(idOfTUIOToBeDragged).setxPos(e.getX());
-		Main.tuios.get(idOfTUIOToBeDragged).setyPos(e.getY());
+		Main.tuios.get(idOfTUIOToBeDragged).setxPos(e.getX()-mouseTuioEdgeDifferenceX);
+		Main.tuios.get(idOfTUIOToBeDragged).setyPos(e.getY()-mouseTuioEdgeDifferenceY);
 		d.repaint();
 		}
 	}
