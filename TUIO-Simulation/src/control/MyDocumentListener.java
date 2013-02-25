@@ -23,9 +23,6 @@ public class MyDocumentListener implements DocumentListener{
 	{
 		this.d = d;
 	}
-	public void main(String[] args) {
-		// TODO Auto-generated method stub
-			}
 // getters and setters
 	public void setY(String str)
 	{
@@ -85,7 +82,6 @@ public class MyDocumentListener implements DocumentListener{
 	
 	@Override
 	public void insertUpdate(DocumentEvent docEvent) {
-		// TODO Auto-generated method stub
 		// Gives notification that there was an insert into the document  (= the textField).
 		
 		try {
@@ -142,7 +138,6 @@ public class MyDocumentListener implements DocumentListener{
 	
 	@Override
 	public void removeUpdate(DocumentEvent docEvent) {
-		// TODO Auto-generated method stub
 		// Gives notification that a portion of the document (= the textField) has been removed.
 		try {
 			if(docEvent.getDocument().getProperty("TextField").equals("xAxis")) // checks if the  TextField xAxis has been changed (deletion)
