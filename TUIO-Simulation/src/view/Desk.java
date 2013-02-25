@@ -25,7 +25,7 @@ public class Desk extends JFrame{
 	public JTextField yAxisJTextField;
 	public JTextField rotationJTextField;
 	public static JLabel ShowTitlt=new JLabel("");
-	UniversalActionListener actionListener=new UniversalActionListener();
+	UniversalActionListener actionListener=new UniversalActionListener(this);
 	MenuMouseListener menuMouseListener = new MenuMouseListener(this);
 	MyDocumentListener docLis = new MyDocumentListener(this);
 
@@ -58,11 +58,13 @@ public class Desk extends JFrame{
 		
 		//a group of JMenuItems
 		JMenuItem menuItem1 = new JMenuItem("Add");
-		menuItem1.addMouseListener(menuMouseListener);
+		menuItem1.addActionListener(actionListener);
+		menuItem1.setActionCommand("AddMenuItem");
 		menu1.add(menuItem1);
 
 		JMenuItem menuItem2 = new JMenuItem("Delete");
-		menuItem2.addMouseListener(menuMouseListener);
+		menuItem2.addActionListener(actionListener);
+		menuItem2.setActionCommand("deleteMenuItem");
 		menu1.add(menuItem2);
 
 		JMenu menu2 = new JMenu("About");
