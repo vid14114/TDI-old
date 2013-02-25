@@ -59,9 +59,11 @@ public class Desk extends JFrame{
 		
 		//a group of JMenuItems
 		JMenuItem menuItem1 = new JMenuItem("Add");
+		menuItem1.addMouseListener(menuMouseListener);
 		menu1.add(menuItem1);
 
 		JMenuItem menuItem2 = new JMenuItem("Delete");
+		menuItem2.addMouseListener(menuMouseListener);
 		menu1.add(menuItem2);
 
 		//Build About menu into the menu bar
