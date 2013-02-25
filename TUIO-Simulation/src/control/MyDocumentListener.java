@@ -45,13 +45,11 @@ public class MyDocumentListener implements DocumentListener{
 		if(!yAxis.equals("")){ // If the value is not empty. (Can happen when being focused, because the TUIOMouseListener changes values when clicking etc.)
 		try
 		{
-			String s=yAxis.replaceAll("\n", "");
-			return Integer.parseInt(s);
+			return Integer.parseInt(yAxis);
 		}
 		catch(NumberFormatException e)
 		{
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!NumberFormat Exception at the MyDocumentListener Class => getY()!!!!!!!!!!!!!!!!!");
-			//JOptionPane.showMessageDialog(null, "Please insert only numbers");
+			JOptionPane.showMessageDialog(null, "Please insert only numbers");
 		}
 		}
 		return 0;
@@ -61,14 +59,11 @@ public class MyDocumentListener implements DocumentListener{
 		if(!xAxis.equals("")){ //If the value is not empty. (Can happen when being focused, because the TUIOMouseListener changes values when clicking etc.)
 		try
 		{
-			String s=xAxis;
-			s.trim();
-			return Integer.parseInt(s);
+			return Integer.parseInt(xAxis);
 		}
 		catch(NumberFormatException e)
 		{
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!NumberFormat Exception at the MyDocumentListener Class => getX()!!!!!!!!!!!!!!!!!");
-			//JOptionPane.showMessageDialog(null, "Please insert only numbers");
+			JOptionPane.showMessageDialog(null, "Please insert only numbers");
 		}
 		}
 		return 0;
@@ -77,15 +72,12 @@ public class MyDocumentListener implements DocumentListener{
 	{
 		if(!rotation.equals("")){ //If the value is not empty. (Can happen when being focused, because the TUIOMouseListener changes values when clicking etc.)
 		try
-		{
-			String s=rotation.replaceAll("\n", "");
-			
-			return Double.parseDouble(s);
+		{	
+			return Double.parseDouble(rotation);
 		}
 		catch(NumberFormatException e)
 		{
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!NumberFormat Exception at the MyDocumentListener Class => getRotation()!!!!!!!!!!!!!!!!!");
-			//JOptionPane.showMessageDialog(null, "Please insert only numbers");
+			JOptionPane.showMessageDialog(null, "Please insert only numbers");
 		}
 		}
 		return 0;
@@ -106,7 +98,6 @@ public class MyDocumentListener implements DocumentListener{
 					if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 					{
 						t.setxPos(getX()); // changes the position of the TUIO
-						System.out.println(getX());
 					}
 				}
 			}
