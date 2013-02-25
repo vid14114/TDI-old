@@ -15,6 +15,7 @@ public class TUIOMouseListener implements MouseListener, MouseMotionListener{
 	public TUIOMouseListener(Desk d){
 		this.d=d;
 		idOfTUIOToBeDragged=-1; //(default)
+		d.repaint();
 	}
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
