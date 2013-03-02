@@ -11,11 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-
 import control.Configuration;
 import control.DragDropListener;
 import control.ProcessManipulator;
-import control.TDIServer;
 import model.Icon;
 
 public class SimView extends JFrame{
@@ -38,8 +36,6 @@ public class SimView extends JFrame{
 	
 	public SimView(int[] resolution, int rows, int cols)
 	{
-		Thread d = new Thread(new TDIServer());
-		d.start();
 		width = resolution[0];
 		height = resolution[1];
 		this.rows=rows;//max rows
