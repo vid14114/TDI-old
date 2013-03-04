@@ -49,24 +49,31 @@ public class TDIServer implements Runnable{
 				while(client.isConnected()){
 					String[] message = ((String)read.readObject()).split(";"); //For some reasons, only when the objectoutputstream sends messages, they can be read 
 					System.out.println("Received message "+message[0]);
+					int i=0;
 					switch(message[0].toLowerCase()){
 					case "start": 
 						tuios.add(new TUIO(message[1]));
 						break;
 					case "delete": break;
-					case "rotate": 
-						int i=0;
+					case "rotate": 	
+						i=0;
 						for(; i<tuios.size(); i++)
 							if(tuios.get(i).getId().equals(message[1]))
 								break;
 						if(message[2].equals("left"))
 							tuios.get(i).rotateLeft();
 						if(message[2].equals("right"))
-							tuios.get(i).rotateRight();		
+							tuios.get(i).rotateRight();
 						break;
 					case "tilt": break;
-					case "move": break;
-					default: send.write("Unknown command");
+					case "move":
+						i=0;
+						for(; i<tuios.size(); i++)
+							if(tuios.get(i).getId().equals(message[1]))
+								break;
+						tuios.get(i).setPos(message[2], message[3]);
+						break;
+					default: send.write("Unknown command"); break;
 					}				
 				}
 			}

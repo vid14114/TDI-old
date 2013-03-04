@@ -20,9 +20,9 @@ public class TUIO {
 	public int[] getPos() {
 		return pos;
 	}
-	public void setPos(int posX, int posY) {
-		pos[0]=posX;
-		pos[1]=posY;
+	public void setPos(String posX, String posY) {
+		pos[0]=Integer.parseInt(posX);
+		pos[1]=Integer.parseInt(posY);
 	}
 	public int getMinimalRotation() {
 		return minimalRotation;
