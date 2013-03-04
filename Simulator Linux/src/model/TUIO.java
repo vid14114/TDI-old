@@ -2,19 +2,19 @@ package model;
 
 public class TUIO {
 
-	private int id;
+	private String id;
 	private int[] pos={0,0};
 	private int minimalRotation;
-	private int rotationPosition;
+	private int rotationPosition=0;
 	
 	public TUIO (String id)
 	{
-		setId(Integer.parseInt(id));
+		setId(id);
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public int[] getPos() {
@@ -35,5 +35,15 @@ public class TUIO {
 	}
 	public void setRotationPosition(int rotationPosition) {
 		this.rotationPosition = rotationPosition;
+	}
+	
+	public void rotateLeft()
+	{
+		rotationPosition--;
+	}
+	
+	public void rotateRight()
+	{
+		rotationPosition++;
 	}
 }

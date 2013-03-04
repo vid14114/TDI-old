@@ -54,7 +54,16 @@ public class TDIServer implements Runnable{
 						tuios.add(new TUIO(message[1]));
 						break;
 					case "delete": break;
-					case "rotate": break;
+					case "rotate": 
+						int i=0;
+						for(; i<tuios.size(); i++)
+							if(tuios.get(i).getId().equals(message[1]))
+								break;
+						if(message[2].equals("left"))
+							tuios.get(i).rotateLeft();
+						if(message[2].equals("right"))
+							tuios.get(i).rotateRight();		
+						break;
 					case "tilt": break;
 					case "move": break;
 					default: send.write("Unknown command");
