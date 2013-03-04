@@ -7,6 +7,10 @@ public class TUIO {
 	private int minimalRotation;
 	private int rotationPosition;
 	
+	public TUIO (String id)
+	{
+		setId(Integer.parseInt(id));
+	}
 	public int getId() {
 		return id;
 	}

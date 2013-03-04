@@ -6,6 +6,9 @@ import java.io.ObjectInputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+
+import model.TUIO;
 
 import javax.swing.JOptionPane;
 
@@ -14,8 +17,9 @@ import javax.swing.JOptionPane;
  *
  */
 public class TDIServer implements Runnable{
-	ServerSocket server;
-	BufferedWriter send;
+	private ServerSocket server;
+	private BufferedWriter send;
+	private ArrayList<TUIO> tuios = new ArrayList<TUIO>(); 
 
 	public TDIServer(){			
 		try {
@@ -46,7 +50,9 @@ public class TDIServer implements Runnable{
 					String[] message = ((String)read.readObject()).split(";"); //For some reasons, only when the objectoutputstream sends messages, they can be read 
 					System.out.println("Received message "+message[0]);
 					switch(message[0].toLowerCase()){
-					case "start": break;
+					case "start": 
+						tuios.add(new TUIO(message[1]));
+						break;
 					case "delete": break;
 					case "rotate": break;
 					case "tilt": break;
