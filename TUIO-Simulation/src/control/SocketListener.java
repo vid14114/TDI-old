@@ -10,8 +10,10 @@ public class SocketListener implements Runnable{
 	public Socket socket;
 	public ObjectOutputStream outgoing;
 	public ObjectInputStream incoming;
+	public String ipOfServer;
 	public SocketListener(){
-		
+		//dummy ip right now
+		ipOfServer="10.0.0.1";
 	}
 	@Override
 	public void run() {
@@ -19,7 +21,7 @@ public class SocketListener implements Runnable{
 		while(true){
 			//Create socket connection
 			   try{
-			     socket = new Socket("10.0.0.1", 2345);
+			     socket = new Socket(ipOfServer, 2345);
 			     //Not used yet.
 			     outgoing= new ObjectOutputStream(socket.getOutputStream());
 			     incoming= new ObjectInputStream(socket.getInputStream());
@@ -31,7 +33,7 @@ public class SocketListener implements Runnable{
 			    	 }
 			     }
 			   } catch (UnknownHostException e) {
-			     System.out.println("Unknown host: 10.0.0.1");
+			     System.out.println("Unknown host: "+ipOfServer);
 			     System.exit(1);
 			   } catch  (IOException e) {
 			     System.out.println("No I/O");
