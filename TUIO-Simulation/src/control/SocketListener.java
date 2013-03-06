@@ -30,7 +30,7 @@ public class SocketListener implements Runnable{
 			    	 }
 			     }
 			   } catch (UnknownHostException e) {
-			     System.out.println("Unknown host: kq6py");
+			     System.out.println("Unknown host: 10.0.0.1");
 			     System.exit(1);
 			   } catch  (IOException e) {
 			     System.out.println("No I/O");
