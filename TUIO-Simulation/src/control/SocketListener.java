@@ -12,23 +12,18 @@ public class SocketListener implements Runnable{
 	public ObjectInputStream incoming;
 	public String ipOfServer;
 	public SocketListener(){
-		//dummy ip right now
-		ipOfServer="10.0.0.1";
+		ipOfServer="10.0.0.1"; //dummy ip right now
 	}
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		while(true){
-			//Create socket connection
 			   try{
-			     socket = new Socket(ipOfServer, 2345);
-			     //Not used yet.
-			     outgoing= new ObjectOutputStream(socket.getOutputStream());
+			     socket = new Socket(ipOfServer, 2345);		//Create socket connection
+			     outgoing= new ObjectOutputStream(socket.getOutputStream()); //Not used yet.
 			     incoming= new ObjectInputStream(socket.getInputStream());
 			     while(socket.isConnected()){
 			    	 String[] message = ((String)incoming.readObject()).split(";");
-			    	 //Here we get the commands form the server.... 
-			    	 switch(message[0].toLowerCase()){
+			    	 switch(message[0].toLowerCase()){ 	 //Here we get the commands form the server.... 
 			    	 //Logic will be implented here.
 			    	 }
 			     }
