@@ -27,6 +27,7 @@ public class SocketListener implements Runnable{
 			    	 String[] message = ((String)incoming.readObject()).split(";");
 			    	 //Here we get the commands form the server.... 
 			    	 switch(message[0].toLowerCase()){
+			    	 //Logic will be implented here.
 			    	 }
 			     }
 			   } catch (UnknownHostException e) {
