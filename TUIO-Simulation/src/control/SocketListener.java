@@ -1,16 +1,14 @@
 package control;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
-import java.io.PrintWriter;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class SocketListener implements Runnable{
 	public Socket socket;
-	public PrintWriter out;
+	public ObjectOutputStream outgoing;
 	public ObjectInputStream incoming;
 	public SocketListener(){
 		
@@ -23,7 +21,7 @@ public class SocketListener implements Runnable{
 			   try{
 			     socket = new Socket("10.0.0.1", 2345);
 			     //Not used yet.
-			     out = new PrintWriter(socket.getOutputStream(),true);
+			     outgoing= new ObjectOutputStream(socket.getOutputStream());
 			     incoming= new ObjectInputStream(socket.getInputStream());
 			     while(socket.isConnected()){
 			    	 String[] message = ((String)incoming.readObject()).split(";");
