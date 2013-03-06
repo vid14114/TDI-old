@@ -3,6 +3,7 @@ package control;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,13 +13,15 @@ import model.TUIO;
 
 import javax.swing.JOptionPane;
 
+import com.sun.xml.internal.ws.client.SenderException;
+
 /**
  * @author TDI Team
  *
  */
 public class TDIServer implements Runnable{
 	private ServerSocket server;
-	private BufferedWriter send;
+	private ObjectOutputStream send;
 	private ArrayList<TUIO> tuios = new ArrayList<TUIO>(); 
 
 	public TDIServer(){			
@@ -45,7 +48,7 @@ public class TDIServer implements Runnable{
 				}
 				client.setKeepAlive(true);
 				ObjectInputStream read = new ObjectInputStream(client.getInputStream());
-				send = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));				
+				send = new ObjectOutputStream(client.getOutputStream());				
 				while(client.isConnected()){
 					String[] message = ((String)read.readObject()).split(";"); //For some reasons, only when the objectoutputstream sends messages, they can be read 
 					System.out.println("Received message "+message[0]);
@@ -73,7 +76,7 @@ public class TDIServer implements Runnable{
 								break;
 						tuios.get(i).setPos(message[2], message[3]);
 						break;
-					default: send.write("Unknown command"); break;
+					default: send.writeObject("Unknown command"); break;
 					}				
 				}
 			}
@@ -88,10 +91,16 @@ public class TDIServer implements Runnable{
 	}
 	
 	/**
-	 * Used by the server to send commands to the TDIs 
+	 * Used by the server to send commands to the TDIs
+	 * uses the method writeObject of the attribute send to send messages
+	 * {@code ObjectOutputStream.writeObject(Object)} 
 	 */
-	public void sendMessage(){
-		//TODO Viktor, use this method to send messages to the TUIOs
+	public void sendMessage(int id, int x, int y, int actualRotation, int minimalRotation){
+		try {
+			send.writeObject("MOVE;"+id+";"+x+";"+y+";"+actualRotation+";"+minimalRotation);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
