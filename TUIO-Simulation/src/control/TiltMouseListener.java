@@ -31,26 +31,28 @@ public class TiltMouseListener implements ActionListener{
 			
 			sendTilting(1);//set value used for sockets later (default value right now)
 			d.setShowTitlt("up");//shows the sent value in the TDI simulation 
-			
-			//d.socket.sendRotate(t.getId(),t.getRotation()); // sends the changes value to the server
+			d.socket.sendTilt(d.getIdJLabel(),"up"); // sends the changes value to the server
 		}
 		if(e.getActionCommand()=="tiltDown")
 		{
 			
 			sendTilting(2);//set value used for sockets later (default value right now)
 			d.setShowTitlt("down");//shows the sent value in the TDI simulation
+			d.socket.sendTilt(d.getIdJLabel(),"down"); // sends the changes value to the server
 		}
 		if(e.getActionCommand()=="tiltRight")
 		{
 			
 			sendTilting(3);//set value used for sockets later (default value right now)
 			d.setShowTitlt("right");//shows the sent value in the TDI simulation 
+			d.socket.sendTilt(d.getIdJLabel(),"right"); // sends the changes value to the server
 		}
 		if(e.getActionCommand()=="tiltLeft")
 		{
 			
 			sendTilting(4);//set value used for sockets later (default value right now)
 			d.setShowTitlt("left");//shows the sent value in the TDI simulation
+			d.socket.sendTilt(d.getIdJLabel(),"left"); // sends the changes value to the server
 		}
 		
 	}
