@@ -96,6 +96,7 @@ public class MyDocumentListener implements DocumentListener{
 						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 						{
 							t.setxPos(getX()); // changes the position of the TUIO
+							d.socket.sendMove(t.getId(), t.getxPos(), t.getyPos());// sends the changes value to the server
 						}
 					 }
 				}
@@ -110,6 +111,7 @@ public class MyDocumentListener implements DocumentListener{
 						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 						{
 							t.setyPos(getY());// changes the position of the TUIO
+							d.socket.sendMove(t.getId(), t.getxPos(), t.getyPos());// sends the changes value to the server
 						}
 					}
 				}
@@ -124,6 +126,7 @@ public class MyDocumentListener implements DocumentListener{
 						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 						{
 							t.setRotation(getRotation());// changes the position of the TUIO
+							d.socket.sendRotate(t.getId(),t.getRotation()); // sends the changes value to the server
 						}
 					}
 				}
@@ -150,6 +153,7 @@ public class MyDocumentListener implements DocumentListener{
 						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 						{
 							t.setxPos(getX());// changes the position of the TUIO
+							d.socket.sendMove(t.getId(), t.getxPos(), t.getyPos());// sends the changes value to the server
 						}
 					}
 				}
@@ -164,6 +168,7 @@ public class MyDocumentListener implements DocumentListener{
 						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 						{
 							t.setyPos(getY());// changes the position of the TUIO
+							d.socket.sendMove(t.getId(), t.getxPos(), t.getyPos());// sends the changes value to the server
 						}
 					}
 				}
@@ -178,6 +183,7 @@ public class MyDocumentListener implements DocumentListener{
 						if(t.getId()==d.getIdJLabel()) // if same id (in the TextField and for the actual Tuio in the array)
 						{
 							t.setRotation(getRotation());// changes the position of the TUIO
+							d.socket.sendRotate(t.getId(),t.getRotation()); // sends the changes value to the server
 						}
 					}
 				}

@@ -16,9 +16,9 @@ public class TiltMouseListener implements ActionListener{
 		// TODO Auto-generated method stub
 		Desk d=new Desk();
 	}
-	public int sendTilting(int id)
+	public int sendTilting(int degree)
 	{
-		return id;
+		return degree;
 	}
 
 	@Override
@@ -28,31 +28,29 @@ public class TiltMouseListener implements ActionListener{
 		
 		if(e.getActionCommand()=="tiltUp")
 		{
-			//set value used for sockets later (default value right now)
-			sendTilting(1);
-			//shows the sent value in the TDI simulation 
-			d.setShowTitlt("up");
+			
+			sendTilting(1);//set value used for sockets later (default value right now)
+			d.setShowTitlt("up");//shows the sent value in the TDI simulation 
+			
+			//d.socket.sendRotate(t.getId(),t.getRotation()); // sends the changes value to the server
 		}
 		if(e.getActionCommand()=="tiltDown")
 		{
-			//set value used for sockets later (default value right now)
-			sendTilting(2);
-			//shows the sent value in the TDI simulation 
-			d.setShowTitlt("down");
+			
+			sendTilting(2);//set value used for sockets later (default value right now)
+			d.setShowTitlt("down");//shows the sent value in the TDI simulation
 		}
 		if(e.getActionCommand()=="tiltRight")
 		{
-			//set value used for sockets later (default value right now)
-			sendTilting(3);
-			//shows the sent value in the TDI simulation 
-			d.setShowTitlt("right");
+			
+			sendTilting(3);//set value used for sockets later (default value right now)
+			d.setShowTitlt("right");//shows the sent value in the TDI simulation 
 		}
 		if(e.getActionCommand()=="tiltLeft")
 		{
-			//set value used for sockets later (default value right now)
-			sendTilting(4);
-			//shows the sent value in the TDI simulation 
-			d.setShowTitlt("left");
+			
+			sendTilting(4);//set value used for sockets later (default value right now)
+			d.setShowTitlt("left");//shows the sent value in the TDI simulation
 		}
 		
 	}

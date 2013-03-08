@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel; 
 import javax.swing.JTextField;
 import control.MyDocumentListener;
+import control.SocketListener;
 import control.TUIOMouseListener;
 import control.UniversalActionListener;
 import control.MenuMouseListener;
@@ -21,6 +22,8 @@ public class Desk extends JFrame{
 
 	private static final long serialVersionUID = -5944444691938882393L;
 	public JLabel idJLabel;
+	public Thread t;
+	public SocketListener socket;
 	public JTextField xAxisJTextField;
 	public JTextField yAxisJTextField;
 	public JTextField rotationJTextField;
@@ -34,6 +37,9 @@ public class Desk extends JFrame{
 	}
 	
 	public Desk() {
+		socket=new SocketListener();
+		t = new Thread(socket);
+		t.start();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("TUIO Desk Simulation");
 		setSize(1250, 700);

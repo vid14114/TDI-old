@@ -21,29 +21,17 @@ public class SocketListener implements Runnable{
 		while(true){
 			   try{
 			     socket = new Socket(ipOfServer, 2345);		//Create socket connection
-			     outgoing= new ObjectOutputStream(socket.getOutputStream()); //Not used yet.
+			     outgoing= new ObjectOutputStream(socket.getOutputStream()); //Not used yet.	     
+			     
 			     incoming= new ObjectInputStream(socket.getInputStream());
 			     while(socket.isConnected()){
 			    	 String[] message = ((String)incoming.readObject()).split(";");
 			    	 switch(message[0].toLowerCase()){ 	 //Here we get the commands form the server.... 
 			    	 //Logic will be implented here.
-			    	 case "start": break;
-			    	 case "delete": break;
 			    	 case "move":
 			    		 getTuioThroughID(message[1]).setxPos(Integer.parseInt(message[2]));  
-			    		 getTuioThroughID(message[1]).setyPos(Integer.parseInt(message[3]));
+			    		 getTuioThroughID(message[1]).setyPos(Integer.parseInt(message[3]));			    		 
 			    		 break;
-			    	 case "rotate":
-			    		 getTuioThroughID(message[1]).setRotation(Double.parseDouble(message[2])); // just rotates not checked if left or right
-			    	 		break;
-			    	 case "tilt":
-			    		 getTuioThroughID(message[1]);
-			    		 
-			    		 break;
-			    	 
-			    	 
-			    	 
-			    	 
 			    	 }
 			     }
 			   } catch (UnknownHostException e) {
@@ -69,6 +57,42 @@ public class SocketListener implements Runnable{
 		}
 		return null;
 		
+	}
+	// all send methods 
+	public void sendMove(int id, int x, int y){
+		try {
+			outgoing.writeObject("move;"+id+";"+x+";"+y);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void sendTilt(int id, int x, String direction){
+		try {
+			outgoing.writeObject("tilt;"+id+";"+x+";"+direction);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void sendRotate(int id, double degrees){
+		try {
+			outgoing.writeObject("rotate;"+id+";"+degrees);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void sendStart(int id){
+		try {
+			outgoing.writeObject("start;"+id);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void sendDelete(int id){
+		try {
+			outgoing.writeObject("delete;"+id);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
