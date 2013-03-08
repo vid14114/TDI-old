@@ -79,6 +79,7 @@ public class UniversalActionListener implements ActionListener{
 						{
 							Main.tuios.remove(t.getId());
 							//delete this TUIO
+							d.socket.sendDelete(t.getId());
 							d.repaint();
 							return;
 						}
@@ -93,6 +94,7 @@ public class UniversalActionListener implements ActionListener{
 				if(differentYAxis<=500)
 				{
 					Main.tuios.put(Main.automaticGeneratedId, new TUIO(Main.automaticGeneratedId,5+differentXAxis,5+differentYAxis,0));
+					d.socket.sendStart(Main.automaticGeneratedId);
 					
 					Main.automaticGeneratedId ++;
 					differentYAxis += 60; // used to set the position of the new added tuio under the last one so that overlapping is prevented
@@ -105,6 +107,7 @@ public class UniversalActionListener implements ActionListener{
 						differentXAxis += 80;
 						
 						Main.tuios.put(Main.automaticGeneratedId, new TUIO(Main.automaticGeneratedId,5+differentXAxis,5+differentYAxis,0));
+						d.socket.sendStart(Main.automaticGeneratedId);
 						
 						Main.automaticGeneratedId ++;
 						differentYAxis += 60;
