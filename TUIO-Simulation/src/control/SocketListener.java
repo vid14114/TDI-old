@@ -29,8 +29,11 @@ public class SocketListener implements Runnable{
 			    	 switch(message[0].toLowerCase()){ 	 //Here we get the commands form the server.... 
 			    	 //Logic will be implented here.
 			    	 case "move":
-			    		 getTuioThroughID(message[1]).setxPos(Integer.parseInt(message[2]));  
-			    		 getTuioThroughID(message[1]).setyPos(Integer.parseInt(message[3]));			    		 
+			    		 if( getTuioThroughID(message[1])!=null)
+			    		 {
+				    		 getTuioThroughID(message[1]).setxPos(Integer.parseInt(message[2]));  
+				    		 getTuioThroughID(message[1]).setyPos(Integer.parseInt(message[3]));	
+			    		 }
 			    		 break;
 			    	 }
 			     }
@@ -66,9 +69,9 @@ public class SocketListener implements Runnable{
 			e.printStackTrace();
 		}
 	}
-	public void sendTilt(int id, int x, String direction){
+	public void sendTilt(int id, String direction){
 		try {
-			outgoing.writeObject("tilt;"+id+";"+x+";"+direction);
+			outgoing.writeObject("tilt;"+id+";"+direction);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -87,7 +90,7 @@ public class SocketListener implements Runnable{
 			e.printStackTrace();
 		}
 	}
-	public void sendDelete(int id){
+	public void sendDelete(int id){ // same funktion as add
 		try {
 			outgoing.writeObject("delete;"+id);
 		} catch (IOException e) {
