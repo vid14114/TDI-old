@@ -11,7 +11,7 @@ import model.TUIO;
 
 public class MyDocumentListener implements DocumentListener{
 // reads the values out of the textboxes that show the rotation and the x/y axis
-// it returns Double values
+// it returns the rotation(double), the xAxis(int) and the yAxis (int)
 	public String xAxis;
 	public String yAxis;
 	public String rotation;
