@@ -47,7 +47,6 @@ public class Draw extends JPanel {
 			trans.setToTranslation(t.getxPos(), t.getyPos());
 			trans.rotate( Math.toRadians(t.getRotation()) );
 			g2D.drawImage(i, trans, this);
-			//g2D.drawImage(i, t.getxPos(), t.getyPos(), null);
 		}
 		// draws the taskbar
 		g2D.drawRect(0, getHeight()-70, getWidth(), 1);

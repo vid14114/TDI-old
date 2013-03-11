@@ -14,7 +14,7 @@ public class SocketListener implements Runnable{
 	public ObjectInputStream incoming;
 	public String ipOfServer;
 	public SocketListener(){
-		ipOfServer="10.0.0.1"; //dummy ip right now
+		ipOfServer="192.168.0.1"; //dummy ip right now
 	}
 	@Override
 	public void run() {
