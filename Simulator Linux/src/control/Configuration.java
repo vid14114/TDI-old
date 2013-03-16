@@ -116,6 +116,10 @@ public class Configuration {
 		}
 	}
 	
+	/**
+	 * This method calculates the resolution of the user's pc 
+	 * @return An array with the resolution of the user's pc in the format [width] [height]
+	 */
 	public int[] getResolution()
 	{
 		int[] resolution = new int[2];
@@ -147,6 +151,11 @@ public class Configuration {
 		return icons;
 	}
 	
+	/**
+	 * Calculate the maximum amount of rows the desktop supports. 
+	 * @return the estimated maximum of rows allowed
+	 * @throws IOException When a file is corrupt
+	 */
 	public int calcRows() throws IOException
 	{
 		int[] resolution=getResolution();
@@ -181,6 +190,11 @@ public class Configuration {
 		return ((height-panelSize)-2*margin)/(iconSize+(3*margin));
 	}
 	
+	/**
+	 * Calculates the maximum amount of cols the desktop supports	 
+	 * @return an estimated amount of cols allowed 
+	 * @throws IOException When the file is corrupt
+	 */
 	public int calcCols() throws IOException
 	{
 		int[] resolution=getResolution();

@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * The information of the location, rotation degreee and such is saved in this class 
+ * @author TDI-Team
+ *
+ */
 public class TUIO {
 
 	private String id;

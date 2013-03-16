@@ -16,16 +16,21 @@ import control.DragDropListener;
 import control.ProcessManipulator;
 import model.Icon;
 
+/**
+ * The {@link SimView} class is a representation of the user's desktop.
+ * All icons are copied accordingly and the background image is also shown to the user.
+ * The {@link SimView} class allows the user to interact with the program as if he is interacting with his desktop. If the user moves an icon
+ * in simview, the icon is also moved on the real desktop. Icons are coloured to show the user which Icons groups a single TDI manages. Marked TDI's 
+ * are marked to give the user visual help
+ * @author TDI-Team
+ *
+ */
 public class SimView extends JFrame{
-	/**
-	 * @author TDI Team
-	 */
 	
 	/**
 	 * A randomly generated serialVersion
 	 */
-	private static final long serialVersionUID = 639166567792984188L;
-	
+	private static final long serialVersionUID = 639166567792984188L;	
 	int cols;
 	int rows;
 	int width;
@@ -112,6 +117,12 @@ public class SimView extends JFrame{
 		setVisible(true);
 	}	
 	
+	/**
+	 * Refreshes the desktop after the user has moved an icon
+	 * @param config
+	 * @return An ArrayList of the new position of the icons
+	 * @throws IOException
+	 */
 	public ArrayList<Icon> updateDesktop(Configuration config) throws IOException
 	{		
 		ArrayList<Icon> newIcons=new ArrayList<Icon>();
@@ -140,7 +151,7 @@ public class SimView extends JFrame{
 				}
 			}
 		}
-		ProcessManipulator.monitorPrograms(icons,taskLabels, labels);
+		new Thread(new ProcessManipulator(icons, taskLabels, labels)).start(); //Now the view process isn't blocked by the searching of the opened programs
 		repaint();
 		return newIcons;
 	}

@@ -49,8 +49,8 @@ public class TDIServer implements Runnable{
 				client.setKeepAlive(true);
 				ObjectInputStream read = new ObjectInputStream(client.getInputStream());
 				send = new ObjectOutputStream(client.getOutputStream());				
-				while(client.isConnected()){
-					String[] message = ((String)read.readObject()).split(";"); //For some reasons, only when the objectoutputstream sends messages, they can be read 
+				while(client.isConnected()){ //Here the whole message handling is done
+					String[] message = ((String)read.readObject()).split(";"); //For some reasons, only when the objectoutputstream sends messages, can they be read by the server
 					System.out.println("Received message "+message[0]);
 					int i=0;
 					switch(message[0].toLowerCase()){

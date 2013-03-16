@@ -33,7 +33,8 @@ public class DragDropListener extends TransferHandler implements MouseListener {
 	}
 
 	/**
-	 * When the user has finished dragging the label, this method is used
+	 * When the user has finished dragging the label, this method is called
+	 * The method sets the source text, name and icon to null and refreshed the screen
 	 */
 	public void exportDone(JComponent c, Transferable data, int action) {
 		JLabel source = (JLabel) c;
@@ -41,7 +42,7 @@ public class DragDropListener extends TransferHandler implements MouseListener {
 		source.setName("");
 		source.setIcon(null);
 		try {
-			config.updateConfig(view.updateDesktop(config));
+			config.updateConfig(view.updateDesktop(config));// The update config file is called to update the config file and refresh the screen
 		} catch (IOException e) {
 			System.err.println(e.getStackTrace());
 		}
