@@ -39,10 +39,10 @@ public class SocketListener implements Runnable{
 			     }
 			   } catch (UnknownHostException e) {
 			     System.out.println("Unknown host: "+ipOfServer);
-			     System.exit(1);
+			     //System.exit(1);
 			   } catch  (IOException e) {
 			     System.out.println("No I/O");
-			     System.exit(1);
+			     //System.exit(1);
 			   } catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -63,39 +63,39 @@ public class SocketListener implements Runnable{
 	}
 	// all send methods 
 	public void sendMove(int id, int x, int y){
-		try {
-			outgoing.writeObject("move;"+id+";"+x+";"+y);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	//	try {
+	//		outgoing.writeObject("move;"+id+";"+x+";"+y);
+	//	} catch (IOException e) {
+	//		e.printStackTrace();
+	//	}
 	}
 	public void sendTilt(int id, String direction){
-		try {
-			outgoing.writeObject("tilt;"+id+";"+direction);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	//	try {
+	//		outgoing.writeObject("tilt;"+id+";"+direction);
+	//	} catch (IOException e) {
+	//		e.printStackTrace();
+	//	}
 	}
 	public void sendRotate(int id, double degrees){
-		try {
-			outgoing.writeObject("rotate;"+id+";"+degrees);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	//	try {
+	//		outgoing.writeObject("rotate;"+id+";"+degrees);
+	//	} catch (IOException e) {
+	//		e.printStackTrace();
+	//	}
 	}
 	public void sendStart(int id){
-		try {
-			outgoing.writeObject("start;"+id);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	//	try {
+	//		outgoing.writeObject("start;"+id);
+	//	} catch (IOException e) {
+	//		e.printStackTrace();
+	//	}
 	}
 	public void sendDelete(int id){ // same funktion as add
-		try {
-			outgoing.writeObject("delete;"+id);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	//	try {
+	//		outgoing.writeObject("delete;"+id);
+	//	} catch (IOException e) {
+	//		e.printStackTrace();
+	//	}
 	}
 
 }
