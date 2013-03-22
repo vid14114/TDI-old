@@ -11,10 +11,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.JOptionPane;
 import model.Icon;
 
-public class Configuration {
+public class Configuration{
 	private File iconsFile;
 	private Image background;
 	private ArrayList<Icon> icons = new ArrayList<>();
@@ -37,6 +39,15 @@ public class Configuration {
 				icons.add(i);
 			}
 		}
+		Collections.sort(icons,new Comparator<Icon>() {
+			@Override
+			public int compare(Icon o1, Icon o2) {
+				if(o1.getRow() == o2.getRow())
+					return o1.getCol() - o2.getCol();
+				return o1.getRow() - o2.getRow();
+			}
+			
+		});
 		br.close();
 		br = new BufferedReader(new FileReader(System.getProperty("user.home")+"/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"));
 		while(br.ready()){
@@ -219,5 +230,5 @@ public class Configuration {
 		}
 		br3.close();
 		return ((width)-2*margin)/(iconSize+(4*margin));
-	}	
+	}
 }

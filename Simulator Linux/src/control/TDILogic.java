@@ -1,6 +1,7 @@
 package control;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import model.Icon;
 import model.TUIO;
@@ -27,7 +28,7 @@ public class TDILogic implements Runnable{
 			fits=false;
 			count++;
 		}
-		int iconNum=0;
+		int iconNum=0;		
 		for(int i=0; i<tuios.size(); i++)
 		{
 			assignments.add(new ArrayList<Icon>());
