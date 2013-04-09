@@ -10,7 +10,7 @@ public class TUIO {
 	private String id;
 	private int[] pos={0,0};
 	private int minimalRotation;
-	private int rotationPosition=0;
+	private int rotationPosition;
 	
 	public TUIO (String id)
 	{
@@ -44,11 +44,11 @@ public class TUIO {
 	
 	public void rotateLeft()
 	{
-		rotationPosition--;
+		rotationPosition=- minimalRotation;
 	}
 	
 	public void rotateRight()
 	{
-		rotationPosition++;
+		rotationPosition=+ minimalRotation;
 	}
 }

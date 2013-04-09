@@ -18,12 +18,14 @@ import javax.swing.JOptionPane;
 public class TDIServer implements Runnable{
 	private ServerSocket server;
 	private ObjectOutputStream send;
-	private ArrayList<TUIO> tuios = new ArrayList<TUIO>(); 
+	private ArrayList<TUIO> tuios = new ArrayList<TUIO>();
+	private Configuration config;
 
-	public TDIServer(){			
+	public TDIServer(Configuration config){			
 		try {
 			//Created a new serversocket instance, which is bound to the port 1234
 			server = new ServerSocket(2345);
+			this.config = config;
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Error! Couldn't initialize the server", "Error at Server initialization", JOptionPane.ERROR_MESSAGE);
 		}
@@ -47,30 +49,28 @@ public class TDIServer implements Runnable{
 				send = new ObjectOutputStream(client.getOutputStream());				
 				while(client.isConnected()){ //Here the whole message handling is done
 					String[] message = ((String)read.readObject()).split(";"); //For some reasons, only when the objectoutputstream sends messages, can they be read by the server
-					System.out.println("Received message "+message[0]);
-					int i=0;
 					switch(message[0].toLowerCase()){
 					case "start": 
 						tuios.add(new TUIO(message[1]));
 						break;
 					case "delete": break;
 					case "rotate": 	
-						i=0;
-						for(; i<tuios.size(); i++)
-							if(tuios.get(i).getId().equals(message[1]))
-								break;
-						if(message[2].equals("left"))
-							tuios.get(i).rotateLeft();
-						if(message[2].equals("right"))
-							tuios.get(i).rotateRight();
+						for(int i = 0; i<tuios.size(); i++)
+							if(tuios.get(i).getId().equals(message[1])){
+								if(message[2].equals("left"))
+									tuios.get(i).rotateLeft();
+								if(message[2].equals("right"))
+									tuios.get(i).rotateRight();
+							////This rotate algorithm is for taskbar mode, 
+								//since we haven't programmed that yet, I have commented it out;								
+								//	new Thread(new RotateHandler(config.icons, tuios.get(0))).start();
+							}								
 						break;
-					case "tilt": break;
+					case "tilt": break;						
 					case "move":
-						i=0;
-						for(; i<tuios.size(); i++)
+						for(int i = 0; i<tuios.size(); i++)
 							if(tuios.get(i).getId().equals(message[1]))
-								break;
-						tuios.get(i).setPos(message[2], message[3]);
+								tuios.get(i).setPos(message[2], message[3]);
 						break;
 					default: send.writeObject("Unknown command"); break;
 					}				

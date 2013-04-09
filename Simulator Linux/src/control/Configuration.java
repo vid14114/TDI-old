@@ -19,7 +19,7 @@ import model.Icon;
 public class Configuration{
 	private File iconsFile;
 	private Image background;
-	private ArrayList<Icon> icons = new ArrayList<>();
+	protected ArrayList<Icon> icons = new ArrayList<>();
 	
 	/**
 	 * The default constructor for the Configuration class

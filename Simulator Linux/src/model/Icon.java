@@ -25,7 +25,7 @@ public class Icon {
 	private int row;
 	private int col;
 	private ImageIcon icon;
-	private int searchDepth=0;
+	private int searchDepth = 0;
 	private String exec=""; //The execution path of the icon, when it is a program
 	private Process process; //When the user is started, saves the process in the Icon
 	File dir=new File("/usr/share/icons");
