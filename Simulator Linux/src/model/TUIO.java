@@ -49,11 +49,11 @@ public class TUIO {
 	
 	public void rotateLeft()
 	{
-		rotationPosition=- minimalRotation;
+		rotationPosition--;
 	}
 	
 	public void rotateRight()
 	{
-		rotationPosition=+ minimalRotation;
+		rotationPosition++;
 	}
 }

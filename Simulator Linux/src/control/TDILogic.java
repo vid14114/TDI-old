@@ -8,6 +8,7 @@ import model.TUIO;
 public class TDILogic implements Runnable{
 	private ArrayList<Icon> icons;
 	private ArrayList<TUIO> tuios;
+	private static TDIServer server;
 	static int tableWidth=800;	//in reality we need to get these values from the tracking system
 	static int tableHeight=600;
 	//multidimensional ArrayList, because not every TUIO has the same number of icons
@@ -55,6 +56,10 @@ public class TDILogic implements Runnable{
 				cols+=icon.getCol();
 			}
 			tuios.get(i).setPos(tableWidth/rows, tableHeight/cols);
+		}
+		for(TUIO tuio: tuios)
+		{
+			server.sendMessage(tuio.getId(), tuio.getPos()[0], tuio.getPos()[1], tuio.getMinimalRotation());
 		}
 	}
 }

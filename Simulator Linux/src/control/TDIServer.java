@@ -91,9 +91,9 @@ public class TDIServer implements Runnable{
 	 * uses the method writeObject of the attribute send to send messages
 	 * {@code ObjectOutputStream.writeObject(Object)} 
 	 */
-	public void sendMessage(int id, int x, int y, int actualRotation, int minimalRotation){
+	public void sendMessage(String id, int x, int y, int minimalRotation){
 		try {
-			send.writeObject("MOVE;"+id+";"+x+";"+y+";"+actualRotation+";"+minimalRotation);
+			send.writeObject("MOVE;"+id+";"+x+";"+y+";"+minimalRotation);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
