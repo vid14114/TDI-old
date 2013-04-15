@@ -1,7 +1,6 @@
 package control;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import model.Icon;
 import model.TUIO;
@@ -9,6 +8,8 @@ import model.TUIO;
 public class TDILogic implements Runnable{
 	private ArrayList<Icon> icons;
 	private ArrayList<TUIO> tuios;
+	static int tableWidth=800;	//in reality we need to get these values from the tracking system
+	static int tableHeight=600;
 	//multidimensional ArrayList, because not every TUIO has the same number of icons
 	private ArrayList<ArrayList<Icon>> assignments=new ArrayList<ArrayList<Icon>>();
 	
@@ -28,7 +29,7 @@ public class TDILogic implements Runnable{
 			fits=false;
 			count++;
 		}
-		int iconNum=0;		
+		int iconNum=0;
 		for(int i=0; i<tuios.size(); i++)
 		{
 			assignments.add(new ArrayList<Icon>());
@@ -43,7 +44,17 @@ public class TDILogic implements Runnable{
 				fits=true;
 			}
 		}
-		
+		//calculate and set the position of the TDI on the table
+		for(int i=0; i<assignments.size(); i++)
+		{
+			int rows=0;
+			int cols=0;
+			for(Icon icon: assignments.get(i))
+			{
+				rows+=icon.getRow();
+				cols+=icon.getCol();
+			}
+			tuios.get(i).setPos(tableWidth/rows, tableHeight/cols);
+		}
 	}
-
 }

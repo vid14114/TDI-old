@@ -29,6 +29,11 @@ public class TUIO {
 		pos[0]=Integer.parseInt(posX);
 		pos[1]=Integer.parseInt(posY);
 	}
+	public void setPos(int posX, int posY)
+	{
+		pos[0]=posX;
+		pos[1]=posY;
+	}
 	public int getMinimalRotation() {
 		return minimalRotation;
 	}
