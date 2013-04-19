@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import model.Icon;
 import model.TUIO;
 
 import javax.swing.JOptionPane;
@@ -19,9 +20,11 @@ public class TDIServer implements Runnable{
 	private ServerSocket server;
 	private ObjectOutputStream send;
 	private ArrayList<TUIO> tuios = new ArrayList<TUIO>();
+	ArrayList<Icon> icons;
 	private Configuration config;
+	private TDILogic logic;
 
-	public TDIServer(Configuration config){			
+	public TDIServer(Configuration config, ArrayList<Icon> icons){			
 		try {
 			//Created a new serversocket instance, which is bound to the port 1234
 			server = new ServerSocket(2345);
@@ -52,6 +55,8 @@ public class TDIServer implements Runnable{
 					switch(message[0].toLowerCase()){
 					case "start": 
 						tuios.add(new TUIO(message[1]));
+						logic=new TDILogic(icons, tuios);
+						new Thread(logic);
 						break;
 					case "delete": break;
 					case "rotate": 	

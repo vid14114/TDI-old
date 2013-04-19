@@ -14,6 +14,7 @@ import javax.swing.border.LineBorder;
 import control.Configuration;
 import control.DragDropListener;
 import control.ProcessManipulator;
+import control.TDIServer;
 import model.Icon;
 
 /**
@@ -36,10 +37,11 @@ public class SimView extends JFrame{
 	int width;
 	int height;
 	ArrayList<Icon> icons;
+	Configuration config;
 	JLabel[][] labels;
 	JLabel[] taskLabels;
 	
-	public SimView(int[] resolution, int rows, int cols)
+	public SimView(int[] resolution, int rows, int cols, Configuration config)
 	{
 		width = resolution[0];
 		height = resolution[1];
@@ -50,7 +52,9 @@ public class SimView extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(width, height);
 		setResizable(true);
-		setVisible(true);		
+		setVisible(true);
+		TDIServer ts=new TDIServer(config, icons);
+		new Thread(ts);
 	}
 
 	/**

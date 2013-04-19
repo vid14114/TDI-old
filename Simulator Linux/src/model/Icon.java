@@ -208,14 +208,14 @@ public class Icon {
 	 */
 	public ArrayList<File> findIcon(File dir) throws IOException
 	{	
-		if(new File(iconName).exists())
+		if(new File(iconName).exists() && iconName.contains(".xpm"))
 		{
 			BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(iconName)));
 			String s="";
 			for(String line=br.readLine(); line!=null; line=br.readLine())
 				s+=line+"\n";
 			Image i=Xpm.XpmToImage(s);
-			setIcon(new ImageIcon(i),true);
+			setIcon(new ImageIcon(i), true);
 			br.close();
 		}
 		File[] files=dir.listFiles();
