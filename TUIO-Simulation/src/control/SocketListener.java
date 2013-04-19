@@ -22,7 +22,6 @@ public class SocketListener implements Runnable{
 			   try{
 			     socket = new Socket(ipOfServer, 2345);		//Create socket connection
 			     outgoing= new ObjectOutputStream(socket.getOutputStream()); //Not used yet.	     
-			     
 			     incoming= new ObjectInputStream(socket.getInputStream());
 			     while(socket.isConnected()){
 			    	 String[] message = ((String)incoming.readObject()).split(";");
