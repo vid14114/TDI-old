@@ -56,7 +56,7 @@ public class TDIServer implements Runnable{
 					case "start": 
 						tuios.add(new TUIO(message[1]));
 						logic=new TDILogic(icons, tuios);
-						new Thread(logic);
+						new Thread(logic).start();
 						break;
 					case "delete": break;
 					case "rotate": 	

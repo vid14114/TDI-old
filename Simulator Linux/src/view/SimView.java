@@ -54,7 +54,7 @@ public class SimView extends JFrame{
 		setResizable(true);
 		setVisible(true);
 		TDIServer ts=new TDIServer(config, icons);
-		new Thread(ts);
+		new Thread(ts).start();
 	}
 
 	/**
