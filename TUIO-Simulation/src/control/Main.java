@@ -1,12 +1,21 @@
 package control;
 
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.HashMap;
+
 import model.TUIO;
 import view.Desk;
 
 public class Main {
 
-	public static ArrayList<TUIO> tuios=new ArrayList<>();
+	public static HashMap<Integer, TUIO> tuios;
+	public static int automaticGeneratedId = 1;
+	
 	/**
 	 * @param args
 	 */
@@ -15,9 +24,11 @@ public class Main {
 		Desk d = new Desk();
 		// adding new TUIOs this will be moved away from this later
 		// on - just test values for now
-		tuios.add(new TUIO(1, 10, 10, 0));
-		tuios.add(new TUIO(2, 80, 80, 0));
-		tuios.add(new TUIO(3, 100, 160, 0));
+		// id , x, y, rotation
+		tuios=new HashMap<Integer, TUIO>();
 	}
+	
+
+
 
 }

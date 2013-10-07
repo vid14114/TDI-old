@@ -11,14 +11,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.JOptionPane;
-
 import model.Icon;
 
-public class Configuration {
+public class Configuration{
 	private File iconsFile;
 	private Image background;
-	private ArrayList<Icon> icons = new ArrayList<>();
+	protected ArrayList<Icon> icons = new ArrayList<>();
 	
 	/**
 	 * The default constructor for the Configuration class
@@ -38,6 +39,15 @@ public class Configuration {
 				icons.add(i);
 			}
 		}
+		Collections.sort(icons,new Comparator<Icon>() {
+			@Override
+			public int compare(Icon o1, Icon o2) {
+				if(o1.getRow() == o2.getRow())
+					return o1.getCol() - o2.getCol();
+				return o1.getRow() - o2.getRow();
+			}
+			
+		});
 		br.close();
 		br = new BufferedReader(new FileReader(System.getProperty("user.home")+"/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"));
 		while(br.ready()){
@@ -117,6 +127,10 @@ public class Configuration {
 		}
 	}
 	
+	/**
+	 * This method calculates the resolution of the user's pc 
+	 * @return An array with the resolution of the user's pc in the format [width] [height]
+	 */
 	public int[] getResolution()
 	{
 		int[] resolution = new int[2];
@@ -148,6 +162,11 @@ public class Configuration {
 		return icons;
 	}
 	
+	/**
+	 * Calculate the maximum amount of rows the desktop supports. 
+	 * @return the estimated maximum of rows allowed
+	 * @throws IOException When a file is corrupt
+	 */
 	public int calcRows() throws IOException
 	{
 		int[] resolution=getResolution();
@@ -182,6 +201,11 @@ public class Configuration {
 		return ((height-panelSize)-2*margin)/(iconSize+(3*margin));
 	}
 	
+	/**
+	 * Calculates the maximum amount of cols the desktop supports	 
+	 * @return an estimated amount of cols allowed 
+	 * @throws IOException When the file is corrupt
+	 */
 	public int calcCols() throws IOException
 	{
 		int[] resolution=getResolution();

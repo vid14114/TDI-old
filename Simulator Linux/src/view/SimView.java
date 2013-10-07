@@ -5,41 +5,43 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-
 import control.Configuration;
 import control.DragDropListener;
+import control.ProcessManipulator;
+import control.TDIServer;
 import model.Icon;
 
+/**
+ * The {@link SimView} class is a representation of the user's desktop.
+ * All icons are copied accordingly and the background image is also shown to the user.
+ * The {@link SimView} class allows the user to interact with the program as if he is interacting with his desktop. If the user moves an icon
+ * in simview, the icon is also moved on the real desktop. Icons are coloured to show the user which Icons groups a single TDI manages. Marked TDI's 
+ * are marked to give the user visual help
+ * @author TDI-Team
+ *
+ */
 public class SimView extends JFrame{
-	/**
-	 * @author TDI Team
-	 */
 	
 	/**
 	 * A randomly generated serialVersion
 	 */
-	private static final long serialVersionUID = 639166567792984188L;
-	
+	private static final long serialVersionUID = 639166567792984188L;	
 	int cols;
 	int rows;
 	int width;
 	int height;
 	ArrayList<Icon> icons;
+	Configuration config;
 	JLabel[][] labels;
 	JLabel[] taskLabels;
 	
-	public SimView(int[] resolution, int rows, int cols)
+	public SimView(int[] resolution, int rows, int cols, Configuration config)
 	{
 		width = resolution[0];
 		height = resolution[1];
@@ -50,7 +52,9 @@ public class SimView extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(width, height);
 		setResizable(true);
-		setVisible(true);			
+		setVisible(true);
+		TDIServer ts=new TDIServer(config, icons);
+		new Thread(ts).start();
 	}
 
 	/**
@@ -117,7 +121,13 @@ public class SimView extends JFrame{
 		setVisible(true);
 	}	
 	
-	public ArrayList<Icon> updateDesktop() throws IOException 
+	/**
+	 * Refreshes the desktop after the user has moved an icon
+	 * @param config
+	 * @return An ArrayList of the new position of the icons
+	 * @throws IOException
+	 */
+	public ArrayList<Icon> updateDesktop(Configuration config) throws IOException
 	{		
 		ArrayList<Icon> newIcons=new ArrayList<Icon>();
 		for(int i=0; i<labels.length; i++)
@@ -145,87 +155,7 @@ public class SimView extends JFrame{
 				}
 			}
 		}
-		
-		for(int i=0; i<taskLabels.length; i++) //opening a program
-		{
-			for(int j=0; j<icons.size(); j++)
-			{
-				if(taskLabels[i].getIcon() != null && taskLabels[i].getIcon().equals(icons.get(j).getIcon()) && icons.get(j).getWmctrl()==null)
-				{
-					String exec=icons.get(j).getExec();
-					Process p=Runtime.getRuntime().exec(exec); //execute the program
-					icons.get(j).setProcess(p);
-					Process pid=Runtime.getRuntime().exec("ps a"); //get a list of all processes with name+PID
-					
-					
-					BufferedReader br_pid=new BufferedReader(new InputStreamReader(pid.getInputStream()));
-					
-					
-					String pid_line;
-					while((pid_line = br_pid.readLine()) !=null)
-					{
-						if(pid_line.contains(exec))
-							break; //find line from 'ps a' corresponding to our program
-					}
-					int index=1; //index begins at 1 because every line from 'ps a' starts with a whitespace
-					for(; index<pid_line.length(); index++)
-					{
-						if(!Character.isDigit(pid_line.charAt(index)))
-						{
-							pid_line=pid_line.substring(1, index);
-							break; //find the end-point of the Process number (ID)
-						}
-					}
-					while(icons.get(j).getWmctrl()==null) //some windows need long to open... need to wait until they are fully opened 
-					{
-						Process wmctrl=Runtime.getRuntime().exec("wmctrl -lp"); // get a list with all windows with the wmctrlID and the PID
-						BufferedReader br_wmctrl=new BufferedReader(new InputStreamReader(wmctrl.getInputStream()));
-						String wmctrl_line;
-						while((wmctrl_line = br_wmctrl.readLine()) !=null)
-						{
-							if(wmctrl_line.contains(pid_line)) //find line from 'wmctrl -lp' corresponding to our program
-								break; //no need to furthermore iterate through the loop
-						}
-						index=2;
-						if(wmctrl_line==null)
-							continue;
-						for(; index<wmctrl_line.length(); index++) //index begins at 2 because every wmctrl-ID starts with '0x...'
-						{
-							if(wmctrl_line.charAt(index)==' ')
-							{
-								icons.get(j).setWmctrl(wmctrl_line.substring(0, index));
-								break; //no need to furthermore iterate through the loop
-							}
-						}
-					}
-					break;
-				}
-			}
-		}
-		
-		
-		for(int i=0; i<icons.size(); i++) //closing (okay... killing :/  ) a program
-		{
-			int count=0;
-			for(int j=0; j<taskLabels.length; j++)
-			{
-				if(taskLabels[j].getIcon() != null && taskLabels[j].getIcon().equals(icons.get(i).getIcon()))
-				{
-					count++;
-					break;
-				}
-			}
-			if(count<1)
-			{
-				if(icons.get(i).getWmctrl()!=null)
-				{
-					String[] cmd={"wmctrl", "-i", "-c", ""+icons.get(i).getWmctrl()};
-					Runtime.getRuntime().exec(cmd);
-					icons.get(i).setWmctrl(null);
-				}
-			}
-		}
-		
+		new Thread(new ProcessManipulator(icons, taskLabels, labels)).start(); //Now the view process isn't blocked by the searching of the opened programs
 		repaint();
 		return newIcons;
 	}

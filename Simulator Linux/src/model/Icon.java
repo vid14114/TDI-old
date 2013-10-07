@@ -3,7 +3,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -15,7 +14,7 @@ import control.Xpm;
 
 /**
  * @author TDI Team
- * Every instance of the class saves one icon with its name and position on the grid
+ * Every icons name, config, row and col position and other important info is saved in the Icon's class
  */
 public class Icon {
 	
@@ -26,11 +25,15 @@ public class Icon {
 	private int row;
 	private int col;
 	private ImageIcon icon;
-	private int searchDepth=0;
-	private String exec="";
-	private Process process;
+	private int searchDepth = 0;
+	private String exec=""; //The execution path of the icon, when it is a program
+	private Process process; //When the user is started, saves the process in the Icon
 	File dir=new File("/usr/share/icons");
-	private String wmctrl; //wmctrl ID
+	/**
+	 * The id used to minimize, maximize and close programs
+	 */
+	private String wmctrl;
+	boolean minimized; // true -> program is minimized
 	
 	@Override
 	/**
@@ -68,7 +71,8 @@ public class Icon {
 			exec=getIconVar("Exec");
 			if(exec.contains("%U") || exec.contains("%F"))
 				exec=exec.substring(0, exec.length()-3);
-			findIcon(dir);
+			if(iconName!=null)
+				findIcon(dir);
 		}
 	}
 	
@@ -124,15 +128,16 @@ public class Icon {
 	}
 	
 	/**
-	 * Find the config file of the icons
+	 * Searches for the directory of the icon file
+	 * Currently only works in english and german
 	 * @throws IOException
 	 */
 	public void findConfig() throws IOException
 	{
 		setIcon(new ImageIcon("/usr/share/icons/gnome/48x48/status/dialog-question.png"), true);
 		File[] files;
-		if(new File(System.getProperty("user.home")+"/Arbeitsfläche").exists())
-			files=new File(System.getProperty("user.home")+"/Arbeitsfläche").listFiles();
+		if(new File(System.getProperty("user.home")+"/Arbeitsfl��che").exists())
+			files=new File(System.getProperty("user.home")+"/Arbeitsfl��che").listFiles();
 		else
 			files=new File(System.getProperty("user.home")+"/Desktop").listFiles();
 		for(File file : files)
@@ -170,15 +175,22 @@ public class Icon {
 			br.close();
 		}
 	}
-	//returns a specific variable out the confName
-	public String getIconVar(String what) throws IOException
+	/**
+	 * The icons var is searched in the config file
+	 * @param iconName The name of the icon
+	 * @return returns a specific variable out the confName
+	 * @throws IOException
+	 */
+	public String getIconVar(String iconName) throws IOException
 	{
 		BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(config)));
 		for(String line=br.readLine(); line!=null; line=br.readLine())
 		{
 			String[] splitLine=line.split("=");
-			if(splitLine[0].equals(what)){
+			if(splitLine[0].equals(iconName)){
 				br.close();
+				if(iconName.equals("Icon") && splitLine.length<2)
+					return null;
 				return splitLine[1];
 			}
 		}
@@ -196,14 +208,14 @@ public class Icon {
 	 */
 	public ArrayList<File> findIcon(File dir) throws IOException
 	{	
-		if(new File(iconName).exists())
+		if(new File(iconName).exists() && iconName.contains(".xpm"))
 		{
 			BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(iconName)));
 			String s="";
 			for(String line=br.readLine(); line!=null; line=br.readLine())
 				s+=line+"\n";
 			Image i=Xpm.XpmToImage(s);
-			setIcon(new ImageIcon(i),true);
+			setIcon(new ImageIcon(i), true);
 			br.close();
 		}
 		File[] files=dir.listFiles();
@@ -255,10 +267,17 @@ public class Icon {
 		return result;	
 	}
 
+	/**
+	 * @return the wmctrl id used to manipulate programs
+	 */
 	public String getWmctrl() {
 		return wmctrl;
 	}
 
+	/**
+	 * Sets the wmctrl id
+	 * @param wmctrl
+	 */
 	public void setWmctrl(String wmctrl) {
 		this.wmctrl = wmctrl;
 	}
